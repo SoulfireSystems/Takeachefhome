@@ -1,1 +1,45 @@
+// prisma/schema.prisma
 
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Basic client info
+  clientName  String
+  email       String
+  phone       String?
+
+  // Event details
+  eventType   String
+  eventDate   DateTime
+  city        String
+  state       String?
+  guestCount  Int
+
+  // Budget & service type
+  budgetMin   Int?
+  budgetMax   Int?
+  serviceType String   // "Drop-off", "Full Service", "Private Chef", etc.
+
+  // Free-text notes
+  notes       String?
+
+  status      LeadStatus @default(NEW)
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  BOOKED
+  CLOSED
+}
