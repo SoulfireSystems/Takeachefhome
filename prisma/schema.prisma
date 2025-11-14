@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CLIENT
+  VENDOR
+  ADMIN
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  role      UserRole  @default(CLIENT)
+  image     String?
+  listings  Listing[] @relation("UserListings")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Listing {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  priceCents  Int
+  unit        String   // e.g. "PER_EVENT"
+  location    String?
+  images      String[]
+  approved    Boolean  @default(false)
+
+  owner    User   @relation("UserListings", fields: [ownerId], references: [id])
+  ownerId  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
