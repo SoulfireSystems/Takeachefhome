@@ -1,56 +1,50 @@
-// app/api/leads/route.ts
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
-export async function POST(req: Request) {
+// POST /api/leads
+export async function POST(request: Request) {
   try {
-    const body = await req.json();
+    const body = await request.json();
 
-    const {
-      clientName,
-      email,
-      phone,
-      eventType,
-      eventDate,
-      city,
-      state,
-      guestCount,
-      budgetMin,
-      budgetMax,
-      serviceType,
-      notes,
-    } = body;
+    const { title, description, budget, location, contact } = body;
 
-    if (!clientName || !email || !eventType || !eventDate || !city || !guestCount || !serviceType) {
+    // Basic validation
+    if (!title || !description || !contact) {
       return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 },
+        { ok: false, message: "Title, description and contact are required." },
+        { status: 400 }
       );
     }
 
-    const lead = await prisma.lead.create({
-      data: {
-        clientName,
-        email,
-        phone,
-        eventType,
-        eventDate: new Date(eventDate),
-        city,
-        state,
-        guestCount: Number(guestCount),
-        budgetMin: budgetMin ? Number(budgetMin) : null,
-        budgetMax: budgetMax ? Number(budgetMax) : null,
-        serviceType,
-        notes,
-      },
+    // 👉 Later we’ll save to Prisma/Supabase here.
+    // For now, just log it so we know it works.
+    console.log("New lead submitted:", {
+      title,
+      description,
+      budget,
+      location,
+      contact,
     });
 
-    return NextResponse.json({ lead }, { status: 201 });
-  } catch (err) {
-    console.error("Create lead error", err);
     return NextResponse.json(
-      { error: "Failed to create lead" },
-      { status: 500 },
+      {
+        ok: true,
+        message: "Lead received.",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error in /api/leads POST:", error);
+    return NextResponse.json(
+      { ok: false, message: "Server error." },
+      { status: 500 }
     );
   }
+}
+
+// (Optional) GET /api/leads – simple placeholder
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    message: "Leads API is live. DB integration coming next.",
+  });
 }
