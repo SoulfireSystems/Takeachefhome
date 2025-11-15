@@ -1,215 +1,354 @@
-// app/post-a-lead/page.tsx
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
-export default function PostLeadPage() {
-  const router = useRouter();
+type LeadFormState = {
+  title: string;
+  description: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  eventType: string;
+  eventDate: string;
+  city: string;
+  state: string;
+  guestCount: string;
+  budgetMin: string;
+  budgetMax: string;
+  serviceType: string;
+  notes: string;
+};
+
+const initialForm: LeadFormState = {
+  title: "",
+  description: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  eventType: "",
+  eventDate: "",
+  city: "",
+  state: "",
+  guestCount: "",
+  budgetMin: "",
+  budgetMax: "",
+  serviceType: "Full Service",
+  notes: "",
+};
+
+export default function PostALeadPage() {
+  const [form, setForm] = useState<LeadFormState>(initialForm);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [status, setStatus] = useState<null | { ok: boolean; message: string }>(
+    null
+  );
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  }
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setMessage(null);
-    setError(null);
-
-    const formData = new FormData(e.currentTarget);
-
-    const payload = {
-      clientName: formData.get("clientName") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("phone") as string,
-      eventType: formData.get("eventType") as string,
-      eventDate: formData.get("eventDate") as string,
-      city: formData.get("city") as string,
-      state: formData.get("state") as string,
-      guestCount: formData.get("guestCount") as string,
-      budgetMin: formData.get("budgetMin") as string,
-      budgetMax: formData.get("budgetMax") as string,
-      serviceType: formData.get("serviceType") as string,
-      notes: formData.get("notes") as string,
-    };
+    setStatus(null);
 
     try {
+      const payload = {
+        title: form.title || `${form.eventType || "Event"} in ${form.city || ""}`,
+        description: form.description,
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        phone: form.phone,
+        eventType: form.eventType,
+        eventDate: form.eventDate ? new Date(form.eventDate).toISOString() : null,
+        city: form.city,
+        state: form.state,
+        guestCount: form.guestCount ? Number(form.guestCount) : null,
+        budgetMin: form.budgetMin ? Number(form.budgetMin) : null,
+        budgetMax: form.budgetMax ? Number(form.budgetMax) : null,
+        serviceType: form.serviceType,
+        notes: form.notes,
+      };
+
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Something went wrong");
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.message || "Something went wrong.");
       }
 
-      setMessage("Your event has been submitted. A chef will contact you soon.");
-      (e.target as HTMLFormElement).reset();
-
-      // Optional: redirect back home after a short delay
-      // setTimeout(() => router.push("/"), 2000);
+      setStatus({ ok: true, message: "Your lead was posted successfully." });
+      setForm(initialForm);
     } catch (err: any) {
-      setError(err.message || "Failed to submit lead");
+      setStatus({
+        ok: false,
+        message: err.message || "Could not submit your lead.",
+      });
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-50 px-4 py-8">
-      <div className="max-w-2xl mx-auto space-y-6">
-        <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.25em] text-amber-400/80">
-            Post an Event
+    <main className="tch-page-shell">
+      <div className="tch-page-inner">
+        <header className="tch-page-header">
+          <h1>Post a Catering Lead</h1>
+          <p>
+            Tell us about your event and we’ll connect you with serious chefs,
+            not random inbox noise.
           </p>
-          <h1 className="text-2xl md:text-3xl font-semibold">
-            Tell us about your event.
-          </h1>
-          <p className="text-sm text-slate-300">
-            Fill this out once. We’ll match you with available chefs in your area.
-          </p>
-        </div>
+        </header>
 
-        <form onSubmit={handleSubmit} className="space-y-4 bg-slate-900/70 border border-slate-800 rounded-2xl p-5">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <label className="block text-xs font-medium mb-1">Your Name *</label>
-              <input
-                required
-                name="clientName"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1">Email *</label>
-              <input
-                required
-                type="email"
-                name="email"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1">Phone</label>
-              <input
-                name="phone"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1">Event Type *</label>
-              <input
-                required
-                name="eventType"
-                placeholder="Birthday dinner, wedding, brunch, retreat..."
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1">Event Date *</label>
-              <input
-                required
-                type="date"
-                name="eventDate"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1">City *</label>
-              <input
-                required
-                name="city"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1">State</label>
-              <input
-                name="state"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1">Guest Count *</label>
-              <input
-                required
-                type="number"
-                min={1}
-                name="guestCount"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
-            </div>
-          </div>
+        <section className="tch-card">
+          <h2 className="tch-card-title">Event & Contact Details</h2>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            <div>
-              <label className="block text-xs font-medium mb-1">Budget Min ($)</label>
-              <input
-                type="number"
-                name="budgetMin"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
+          {status && (
+            <div
+              className={
+                status.ok ? "tch-alert tch-alert-success" : "tch-alert tch-alert-error"
+              }
+            >
+              {status.message}
             </div>
-            <div>
-              <label className="block text-xs font-medium mb-1">Budget Max ($)</label>
-              <input
-                type="number"
-                name="budgetMax"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1">Service Type *</label>
-              <select
-                required
-                name="serviceType"
-                className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Select one
-                </option>
-                <option value="Drop-off Catering">Drop-off Catering</option>
-                <option value="Full Service Catering">Full Service Catering</option>
-                <option value="Private Chef Dinner">Private Chef Dinner</option>
-                <option value="Meal Prep / Weekly Chef">Meal Prep / Weekly Chef</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium mb-1">
-              Tell us about the vibe, cuisine, or any dietary needs
-            </label>
-            <textarea
-              name="notes"
-              rows={4}
-              className="w-full rounded-lg bg-slate-950 border border-slate-700 px-3 py-2 text-sm"
-            />
-          </div>
-
-          {message && (
-            <p className="text-xs text-emerald-400 bg-emerald-950/40 border border-emerald-700 rounded-lg px-3 py-2">
-              {message}
-            </p>
-          )}
-          {error && (
-            <p className="text-xs text-red-400 bg-red-950/40 border border-red-700 rounded-lg px-3 py-2">
-              {error}
-            </p>
           )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full md:w-auto inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium bg-amber-400 text-slate-950 hover:bg-amber-300 disabled:opacity-60 disabled:cursor-not-allowed transition"
-          >
-            {loading ? "Submitting..." : "Submit Event"}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit} className="tch-grid">
+            {/* Left column */}
+            <div className="tch-column">
+              <div className="tch-field">
+                <label htmlFor="title">Event Title</label>
+                <input
+                  id="title"
+                  name="title"
+                  type="text"
+                  placeholder="Thanksgiving Dinner in El Paso"
+                  value={form.title}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="tch-field">
+                <label htmlFor="eventType">Event Type</label>
+                <select
+                  id="eventType"
+                  name="eventType"
+                  value={form.eventType}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select an event type</option>
+                  <option value="Private Dinner">Private Dinner</option>
+                  <option value="Holiday Catering">Holiday Catering</option>
+                  <option value="Corporate Event">Corporate Event</option>
+                  <option value="Wedding / Reception">Wedding / Reception</option>
+                  <option value="Meal Prep / Weekly Chef">
+                    Meal Prep / Weekly Chef
+                  </option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div className="tch-inline">
+                <div className="tch-field">
+                  <label htmlFor="eventDate">Event Date</label>
+                  <input
+                    id="eventDate"
+                    name="eventDate"
+                    type="date"
+                    value={form.eventDate}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="tch-field">
+                  <label htmlFor="guestCount">Guest Count</label>
+                  <input
+                    id="guestCount"
+                    name="guestCount"
+                    type="number"
+                    min={1}
+                    placeholder="e.g. 40"
+                    value={form.guestCount}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="tch-inline">
+                <div className="tch-field">
+                  <label htmlFor="city">City</label>
+                  <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    placeholder="El Paso"
+                    value={form.city}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="tch-field">
+                  <label htmlFor="state">State</label>
+                  <input
+                    id="state"
+                    name="state"
+                    type="text"
+                    placeholder="TX"
+                    value={form.state}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="tch-field">
+                <label htmlFor="serviceType">Service Type</label>
+                <select
+                  id="serviceType"
+                  name="serviceType"
+                  value={form.serviceType}
+                  onChange={handleChange}
+                >
+                  <option value="Drop-Off">Drop-Off</option>
+                  <option value="Full Service">Full Service</option>
+                  <option value="Private Chef">Private Chef</option>
+                  <option value="Meal Prep">Meal Prep</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div className="tch-inline">
+                <div className="tch-field">
+                  <label htmlFor="budgetMin">Budget (Min)</label>
+                  <input
+                    id="budgetMin"
+                    name="budgetMin"
+                    type="number"
+                    placeholder="e.g. 750"
+                    value={form.budgetMin}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="tch-field">
+                  <label htmlFor="budgetMax">Budget (Max)</label>
+                  <input
+                    id="budgetMax"
+                    name="budgetMax"
+                    type="number"
+                    placeholder="e.g. 1500"
+                    value={form.budgetMax}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Right column */}
+            <div className="tch-column">
+              <div className="tch-inline">
+                <div className="tch-field">
+                  <label htmlFor="firstName">First Name</label>
+                  <input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    placeholder="First name"
+                    value={form.firstName}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="tch-field">
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    placeholder="Last name"
+                    value={form.lastName}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="tch-field">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="tch-field">
+                <label htmlFor="phone">Phone</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="(555) 555-5555"
+                  value={form.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="tch-field">
+                <label htmlFor="description">What do you need?</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  rows={5}
+                  placeholder="Tell us the vibe, menu ideas, dietary needs, and anything a chef should know."
+                  value={form.description}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="tch-field">
+                <label htmlFor="notes">Extra Notes (optional)</label>
+                <textarea
+                  id="notes"
+                  name="notes"
+                  rows={3}
+                  placeholder="Parking, building access, preferred times, etc."
+                  value={form.notes}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="tch-actions">
+                <button type="submit" disabled={loading}>
+                  {loading ? "Posting your lead..." : "Post Lead"}
+                </button>
+                <p className="tch-small">
+                  You’ll get replies directly by email or phone. Keep an eye on your
+                  inbox.
+                </p>
+              </div>
+            </div>
+          </form>
+        </section>
       </div>
     </main>
   );
