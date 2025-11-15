@@ -38,6 +38,13 @@ model Lead {
 }
 
 enum LeadStatus {
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUOTED
+  CLOSED
+  LOST
+}
   NEW
   CONTACTED
   BOOKED
