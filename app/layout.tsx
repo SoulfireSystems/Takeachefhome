@@ -1,15 +1,14 @@
-import "./globals.css";
-import { ReactNode } from "react";
-
 export const metadata = {
-  title: "Take a Chef Home",
-  description: "MVP — TakeaChefHome.com Marketplace",
+  title: "TakeaChefHome",
+  description: "The Culinary Exchange",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body style={{ margin: 0, padding: 0, fontFamily: "sans-serif" }}>
+        {children}
+      </body>
     </html>
   );
 }
