@@ -1,55 +1,29 @@
+// app/api/leads/route.ts
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
-// POST /api/leads
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const body = await request.json();
+    const body = await req.json();
 
-    const {
-      title,
-      description,
-      budgetRange,
-      city,
-      state,
-      eventType,
-      guestCount,
-      contact,
-      notes,
-    } = body;
+    // For now we just log it – no database.
+    console.log("New lead received:", body);
 
-    // basic validation
-    if (!title || !contact) {
-      return NextResponse.json(
-        { ok: false, message: "Title and contact are required." },
-        { status: 400 },
-      );
-    }
-
-    const lead = await prisma.lead.create({
-      data: {
-        title,
-        description: description || null,
-        budgetRange: budgetRange || null,
-        city: city || null,
-        state: state || null,
-        eventType: eventType || null,
-        guestCount: guestCount ? Number(guestCount) : null,
-        contact,
-        notes: notes || null,
-      },
-    });
-
-    return NextResponse.json({
-      ok: true,
-      message: "Lead saved successfully.",
-      id: lead.id,
-    });
-  } catch (error) {
-    console.error("Error creating lead:", error);
     return NextResponse.json(
-      { ok: false, message: "Server error creating lead." },
-      { status: 500 },
+      {
+        ok: true,
+        message: "Lead captured (demo mode). We'll follow up by email.",
+      },
+      { status: 200 }
+    );
+  } catch (err: any) {
+    console.error("Error in POST /api/leads:", err);
+    return NextResponse.json(
+      {
+        ok: false,
+        message: "Could not submit your lead. Please try again.",
+      },
+      { status: 500 }
     );
   }
 }
+
