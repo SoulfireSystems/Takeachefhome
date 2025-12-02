@@ -1,12 +1,20 @@
-export const metadata = {
-  title: "TakeaChefHome",
-  description: "The Culinary Exchange",
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "TakeaChefHome.com – The Culinary Exchange",
+  description:
+    "Marketplace for private chefs, catering, kitchen rentals, and chef jobs. Built by a working chef for real food people.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, padding: 0, fontFamily: "sans-serif" }}>
+      <body className="bg-slate-950 text-slate-100 antialiased">
         {children}
       </body>
     </html>
