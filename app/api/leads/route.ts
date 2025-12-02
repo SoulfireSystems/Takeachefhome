@@ -1,7 +1,5 @@
 // app/api/leads/route.ts
 // Temporary lead handler while Supabase is paused.
-// Accepts form submissions and returns a friendly response
-// without trying to save to any database.
 
 import { NextResponse } from "next/server";
 
@@ -10,9 +8,10 @@ export async function POST(req: Request) {
   const formData = await req.formData();
   const payload: Record<string, any> = {};
 
-  for (const [key, value] of formData.entries()) {
+  // Build a simple object from the form data
+  formData.forEach((value, key) => {
     payload[key] = value;
-  }
+  });
 
   // Log to server logs so you at least know it's working
   console.log("Lead received (temporary handler):", payload);
@@ -24,4 +23,3 @@ export async function POST(req: Request) {
 
   return NextResponse.redirect(url.toString(), 303);
 }
-
