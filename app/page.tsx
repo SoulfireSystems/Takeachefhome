@@ -1,48 +1,34 @@
 // app/page.tsx
-// TakeaChefHome.com – Phase 1 MVP Homepage
+// TakeaChefHome.com – Phase 1 MVP Homepage (styled)
 
 import React from "react";
 import Link from "next/link";
 
-type TileStatus = "live" | "soon";
-
-type Tile = {
-  href: string;
-  title: string;
-  description: string;
-  status: TileStatus;
-};
-
-const tiles: Tile[] = [
+const tiles = [
   {
     href: "/private-chef",
     title: "Book a Private Chef",
     description: "In-home dining, retreats, and Airbnb dinner experiences.",
-    status: "live",
   },
   {
     href: "/catering",
     title: "Catering",
     description: "Weddings, corporate events, parties, and celebrations.",
-    status: "live",
   },
   {
     href: "/jobs",
     title: "Hire a Chef / Staff",
-    description: "Chefs, bartenders, and event crew for real events.",
-    status: "live",
+    description: "Temporary, part-time, and full-time kitchen + event staff.",
   },
   {
     href: "/kitchens",
     title: "Find a Kitchen",
-    description: "HoneyPott Labs commissary, prep, and ghost kitchens.",
-    status: "soon",
+    description: "Rent commissary, prep kitchens, and ghost kitchens by the hour.",
   },
   {
     href: "/shop",
     title: "Shop Chef Tools",
-    description: "Curated tools, FLAVR picks, and chef-approved gear.",
-    status: "soon",
+    description: "Curated tools, FLAVR picks, and affiliate chef gear.",
   },
 ];
 
@@ -50,7 +36,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
       {/* Top Nav */}
-      <header className="border-b border-slate-800">
+      <header className="border-b border-slate-800/70 bg-slate-950/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
           {/* Logo / Wordmark */}
           <Link href="/" className="text-lg font-semibold tracking-tight">
@@ -77,12 +63,12 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero + Quick Lead Form */}
-     <section className="border-b border-slate-800 bg-slate-950 relative overflow-hidden">
-  {/* soft emerald glow at the top */}
-  <div className="pointer-events-none absolute inset-x-0 -top-40 h-80 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.25),_transparent_60%)]" />
+      {/* Hero + Quick Lead CTA */}
+      <section className="border-b border-slate-800 bg-slate-950 relative overflow-hidden">
+        {/* soft emerald glow */}
+        <div className="pointer-events-none absolute inset-x-0 -top-40 h-80 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.25),_transparent_60%)]" />
 
-  <div className="relative mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-[3fr,2fr] md:py-16">
+        <div className="relative mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-[3fr,2fr] md:py-16">
           {/* Left: Hero Copy */}
           <div className="space-y-6">
             <h1 className="text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl">
@@ -90,9 +76,9 @@ export default function Home() {
               <span className="text-emerald-300">real food people.</span>
             </h1>
             <p className="max-w-xl text-sm text-slate-300 sm:text-base">
-              TakeaChefHome.com is your marketplace for private chefs, catering,
+              TakeachefHome.com is your marketplace for private chefs, catering,
               kitchen rentals, chef jobs, and chef tools. Built by a working
-              chef for hosts, planners, and culinary pros who need a system —
+              chef for hosts, planners, and culinary pros who need a system—
               not chaos.
             </p>
 
@@ -128,12 +114,12 @@ export default function Home() {
 
           {/* Right: Featured Experience */}
           <aside className="space-y-4">
-            <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-5 shadow-lg shadow-black/40">
+            <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-5 shadow-lg shadow-black/40">
               <h2 className="text-sm font-semibold text-slate-100">
                 Featured Experience
               </h2>
-              <p className="mt-1 text-xs text-emerald-300 uppercase tracking-wide">
-                Gullah Coastal Night
+              <p className="mt-1 text-[11px] text-emerald-300 uppercase tracking-[0.2em]">
+                GULLAH COASTAL NIGHT
               </p>
               <p className="mt-3 text-sm text-slate-300">
                 A soulful coastal dinner: lowcountry shrimp &amp; grits, crab
@@ -171,34 +157,26 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {tiles.map((tile) => (
               <Link
                 key={tile.href}
                 href={tile.href}
-                className="group flex h-full flex-col justify-between rounded-2xl border border-slate-800 bg-slate-900/60 p-4 text-left transition hover:border-emerald-400/60 hover:bg-slate-900"
+                className="group flex h-full flex-col justify-between rounded-2xl border border-slate-800/80 bg-slate-900/70 p-5 text-left shadow-sm shadow-black/30 transition hover:-translate-y-1 hover:border-emerald-400/70 hover:shadow-emerald-500/25"
               >
                 <div>
-                  <div className="mb-1 flex items-center justify-between">
-                    <h3 className="text-sm font-semibold text-slate-50">
-                      {tile.title}
-                    </h3>
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-                        tile.status === "live"
-                          ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/40"
-                          : "bg-slate-800 text-slate-400 border border-slate-700"
-                      }`}
-                    >
-                      {tile.status === "live" ? "Live" : "Coming Soon"}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-xs text-slate-400">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-emerald-300/80 mb-2">
+                    Marketplace lane
+                  </p>
+                  <h3 className="text-sm font-semibold text-slate-50">
+                    {tile.title}
+                  </h3>
+                  <p className="mt-2 text-xs text-slate-400">
                     {tile.description}
                   </p>
                 </div>
                 <span className="mt-4 text-xs text-emerald-300 opacity-80 group-hover:opacity-100">
-                  {tile.status === "live" ? "Open lane →" : "Preview lane →"}
+                  Open lane →
                 </span>
               </Link>
             ))}
@@ -234,7 +212,7 @@ export default function Home() {
             </h2>
             <p className="mt-2 text-sm text-slate-300">
               Get in front of serious clients, rent kitchen space, and plug into
-              a system built by a chef — not a tech bro. Your menu, your rates,
+              a system built by a chef—not a tech bro. Your menu, your rates,
               our pipeline.
             </p>
             <ul className="mt-4 space-y-2 text-sm text-slate-300">
@@ -261,7 +239,7 @@ export default function Home() {
               <code className="rounded bg-slate-900 px-1.5 py-0.5 text-[11px]">
                 /api/leads
               </code>{" "}
-              endpoint and stored in Supabase.
+              endpoint and handled by your lead pipe.
             </p>
           </div>
 
@@ -357,8 +335,8 @@ export default function Home() {
                 <span className="text-xs">⚡ Send to lead pipe</span>
               </button>
               <p className="text-[11px] text-slate-400">
-                You&apos;ll get a follow-up by email or phone once Chef GoGee
-                reviews your request.
+                You’ll get a follow-up by email or phone once Chef GoGee reviews
+                your request.
               </p>
             </div>
           </form>
@@ -379,3 +357,4 @@ export default function Home() {
     </main>
   );
 }
+
