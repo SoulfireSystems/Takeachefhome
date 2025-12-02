@@ -1,41 +1,26 @@
 // app/kitchens/page.tsx
 
-import Link from "next/link";
-
 export default function KitchensPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="mx-auto max-w-4xl px-4 py-12">
-        <p className="text-xs uppercase tracking-wide text-emerald-300">
-          Lane · Kitchens
+    <main className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4">
+      <div className="max-w-xl text-center">
+        <p className="text-xs uppercase tracking-[0.2em] text-emerald-300 mb-3">
+          Lane: Kitchen Rentals
         </p>
-        <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
-          Find a Kitchen to Cook In
+        <h1 className="text-3xl font-semibold mb-3">
+          Verified kitchen rentals —{" "}
+          <span className="text-emerald-300">coming soon.</span>
         </h1>
-        <p className="mt-4 text-sm text-slate-300">
-          Commissary kitchens, ghost kitchens, prep space, and event kitchens.
-          This lane will connect chefs and operators to HoneyPott Labs and
-          partner facilities in your city.
+        <p className="text-sm text-slate-300 mb-6">
+          Commissary, prep kitchens, ghost kitchens, and pop-up friendly spaces
+          you can actually trust. We&apos;re building the HoneyPott Labs /
+          TakeaChefHome shared kitchen network.
         </p>
-
-        <ul className="mt-5 space-y-2 text-sm text-slate-300">
-          <li>• Hourly or daily rental, depending on location</li>
-          <li>• Shared cold storage via ColdGrid (where available)</li>
-          <li>• Future: filter by equipment, licenses, and hours</li>
-        </ul>
-
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <Link
-            href="/#quick-lead"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/30 hover:bg-emerald-300"
-          >
-            Tell Us Where You Need a Kitchen
-            <span className="text-xs">⚡ Start request</span>
-          </Link>
-          <p className="text-xs text-slate-400">
-            Use the quick form on the homepage and select “Kitchen Rental”.
-          </p>
-        </div>
+        <p className="text-xs text-slate-400">
+          Want first access? Use any form on the site and mention
+          &quot;kitchen rentals&quot; in your details, and we&apos;ll tag you
+          for early invites.
+        </p>
       </div>
     </main>
   );
