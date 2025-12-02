@@ -1,35 +1,48 @@
 // app/page.tsx
 // TakeaChefHome.com – Phase 1 MVP Homepage
-// Clean shell + quick lead form wired to /api/leads
 
 import React from "react";
 import Link from "next/link";
 
-const tiles = [
+type TileStatus = "live" | "soon";
+
+type Tile = {
+  href: string;
+  title: string;
+  description: string;
+  status: TileStatus;
+};
+
+const tiles: Tile[] = [
   {
     href: "/private-chef",
     title: "Book a Private Chef",
     description: "In-home dining, retreats, and Airbnb dinner experiences.",
+    status: "live",
   },
   {
     href: "/catering",
     title: "Catering",
     description: "Weddings, corporate events, parties, and celebrations.",
+    status: "live",
   },
   {
     href: "/jobs",
     title: "Hire a Chef / Staff",
-    description: "Temporary, part-time, and full-time kitchen + event staff.",
+    description: "Chefs, bartenders, and event crew for real events.",
+    status: "live",
   },
   {
     href: "/kitchens",
     title: "Find a Kitchen",
-    description: "Rent commissary, prep kitchens, and ghost kitchens by the hour.",
+    description: "HoneyPott Labs commissary, prep, and ghost kitchens.",
+    status: "soon",
   },
   {
     href: "/shop",
     title: "Shop Chef Tools",
-    description: "Curated tools, FLAVR picks, and affiliate chef gear.",
+    description: "Curated tools, FLAVR picks, and chef-approved gear.",
+    status: "soon",
   },
 ];
 
@@ -74,9 +87,9 @@ export default function Home() {
               <span className="text-emerald-300">real food people.</span>
             </h1>
             <p className="max-w-xl text-sm text-slate-300 sm:text-base">
-              TakeachefHome.com is your marketplace for private chefs, catering,
+              TakeaChefHome.com is your marketplace for private chefs, catering,
               kitchen rentals, chef jobs, and chef tools. Built by a working
-              chef for hosts, planners, and culinary pros who need a system—
+              chef for hosts, planners, and culinary pros who need a system —
               not chaos.
             </p>
 
@@ -110,7 +123,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right: Featured Experience + vibe */}
+          {/* Right: Featured Experience */}
           <aside className="space-y-4">
             <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-5 shadow-lg shadow-black/40">
               <h2 className="text-sm font-semibold text-slate-100">
@@ -136,8 +149,6 @@ export default function Home() {
                 </span>
               </div>
             </div>
-
-            {/* You can swap or expand this card later for promos, FLAVR boxes, etc. */}
           </aside>
         </div>
       </section>
@@ -165,15 +176,26 @@ export default function Home() {
                 className="group flex h-full flex-col justify-between rounded-2xl border border-slate-800 bg-slate-900/60 p-4 text-left transition hover:border-emerald-400/60 hover:bg-slate-900"
               >
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-50">
-                    {tile.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-slate-400">
+                  <div className="mb-1 flex items-center justify-between">
+                    <h3 className="text-sm font-semibold text-slate-50">
+                      {tile.title}
+                    </h3>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                        tile.status === "live"
+                          ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/40"
+                          : "bg-slate-800 text-slate-400 border border-slate-700"
+                      }`}
+                    >
+                      {tile.status === "live" ? "Live" : "Coming Soon"}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-slate-400">
                     {tile.description}
                   </p>
                 </div>
                 <span className="mt-4 text-xs text-emerald-300 opacity-80 group-hover:opacity-100">
-                  Open lane →
+                  {tile.status === "live" ? "Open lane →" : "Preview lane →"}
                 </span>
               </Link>
             ))}
@@ -209,7 +231,7 @@ export default function Home() {
             </h2>
             <p className="mt-2 text-sm text-slate-300">
               Get in front of serious clients, rent kitchen space, and plug into
-              a system built by a chef—not a tech bro. Your menu, your rates,
+              a system built by a chef — not a tech bro. Your menu, your rates,
               our pipeline.
             </p>
             <ul className="mt-4 space-y-2 text-sm text-slate-300">
@@ -321,11 +343,7 @@ export default function Home() {
             </div>
 
             {/* hidden tags so backend knows this came from homepage */}
-            <input
-              type="hidden"
-              name="source"
-              value="homepage-quick-lead"
-            />
+            <input type="hidden" name="source" value="homepage-quick-lead" />
 
             <div className="flex flex-wrap items-center justify-between gap-3">
               <button
@@ -336,8 +354,8 @@ export default function Home() {
                 <span className="text-xs">⚡ Send to lead pipe</span>
               </button>
               <p className="text-[11px] text-slate-400">
-                You’ll get a follow-up by email or phone once Chef GoGee reviews
-                your request.
+                You&apos;ll get a follow-up by email or phone once Chef GoGee
+                reviews your request.
               </p>
             </div>
           </form>
