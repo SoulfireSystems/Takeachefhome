@@ -78,8 +78,11 @@ export default function Home() {
       </header>
 
       {/* Hero + Quick Lead Form */}
-      <section className="border-b border-slate-800">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-[3fr,2fr] md:py-16">
+     <section className="border-b border-slate-800 bg-slate-950 relative overflow-hidden">
+  {/* soft emerald glow at the top */}
+  <div className="pointer-events-none absolute inset-x-0 -top-40 h-80 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.25),_transparent_60%)]" />
+
+  <div className="relative mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-[3fr,2fr] md:py-16">
           {/* Left: Hero Copy */}
           <div className="space-y-6">
             <h1 className="text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl">
