@@ -1,8 +1,9 @@
 // app/page.tsx
-// TakeaChefHome.com – Phase 1 MVP Homepage (styled)
+// TakeaChefHome.com – Phase 1 MVP Homepage (with images)
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const tiles = [
   {
@@ -112,30 +113,42 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right: Featured Experience */}
+          {/* Right: Featured Experience card with image */}
           <aside className="space-y-4">
-            <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-5 shadow-lg shadow-black/40">
-              <h2 className="text-sm font-semibold text-slate-100">
-                Featured Experience
-              </h2>
-              <p className="mt-1 text-[11px] text-emerald-300 uppercase tracking-[0.2em]">
-                GULLAH COASTAL NIGHT
-              </p>
-              <p className="mt-3 text-sm text-slate-300">
-                A soulful coastal dinner: lowcountry shrimp &amp; grits, crab
-                cucumber bites, charred okra &amp; tomato salad, and warm peach
-                cobbler to close the night.
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2 text-[11px]">
-                <span className="rounded-full bg-slate-800 px-2.5 py-1 text-slate-200">
-                  Seafood-forward
-                </span>
-                <span className="rounded-full bg-slate-800 px-2.5 py-1 text-slate-200">
-                  In-home dining
-                </span>
-                <span className="rounded-full bg-slate-800 px-2.5 py-1 text-slate-200">
-                  Perfect for 6–12 guests
-                </span>
+            <div className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70 shadow-lg shadow-black/40">
+              <div className="relative h-40 w-full">
+                <Image
+                  src="/hero-dinner.jpg"
+                  alt="Private dinner experience"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+
+              <div className="p-5">
+                <h2 className="text-sm font-semibold text-slate-100">
+                  Featured Experience
+                </h2>
+                <p className="mt-1 text-[11px] text-emerald-300 uppercase tracking-[0.2em]">
+                  GULLAH COASTAL NIGHT
+                </p>
+                <p className="mt-3 text-sm text-slate-300">
+                  A soulful coastal dinner: lowcountry shrimp &amp; grits, crab
+                  cucumber bites, charred okra &amp; tomato salad, and warm peach
+                  cobbler to close the night.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2 text-[11px]">
+                  <span className="rounded-full bg-slate-800 px-2.5 py-1 text-slate-200">
+                    Seafood-forward
+                  </span>
+                  <span className="rounded-full bg-slate-800 px-2.5 py-1 text-slate-200">
+                    In-home dining
+                  </span>
+                  <span className="rounded-full bg-slate-800 px-2.5 py-1 text-slate-200">
+                    Perfect for 6–12 guests
+                  </span>
+                </div>
               </div>
             </div>
           </aside>
@@ -180,6 +193,49 @@ export default function Home() {
                 </span>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mini gallery: show real photos */}
+      <section className="border-b border-slate-800 bg-slate-950">
+        <div className="mx-auto max-w-6xl px-4 py-10 md:py-12">
+          <div className="flex items-center justify-between mb-4 gap-4">
+            <div>
+              <h2 className="text-lg font-semibold text-slate-50">
+                From our table
+              </h2>
+              <p className="text-sm text-slate-400">
+                Real dinners, real tables, real plates.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="relative h-40 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/70">
+              <Image
+                src="/gullah-spread.jpg"
+                alt="Gullah coastal spread"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative h-40 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/70">
+              <Image
+                src="/gallery-1.jpg"
+                alt="Chef plating"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative h-40 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/70">
+              <Image
+                src="/gallery-2.jpg"
+                alt="Dinner party table"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -357,4 +413,3 @@ export default function Home() {
     </main>
   );
 }
-
