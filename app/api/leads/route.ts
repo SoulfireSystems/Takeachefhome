@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Headers": "Content-Type"
 };
 
 // -------------------------
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
       "event_date",
       "location",
       "budget_min",
-      "budget_max",
+      "budget_max"
     ];
 
     for (const field of required) {
@@ -73,8 +73,8 @@ export async function POST(req: Request) {
         budget_min: body.budget_min,
         budget_max: body.budget_max,
         description: body.description ?? null,
-        timeframe: body.timeframe ?? null,
-      },
+        timeframe: body.timeframe ?? null
+      }
     ];
 
     const res = await fetch(url, {
@@ -83,9 +83,9 @@ export async function POST(req: Request) {
         "Content-Type": "application/json",
         apikey: supabaseKey,
         Authorization: `Bearer ${supabaseKey}`,
-        Prefer: "return=representation",
+        Prefer: "return=representation"
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(payload)
     });
 
     if (!res.ok) {
