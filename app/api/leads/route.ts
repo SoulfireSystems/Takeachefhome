@@ -1,113 +1,134 @@
-import { NextRequest, NextResponse } from 'next/server';
+// app/api/leads/route.ts
+import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
+import { Resend } from "resend";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-// Helper: accept JSON OR regular <form> submissions
-async function getPayload(req: NextRequest): Promise<Record<string, any>> {
-  const contentType = req.headers.get('content-type') || '';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-  // If someone posts JSON (like from an API client)
-  if (contentType.includes('application/json')) {
-    return await req.json();
+const resendApiKey = process.env.RESEND_API_KEY;
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
+
+const LEAD_NOTIFICATION_EMAIL =
+  process.env.LEAD_NOTIFICATION_EMAIL || "honeypottev@gmail.com";
+
+// Optional: map service type to a nicer label
+function formatServiceType(raw: string | null): string {
+  if (!raw) return "Unknown";
+  switch (raw) {
+    case "Private Chef":
+      return "Private Chef";
+    case "Catering":
+      return "Catering";
+    case "Kitchen Rental":
+      return "Kitchen Rental";
+    case "Chef / Staff":
+      return "Chef / Staff";
+    default:
+      return raw;
   }
-
-  // If it’s a normal HTML form: application/x-www-form-urlencoded
-  if (contentType.includes('application/x-www-form-urlencoded')) {
-    const text = await req.text();
-    return Object.fromEntries(new URLSearchParams(text));
-  }
-
-  // If in the future you use multipart/form-data
-  if (contentType.includes('multipart/form-data')) {
-    const formData = await req.formData();
-    return Object.fromEntries(formData.entries());
-  }
-
-  // Fallback – try text
-  const text = await req.text();
-  return { raw: text };
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const payload = await getPayload(req);
+    // 🔹 1. Read form data from the request
+    const formData = await req.formData();
 
-    // These keys come from your form's "name" attributes
-    const client_name = (payload.name || '').toString();
-    const client_email = (payload.email || '').toString();
-    const client_phone = (payload.phone || '').toString() || null;
-    const event_type = (
-      payload.serviceType ||
-      payload.service ||
-      payload.need ||
-      'Other'
-    ).toString();
-    const description = (
-      payload.details ||
-      payload.message ||
-      payload.eventDetails ||
-      payload['event details'] ||
-      ''
-    ).toString();
+    const name = String(formData.get("name") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const phone = String(formData.get("phone") || "").trim();
+    const serviceRaw = String(formData.get("serviceType") || formData.get("service") || formData.get("need") || "").trim();
+    const details = String(formData.get("details") || formData.get("message") || formData.get("eventDetails") || "").trim();
 
-    if (!client_name || !client_email) {
+    if (!name || !email) {
       return NextResponse.json(
-        { error: 'Missing name or email' },
-        { status: 400 },
+        { error: "Name and email are required." },
+        { status: 400 }
       );
     }
 
-    // Adjust tier if you want to map by service type later
-    const tier = 2;
+    const eventType = formatServiceType(serviceRaw || "Private Chef");
 
-    const body = [
-      {
-        tier,
-        client_name,
-        client_email,
-        client_phone,
-        event_type,
-        description,
-        status: 'active',
-      },
-    ];
+    // 🔹 2. Insert into Supabase leads table
+    const { data, error } = await supabase
+      .from("leads")
+      .insert({
+        tier: 2, // You told me Tier 2 for this pipe
+        client_name: name,
+        client_email: email,
+        client_phone: phone || null,
+        event_type: eventType,
+        description: details || null,
+        status: "active",
+      })
+      .select()
+      .single();
 
-    const resp = await fetch(`${supabaseUrl}/rest/v1/leads`, {
-      method: 'POST',
-      headers: {
-        apikey: supabaseKey,
-        Authorization: `Bearer ${supabaseKey}`,
-        'Content-Type': 'application/json',
-        Prefer: 'return=representation',
-      },
-      body: JSON.stringify(body),
-    });
-
-    if (!resp.ok) {
-      const errText = await resp.text();
-      console.error('Supabase insert error:', errText);
+    if (error) {
+      console.error("Supabase insert error:", error);
       return NextResponse.json(
-        { error: 'Failed to save lead', details: errText },
-        { status: 500 },
+        { error: "Failed to save lead", details: error },
+        { status: 500 }
       );
     }
 
-    // On success, send them back to the homepage for now
-    return NextResponse.redirect(new URL('/', req.url), 303);
-  } catch (err: any) {
-    console.error('Lead handler error:', err);
+    // 🔹 3. Send notification email via Resend
+    if (resend) {
+      try {
+        const subject = `New ${eventType} lead from ${name}`;
+        const html = `
+          <div style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.5;">
+            <h2 style="margin-bottom: 0.5rem;">🍽 New TakeaChefHome lead</h2>
+            <p style="margin-top: 0;">A new lead just came through the marketplace.</p>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Client Details</h3>
+            <ul style="padding-left: 1.25rem;">
+              <li><strong>Name:</strong> ${name}</li>
+              <li><strong>Email:</strong> ${email}</li>
+              <li><strong>Phone:</strong> ${phone || "—"}</li>
+            </ul>
+
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Request</h3>
+            <ul style="padding-left: 1.25rem;">
+              <li><strong>Service:</strong> ${eventType}</li>
+              <li><strong>Details:</strong> ${details || "—"}</li>
+            </ul>
+
+            <p style="margin-top: 1.5rem;">
+              This lead is already stored in Supabase in the <code>leads</code> table.
+            </p>
+          </div>
+        `;
+
+        await resend.emails.send({
+          from: "TakeaChefHome Leads <onboarding@resend.dev>",
+          to: [LEAD_NOTIFICATION_EMAIL],
+          subject,
+          html,
+        });
+      } catch (emailError) {
+        console.error("Resend email error:", emailError);
+        // Don't block the response if email fails
+      }
+    } else {
+      console.warn("RESEND_API_KEY not set — skipping email send.");
+    }
+
+    // 🔹 4. Return success to the frontend
     return NextResponse.json(
-      { error: 'Unexpected server error', details: err?.message || String(err) },
-      { status: 500 },
+      {
+        success: true,
+        message: "Lead received. We’ll follow up soon.",
+      },
+      { status: 200 }
+    );
+  } catch (err) {
+    console.error("Lead handler error:", err);
+    return NextResponse.json(
+      { error: "Unexpected server error" },
+      { status: 500 }
     );
   }
-}
-
-// Optional: block GET so people don’t hit it in the browser
-export async function GET() {
-  return NextResponse.json(
-    { error: 'Method not allowed' },
-    { status: 405 },
-  );
 }
