@@ -1,16 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Temporary base look so we can see Tailwind working */
-html,
-body {
+/* Your custom base styling */
+html, body {
   height: 100%;
+  background-color: #0f172a;  /* slate-950 */
+  color: #e2e8f0;            /* slate-200 */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-
-body {
-  background-color: #020617; /* slate-950 */
-  color: #e5e7eb;            /* slate-200 */
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+a {
+  color: #3b82f6; /* blue-500 */
+  text-decoration: none;
 }
