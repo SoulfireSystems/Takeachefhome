@@ -6,7 +6,7 @@ export async function POST(req: Request) {
 
   console.log('NEW LEAD:', data);
 
-  return NextResponse.json({ success: true });
+  return NextResponse.redirect(new URL('/thanks', req.url));
 }
 
 export function GET() {
