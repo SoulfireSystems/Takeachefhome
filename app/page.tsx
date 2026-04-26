@@ -1,412 +1,202 @@
 // app/page.tsx
-// TakeaChefHome.com – Phase 1 MVP Homepage (with images)
+// TakeaChefHome.com — launch MVP homepage
 
-import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 
-const tiles = [
+const marketplaceSections = [
   {
     href: "/private-chef",
-    title: "Book a Private Chef",
-    description: "In-home dining, retreats, and Airbnb dinner experiences.",
+    title: "Private Chef",
+    subtitle: "Dinners, retreats, tastings, Airbnb meals",
+    status: "Open now",
+    featured: true,
   },
   {
     href: "/catering",
     title: "Catering",
-    description: "Weddings, corporate events, parties, and celebrations.",
+    subtitle: "Events, weddings, corporate meals, celebrations",
+    status: "Open now",
+    featured: true,
   },
   {
     href: "/jobs",
-    title: "Hire a Chef / Staff",
-    description: "Temporary, part-time, and full-time kitchen + event staff.",
+    title: "Kitchen Talent",
+    subtitle: "Chefs, cooks, servers, bartenders, event staff",
+    status: "Intake open",
+    featured: false,
   },
   {
     href: "/kitchens",
-    title: "Find a Kitchen",
-    description: "Rent commissary, prep kitchens, and ghost kitchens by the hour.",
+    title: "Kitchen Rentals",
+    subtitle: "Commissary, prep, ghost kitchens, pop-up space",
+    status: "Early access",
+    featured: false,
   },
   {
     href: "/shop",
-    title: "Shop Chef Tools",
-    description: "Curated tools, FLAVR picks, and affiliate chef gear.",
+    title: "Chef Gear",
+    subtitle: "Tools, FLAVR picks, catering gear, kitchen finds",
+    status: "Coming soon",
+    featured: false,
   },
 ];
 
+const cityLinks = ["Atlanta", "Phoenix", "Las Vegas", "Los Angeles", "Kansas City", "Seattle", "Charlotte", "Savannah"];
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
-      {/* Top Nav */}
-      <header className="border-b border-slate-800/70 bg-slate-950/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          {/* Logo / Wordmark */}
-          <Link href="/" className="text-lg font-semibold tracking-tight">
-            <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-emerald-300">
-              TakeaChefHome
-            </span>
+    <main className="min-h-screen bg-[#f7fbff] text-slate-950">
+      <header className="border-b border-slate-200 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:justify-between">
+          <Link href="/" className="text-2xl font-black tracking-tight text-[#0b4fb3]">
+            TakeaChefHome<span className="text-slate-950">.com</span>
           </Link>
-
-          {/* Main Nav */}
-          <nav className="hidden gap-6 text-sm text-slate-300 md:flex">
-            <Link href="#how-it-works" className="hover:text-white">
-              How it works
-            </Link>
-            <Link href="#for-hosts" className="hover:text-white">
-              For Hosts
-            </Link>
-            <Link href="#for-chefs" className="hover:text-white">
-              For Chefs
-            </Link>
-            <Link href="/auth" className="hover:text-white">
-              Sign In
-            </Link>
+          <nav className="flex flex-wrap items-center gap-3 text-sm font-semibold text-slate-700">
+            <a href="#marketplace" className="hover:text-[#0b4fb3]">Browse</a>
+            <a href="#post" className="hover:text-[#0b4fb3]">Post a Request</a>
+            <Link href="/jobs" className="hover:text-[#0b4fb3]">Kitchen Talent</Link>
+            <Link href="/shop" className="hover:text-[#0b4fb3]">Chef Gear</Link>
+            <Link href="/auth" className="rounded-full border border-[#0b4fb3]/25 px-4 py-2 text-[#0b4fb3] hover:bg-[#eaf3ff]">Sign In</Link>
           </nav>
         </div>
       </header>
 
-      {/* Hero + Quick Lead CTA */}
-      <section className="border-b border-slate-800 bg-slate-950 relative overflow-hidden">
-        {/* soft emerald glow */}
-        <div className="pointer-events-none absolute inset-x-0 -top-40 h-80 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.25),_transparent_60%)]" />
-
-        <div className="relative mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-[3fr,2fr] md:py-16">
-          {/* Left: Hero Copy */}
+      <section className="border-b border-slate-200 bg-[radial-gradient(circle_at_top_left,_#dbeafe,_transparent_35%),linear-gradient(180deg,_#ffffff,_#f7fbff)]">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 lg:grid-cols-[1.1fr,0.9fr] lg:py-14">
           <div className="space-y-6">
-            <h1 className="text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl">
-              The culinary exchange for{" "}
-              <span className="text-emerald-300">real food people.</span>
-            </h1>
-            <p className="max-w-xl text-sm text-slate-300 sm:text-base">
-              TakeachefHome.com is your marketplace for private chefs, catering,
-              kitchen rentals, chef jobs, and chef tools. Built by a working
-              chef for hosts, planners, and culinary pros who need a system—
-              not chaos.
-            </p>
-
-            {/* Chef GoGee CTA */}
-            <div className="space-y-3">
-              <a
-                href="#quick-lead"
-                className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/30 hover:bg-emerald-300"
-              >
-                Tell Chef GoGee What You Need
-                <span className="text-xs">⚡ Start a request</span>
-              </a>
-              <p className="text-xs text-slate-400">
-                One form. We route your request into our live lead pipe and
-                match you with the right lane: private chef, catering, staff, or
-                kitchen.
+            <div className="inline-flex rounded-full border border-[#0b4fb3]/20 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0b4fb3] shadow-sm">
+              Craigslist simple. Chef culture sharper.
+            </div>
+            <div className="space-y-4">
+              <h1 className="max-w-4xl text-4xl font-black leading-[0.95] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                Find the chef, the caterer, the kitchen, or the crew — fast.
+              </h1>
+              <p className="max-w-2xl text-base leading-7 text-slate-700 sm:text-lg">
+                TakeaChefHome.com is a nationwide culinary marketplace built for real food work: private chef dinners, catering, kitchen rentals, staffing support, and chef-approved gear.
               </p>
             </div>
 
-            {/* Trust strip */}
-            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
-              <span className="rounded-full border border-slate-700 px-3 py-1">
-                Private dinners · Retreats · Events
-              </span>
-              <span className="rounded-full border border-slate-700 px-3 py-1">
-                Chef &amp; staff jobs
-              </span>
-              <span className="rounded-full border border-slate-700 px-3 py-1">
-                Kitchen rentals &amp; tools
-              </span>
+            <form method="get" action="#marketplace" className="grid gap-3 rounded-3xl border border-slate-200 bg-white p-3 shadow-xl shadow-blue-900/5 md:grid-cols-[1fr,1fr,auto]">
+              <input name="need" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="What do you need? Private chef, catering, staff..." />
+              <input name="where" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="City or state" />
+              <button className="rounded-2xl bg-[#0b4fb3] px-6 py-3 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#083f8e]">
+                Search
+              </button>
+            </form>
+
+            <div className="flex flex-wrap gap-2 text-xs font-semibold text-slate-600">
+              {cityLinks.map((city) => (
+                <a key={city} href="#post" className="rounded-full border border-slate-200 bg-white px-3 py-1.5 hover:border-[#0b4fb3]/40 hover:text-[#0b4fb3]">
+                  {city}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Right: Featured Experience card with image */}
-          <aside className="space-y-4">
-            <div className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/70 shadow-lg shadow-black/40">
-              <div className="relative h-40 w-full">
-                <Image
-                  src="/hero-dinner.jpg"
-                  alt="Private dinner experience"
-                  fill
-                  className="object-cover"
-                  priority
-                />
+          <aside className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-2xl shadow-blue-900/10">
+            <div className="rounded-3xl bg-[#0b4fb3] p-5 text-white">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-100">Launch Focus</p>
+              <h2 className="mt-2 text-2xl font-black">Private Chef + Catering first.</h2>
+              <p className="mt-3 text-sm leading-6 text-blue-50">
+                The site opens with the two money-ready categories. Kitchen Talent, Kitchen Rentals, and Chef Gear stay visible so the marketplace feels bigger from day one.
+              </p>
+            </div>
+            <div className="mt-4 grid gap-3 text-sm">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p className="font-black text-slate-950">For clients</p>
+                <p className="mt-1 text-slate-600">Post what you need once and get routed to the right culinary solution.</p>
               </div>
-
-              <div className="p-5">
-                <h2 className="text-sm font-semibold text-slate-100">
-                  Featured Experience
-                </h2>
-                <p className="mt-1 text-[11px] text-emerald-300 uppercase tracking-[0.2em]">
-                  GULLAH COASTAL NIGHT
-                </p>
-                <p className="mt-3 text-sm text-slate-300">
-                  A soulful coastal dinner: lowcountry shrimp &amp; grits, crab
-                  cucumber bites, charred okra &amp; tomato salad, and warm peach
-                  cobbler to close the night.
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2 text-[11px]">
-                  <span className="rounded-full bg-slate-800 px-2.5 py-1 text-slate-200">
-                    Seafood-forward
-                  </span>
-                  <span className="rounded-full bg-slate-800 px-2.5 py-1 text-slate-200">
-                    In-home dining
-                  </span>
-                  <span className="rounded-full bg-slate-800 px-2.5 py-1 text-slate-200">
-                    Perfect for 6–12 guests
-                  </span>
-                </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p className="font-black text-slate-950">For chefs & caterers</p>
+                <p className="mt-1 text-slate-600">Get discovered, receive serious requests, and plug into a marketplace built by food people.</p>
               </div>
             </div>
           </aside>
         </div>
       </section>
 
-      {/* Marketplace Grid */}
-      <section className="border-b border-slate-800 bg-slate-950">
-        <div className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-          <div className="mb-6 flex items-center justify-between gap-4">
-            <div>
-              <h2 className="text-lg font-semibold text-slate-50 sm:text-xl">
-                Choose your lane
-              </h2>
-              <p className="text-sm text-slate-400">
-                Start with what you need today. You can always add more lanes
-                later.
-              </p>
-            </div>
+      <section id="marketplace" className="mx-auto max-w-7xl px-4 py-10">
+        <div className="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Marketplace Board</p>
+            <h2 className="mt-1 text-3xl font-black tracking-tight">Choose a category</h2>
           </div>
+          <a href="#post" className="text-sm font-black text-[#0b4fb3] hover:underline">Post a new request →</a>
+        </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {tiles.map((tile) => (
-              <Link
-                key={tile.href}
-                href={tile.href}
-                className="group flex h-full flex-col justify-between rounded-2xl border border-slate-800/80 bg-slate-900/70 p-5 text-left shadow-sm shadow-black/30 transition hover:-translate-y-1 hover:border-emerald-400/70 hover:shadow-emerald-500/25"
-              >
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.18em] text-emerald-300/80 mb-2">
-                    Marketplace lane
-                  </p>
-                  <h3 className="text-sm font-semibold text-slate-50">
-                    {tile.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-slate-400">
-                    {tile.description}
-                  </p>
-                </div>
-                <span className="mt-4 text-xs text-emerald-300 opacity-80 group-hover:opacity-100">
-                  Open lane →
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+          {marketplaceSections.map((item) => (
+            <Link key={item.href} href={item.href} className={`group rounded-3xl border bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${item.featured ? "border-[#0b4fb3]/30 ring-2 ring-[#0b4fb3]/10" : "border-slate-200"}`}>
+              <div className="flex items-center justify-between gap-3">
+                <span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-wide ${item.featured ? "bg-[#0b4fb3] text-white" : "bg-slate-100 text-slate-600"}`}>
+                  {item.status}
                 </span>
-              </Link>
-            ))}
+                <span className="text-[#0b4fb3] transition group-hover:translate-x-1">→</span>
+              </div>
+              <h3 className="mt-5 text-xl font-black text-slate-950">{item.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{item.subtitle}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-slate-200 bg-white">
+        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-10 md:grid-cols-3">
+          <div className="rounded-3xl bg-[#f7fbff] p-6">
+            <p className="text-sm font-black text-[#0b4fb3]">1. Post</p>
+            <h3 className="mt-2 text-xl font-black">Tell us the need.</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Dinner, catering, staff, kitchen space, city, date, guest count, budget, and vibe.</p>
+          </div>
+          <div className="rounded-3xl bg-[#f7fbff] p-6">
+            <p className="text-sm font-black text-[#0b4fb3]">2. Match</p>
+            <h3 className="mt-2 text-xl font-black">We route it clean.</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">The request gets sorted so the right chef, caterer, kitchen, or crew can respond.</p>
+          </div>
+          <div className="rounded-3xl bg-[#f7fbff] p-6">
+            <p className="text-sm font-black text-[#0b4fb3]">3. Confirm</p>
+            <h3 className="mt-2 text-xl font-black">Lock the details.</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Confirm scope, deposit, service details, and expectations before the job happens.</p>
           </div>
         </div>
       </section>
 
-      {/* Mini gallery: show real photos */}
-      <section className="border-b border-slate-800 bg-slate-950">
-        <div className="mx-auto max-w-6xl px-4 py-10 md:py-12">
-          <div className="flex items-center justify-between mb-4 gap-4">
-            <div>
-              <h2 className="text-lg font-semibold text-slate-50">
-                From our table
-              </h2>
-              <p className="text-sm text-slate-400">
-                Real dinners, real tables, real plates.
-              </p>
+      <section id="post" className="mx-auto max-w-4xl px-4 py-12">
+        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-blue-900/10 md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Chef GoGee Intake</p>
+          <h2 className="mt-2 text-3xl font-black tracking-tight">Post what you need</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600">This MVP form captures the lead now. We can wire deeper automation, Supabase, payments, and dashboards after the public launch shell is clean.</p>
+
+          <form method="post" action="/api/leads" className="mt-6 grid gap-4">
+            <div className="grid gap-4 md:grid-cols-2">
+              <input name="name" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Name" />
+              <input name="email" type="email" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Email" />
+              <input name="phone" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Phone" />
+              <input name="city" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="City + state" />
             </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div className="relative h-40 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/70">
-              <Image
-                src="/gullah-spread.jpg"
-                alt="Gullah coastal spread"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative h-40 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/70">
-              <Image
-                src="/gallery-1.jpg"
-                alt="Chef plating"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative h-40 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/70">
-              <Image
-                src="/gallery-2.jpg"
-                alt="Dinner party table"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How it works + For Hosts / For Chefs */}
-      <section
-        id="how-it-works"
-        className="border-b border-slate-800 bg-slate-950"
-      >
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2">
-          <div id="for-hosts">
-            <h2 className="text-lg font-semibold text-slate-50">
-              For Hosts &amp; Planners
-            </h2>
-            <p className="mt-2 text-sm text-slate-300">
-              Answer a few questions once. We route your request into our lead
-              pipe, tag it by vibe and budget, and match you with chefs, menus,
-              and kitchens without the usual back-and-forth chaos.
-            </p>
-            <ul className="mt-4 space-y-2 text-sm text-slate-300">
-              <li>• Private dinners, retreats, weddings, and events</li>
-              <li>• Clear pricing tiers and menu concepts up front</li>
-              <li>• One concierge intake instead of 20 DMs and emails</li>
-            </ul>
-          </div>
-
-          <div id="for-chefs">
-            <h2 className="text-lg font-semibold text-slate-50">
-              For Chefs, Bakers &amp; Creators
-            </h2>
-            <p className="mt-2 text-sm text-slate-300">
-              Get in front of serious clients, rent kitchen space, and plug into
-              a system built by a chef—not a tech bro. Your menu, your rates,
-              our pipeline.
-            </p>
-            <ul className="mt-4 space-y-2 text-sm text-slate-300">
-              <li>• List services, tasting menus, and experiences</li>
-              <li>• Access commissary and ghost kitchen rentals</li>
-              <li>• Future: jobs, gigs, and placements via HoneyPott Labs</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Lead Form (hits /api/leads) */}
-      <section
-        id="quick-lead"
-        className="border-b border-slate-800 bg-slate-950/60"
-      >
-        <div className="mx-auto max-w-6xl px-4 py-10 md:py-12">
-          <div className="max-w-xl">
-            <h2 className="text-lg font-semibold text-slate-50">
-              Start a request with Chef GoGee
-            </h2>
-            <p className="mt-2 text-sm text-slate-300">
-              This is your working MVP lead form. Submissions are sent to the{" "}
-              <code className="rounded bg-slate-900 px-1.5 py-0.5 text-[11px]">
-                /api/leads
-              </code>{" "}
-              endpoint and handled by your lead pipe.
-            </p>
-          </div>
-
-          <form
-            method="post"
-            action="/api/leads"
-            className="mt-6 grid gap-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 text-sm"
-          >
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="flex flex-col gap-1">
-                <label htmlFor="name" className="text-xs text-slate-300">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  required
-                  className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                  placeholder="Your name"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="email" className="text-xs text-slate-300">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                  placeholder="you@example.com"
-                />
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="flex flex-col gap-1">
-                <label htmlFor="phone" className="text-xs text-slate-300">
-                  Phone (optional)
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                  placeholder="Best number to reach you"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label
-                  htmlFor="serviceType"
-                  className="text-xs text-slate-300"
-                >
-                  What do you need?
-                </label>
-                <select
-                  id="serviceType"
-                  name="serviceType"
-                  className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                >
-                  <option value="private-chef">Private Chef</option>
-                  <option value="catering">Catering / Event</option>
-                  <option value="staff">Chef / Staff Hire</option>
-                  <option value="kitchen">Kitchen Rental</option>
-                  <option value="other">Other / Not sure</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label htmlFor="details" className="text-xs text-slate-300">
-                Event details or request
-              </label>
-              <textarea
-                id="details"
-                name="details"
-                required
-                rows={4}
-                className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                placeholder="Date, city, guest count, budget, and vibe (ex: elegant dinner, backyard party, corporate lunch)…"
-              />
-            </div>
-
-            {/* hidden tags so backend knows this came from homepage */}
-            <input type="hidden" name="source" value="homepage-quick-lead" />
-
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <button
-                type="submit"
-                className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/30 hover:bg-emerald-300"
-              >
-                Submit Request
-                <span className="text-xs">⚡ Send to lead pipe</span>
-              </button>
-              <p className="text-[11px] text-slate-400">
-                You’ll get a follow-up by email or phone once Chef GoGee reviews
-                your request.
-              </p>
-            </div>
+            <select name="serviceType" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]">
+              <option value="private-chef">Private Chef</option>
+              <option value="catering">Catering</option>
+              <option value="staff">Kitchen Talent / Staff</option>
+              <option value="kitchen">Kitchen Rental</option>
+              <option value="gear">Chef Gear</option>
+              <option value="other">Not sure yet</option>
+            </select>
+            <textarea name="details" required rows={5} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Date, guest count, budget, menu style, staffing needs, kitchen needs, or anything important..." />
+            <input type="hidden" name="source" value="homepage" />
+            <button className="rounded-2xl bg-[#0b4fb3] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#083f8e]">Submit Request</button>
           </form>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 bg-slate-950">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+      <footer className="border-t border-slate-200 bg-white">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-sm text-slate-600 md:flex-row md:items-center md:justify-between">
           <span>© {new Date().getFullYear()} TakeaChefHome.com</span>
           <div className="flex flex-wrap gap-4">
-            <Link href="/legal/privacy">Privacy</Link>
-            <Link href="/legal/terms">Terms</Link>
-            <Link href="/partners">For Partners</Link>
+            <Link href="/private-chef">Private Chef</Link>
+            <Link href="/catering">Catering</Link>
+            <Link href="/kitchens">Kitchens</Link>
+            <Link href="/jobs">Talent</Link>
+            <Link href="/shop">Chef Gear</Link>
           </div>
         </div>
       </footer>
