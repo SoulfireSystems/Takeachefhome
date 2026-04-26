@@ -1,19 +1,20 @@
 // app/page.tsx
-// TakeaChefHome.com — culinary marketplace board
+// TakeaChefHome.com — lux street tech culinary board
 
+import Image from "next/image";
 import Link from "next/link";
 
 const mainCategories = [
-  { href: "/private-chef", title: "Private Chef", detail: "At-home dinners, chef tables, retreats, date nights", status: "Open" },
-  { href: "/catering", title: "Catering", detail: "Events, business meals, parties, celebrations", status: "Open" },
-  { href: "/jobs", title: "Kitchen Talent", detail: "Chefs, cooks, servers, bartenders, event crew", status: "Intake" },
-  { href: "/kitchens", title: "Kitchen Rentals", detail: "Commissary, prep, ghost kitchen, pop-up space", status: "Early" },
-  { href: "/shop", title: "Chef Gear", detail: "Tools, catering gear, FLAVR picks, kitchen finds", status: "Soon" },
+  { href: "/private-chef", title: "Private Chef", detail: "Chef-led dinners, rentals, retreats, date nights", status: "Open", image: "/images/food-lobster.jpg" },
+  { href: "/catering", title: "Catering", detail: "Events, business meals, parties, celebrations", status: "Open", image: "/images/hero-catering.jpg" },
+  { href: "/jobs", title: "Find Crew", detail: "Chefs, cooks, servers, bartenders, event team", status: "Intake", image: "/images/food-bbq.jpg" },
+  { href: "/kitchens", title: "Find Space", detail: "Prep kitchens, commissary, cold storage, pop-up space", status: "Early", image: "/images/hero-lux.jpg" },
+  { href: "/shop", title: "Get Gear", detail: "Tools, catering gear, kitchen setup, FLAVR picks", status: "Soon", image: "/images/food-pasta.jpg" },
 ];
 
 const boardSections = [
   {
-    title: "Book Food Service",
+    title: "Find Food",
     links: [
       "Private chef dinner",
       "Catering request",
@@ -26,20 +27,20 @@ const boardSections = [
     ],
   },
   {
-    title: "Hire Kitchen People",
+    title: "Find Crew",
     links: [
       "Event servers",
       "Line cooks",
       "Bartenders",
       "Prep cooks",
       "Dish / porter",
-      "Banquet crew",
+      "Banquet team",
       "Chef for hire",
       "Event captain",
     ],
   },
   {
-    title: "Find Space & Support",
+    title: "Find Space",
     links: [
       "Prep kitchen",
       "Commissary kitchen",
@@ -47,12 +48,12 @@ const boardSections = [
       "Shared cooler space",
       "Pop-up venue",
       "Production kitchen",
-      "Storage help",
+      "Storage support",
       "Local sourcing",
     ],
   },
   {
-    title: "Shop & Build",
+    title: "Get Gear",
     links: [
       "Chef knives",
       "Chafing dishes",
@@ -67,10 +68,10 @@ const boardSections = [
 ];
 
 const freshPosts = [
-  { tag: "Private Chef", title: "Dinner for 8 at an Airbnb", city: "Phoenix", detail: "Need chef, menu ideas, and light cleanup." },
-  { tag: "Catering", title: "Office lunch for 40", city: "Atlanta", detail: "Drop-off or buffet setup, weekday service." },
-  { tag: "Talent", title: "Servers for weekend event", city: "Las Vegas", detail: "Event crew, black attire, evening shift." },
-  { tag: "Kitchen", title: "Prep space for pop-up", city: "Charlotte", detail: "Need hourly kitchen access and cold storage." },
+  { tag: "Private Chef", title: "Dinner for 8 at an Airbnb", city: "Phoenix", detail: "Need chef, menu ideas, and light reset after service.", image: "/images/hero-lux.jpg" },
+  { tag: "Catering", title: "Brunch table for 24", city: "Atlanta", detail: "Pretty food, clean setup, bright daytime service.", image: "/images/hero-brunch.jpg" },
+  { tag: "Crew", title: "Servers for weekend event", city: "Las Vegas", detail: "Event team, polished look, evening shift.", image: "/images/hero-catering.jpg" },
+  { tag: "Pop-up", title: "BBQ station support", city: "Kansas City", detail: "Slicing, plating, and service flow for a high-volume day.", image: "/images/food-bbq.jpg" },
 ];
 
 const cityLinks = ["Atlanta", "Phoenix", "Las Vegas", "Los Angeles", "Kansas City", "Seattle", "Charlotte", "Savannah", "Orlando", "Miami", "Dallas", "Chicago"];
@@ -84,15 +85,15 @@ export default function Home() {
             TakeaChefHome<span className="text-slate-950">.com</span>
           </Link>
           <nav className="flex flex-wrap items-center gap-2 text-sm font-bold text-slate-700">
-            <a href="#board" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#0b4fb3]">Browse Board</a>
-            <a href="#fresh" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#0b4fb3]">Fresh Requests</a>
-            <a href="#post" className="rounded-full bg-[#0b4fb3] px-4 py-2 text-white hover:bg-[#083f8e]">Post Request</a>
+            <a href="#board" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#0b4fb3]">Explore the Board</a>
+            <a href="#fresh" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#0b4fb3]">On the Board Now</a>
+            <a href="#post" className="rounded-full bg-[#0b4fb3] px-4 py-2 text-white hover:bg-[#083f8e]">Post to the Board</a>
           </nav>
         </div>
       </header>
 
       <section className="border-b border-slate-200 bg-[radial-gradient(circle_at_top_left,_#cfe8ff,_transparent_30%),linear-gradient(180deg,_#ffffff,_#f4f9ff)]">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 lg:grid-cols-[1.25fr,0.75fr] lg:py-14">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 lg:grid-cols-[1.05fr,0.95fr] lg:py-14">
           <div className="space-y-6">
             <div className="inline-flex rounded-full border border-[#0b4fb3]/20 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#0b4fb3] shadow-sm">
               The food world finally has a board.
@@ -102,7 +103,7 @@ export default function Home() {
                 Post it. Find it. Feed people.
               </h1>
               <p className="max-w-3xl text-base leading-7 text-slate-700 sm:text-lg">
-                A simple culinary marketplace for private chef dinners, catering, kitchen rentals, food jobs, event staff, food trucks, pop-ups, and chef gear. Built to move fast, feel local, and grow city by city.
+                Private chefs. Catering. Kitchens. Crew. All in one place — built for how the food world actually moves.
               </p>
             </div>
 
@@ -123,22 +124,14 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-2xl shadow-blue-900/10">
-            <div className="rounded-3xl bg-[#0b4fb3] p-5 text-white">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-100">Today’s Board</p>
-              <h2 className="mt-2 text-2xl font-black">Open for chef + catering requests.</h2>
-              <p className="mt-3 text-sm leading-6 text-blue-50">
-                The public MVP starts with lead capture, then expands into real listings, profiles, payments, ratings, and city boards.
-              </p>
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-3 text-center">
-              <div className="rounded-2xl bg-[#f4f9ff] p-4">
-                <p className="text-2xl font-black text-[#0b4fb3]">12</p>
-                <p className="text-xs font-bold text-slate-600">Starter cities</p>
-              </div>
-              <div className="rounded-2xl bg-[#f4f9ff] p-4">
-                <p className="text-2xl font-black text-[#0b4fb3]">30+</p>
-                <p className="text-xs font-bold text-slate-600">Request types</p>
+          <aside className="grid gap-4">
+            <div className="relative min-h-[430px] overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 shadow-2xl shadow-blue-900/20">
+              <Image src="/images/hero-catering.jpg" alt="Luxury catering board" fill priority className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-100">Featured request style</p>
+                <h2 className="mt-2 text-3xl font-black">Catering that looks like the invite mattered.</h2>
+                <p className="mt-3 max-w-md text-sm leading-6 text-white/85">Polished food, real service, clean details, and a board that lets clients ask for it without chasing ten different people.</p>
               </div>
             </div>
           </aside>
@@ -146,15 +139,16 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8">
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {mainCategories.map((item) => (
-            <Link key={item.href} href={item.href} className="group rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#0b4fb3]/30 hover:shadow-xl">
-              <div className="flex items-center justify-between gap-3">
-                <span className="rounded-full bg-[#eaf3ff] px-3 py-1 text-[11px] font-black uppercase tracking-wide text-[#0b4fb3]">{item.status}</span>
-                <span className="text-[#0b4fb3] transition group-hover:translate-x-1">→</span>
+            <Link key={item.href} href={item.href} className="group relative flex h-[210px] overflow-hidden rounded-3xl border border-slate-200 bg-slate-950 p-5 text-white shadow-lg transition duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-2xl">
+              <Image src={item.image} alt={item.title} fill className="object-cover transition duration-500 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
+              <div className="relative z-10 mt-auto">
+                <span className="rounded-full bg-white/15 px-3 py-1 text-[11px] font-black uppercase tracking-wide backdrop-blur">{item.status}</span>
+                <h3 className="mt-4 text-xl font-black">{item.title}</h3>
+                <p className="mt-2 text-sm leading-5 text-white/85">{item.detail}</p>
               </div>
-              <h3 className="mt-5 text-xl font-black text-slate-950">{item.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p>
             </Link>
           ))}
         </div>
@@ -164,19 +158,19 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 py-10">
           <div className="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Browse the Board</p>
-              <h2 className="mt-1 text-3xl font-black tracking-tight">Categories that make the marketplace feel alive</h2>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">The Board</p>
+              <h2 className="mt-1 text-3xl font-black tracking-tight">Find what you need. Post what you have.</h2>
             </div>
             <a href="#post" className="text-sm font-black text-[#0b4fb3] hover:underline">Post your own request →</a>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {boardSections.map((section) => (
-              <div key={section.title} className="rounded-[1.75rem] border border-slate-200 bg-[#f7fbff] p-5">
+              <div key={section.title} className="rounded-[1.75rem] border border-slate-200 bg-[#f7fbff] p-5 shadow-sm">
                 <h3 className="text-lg font-black text-slate-950">{section.title}</h3>
                 <div className="mt-4 grid gap-2">
                   {section.links.map((link) => (
-                    <a key={link} href="#post" className="rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:text-[#0b4fb3]">
+                    <a key={link} href="#post" className="rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:translate-x-1 hover:text-[#0b4fb3]">
                       {link}
                     </a>
                   ))}
@@ -189,19 +183,24 @@ export default function Home() {
 
       <section id="fresh" className="mx-auto max-w-7xl px-4 py-10">
         <div className="mb-6">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Fresh Request Examples</p>
-          <h2 className="mt-1 text-3xl font-black tracking-tight">This is how the board will move</h2>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">On the Board Now</p>
+          <h2 className="mt-1 text-3xl font-black tracking-tight">The kind of work this board was built to move</h2>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {freshPosts.map((post) => (
-            <a key={post.title} href="#post" className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-              <div className="flex items-center justify-between text-xs font-black uppercase tracking-wide">
-                <span className="text-[#0b4fb3]">{post.tag}</span>
-                <span className="text-slate-400">{post.city}</span>
+            <a key={post.title} href="#post" className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl">
+              <div className="relative h-40 w-full">
+                <Image src={post.image} alt={post.title} fill className="object-cover" />
               </div>
-              <h3 className="mt-4 text-lg font-black">{post.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{post.detail}</p>
-              <p className="mt-4 text-sm font-black text-[#0b4fb3]">Respond / request →</p>
+              <div className="p-5">
+                <div className="flex items-center justify-between text-xs font-black uppercase tracking-wide">
+                  <span className="text-[#0b4fb3]">{post.tag}</span>
+                  <span className="text-slate-400">{post.city}</span>
+                </div>
+                <h3 className="mt-4 text-lg font-black">{post.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{post.detail}</p>
+                <p className="mt-4 text-sm font-black text-[#0b4fb3]">Respond / request →</p>
+              </div>
             </a>
           ))}
         </div>
@@ -229,7 +228,7 @@ export default function Home() {
 
       <section id="post" className="mx-auto max-w-4xl px-4 py-12">
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-blue-900/10 md:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Post to the board</p>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Post to the Board</p>
           <h2 className="mt-2 text-3xl font-black tracking-tight">What do you need?</h2>
           <p className="mt-2 text-sm leading-6 text-slate-600">Tell us enough to route the request: city, date, category, headcount, budget, and the kind of help you need.</p>
 
@@ -265,8 +264,8 @@ export default function Home() {
             <Link href="/private-chef">Private Chef</Link>
             <Link href="/catering">Catering</Link>
             <Link href="/kitchens">Kitchens</Link>
-            <Link href="/jobs">Talent</Link>
-            <Link href="/shop">Chef Gear</Link>
+            <Link href="/jobs">Crew</Link>
+            <Link href="/shop">Gear</Link>
           </div>
         </div>
       </footer>
