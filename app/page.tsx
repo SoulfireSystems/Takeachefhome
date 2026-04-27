@@ -1,77 +1,40 @@
 // app/page.tsx
-// TakeaChefHome.com — lux street tech culinary board
+// TakeaChefHome.com — no-image lux street tech culinary board
 
-import Image from "next/image";
 import Link from "next/link";
 
 const mainCategories = [
-  { href: "/private-chef", title: "Private Chef", detail: "Chef-led dinners, rentals, retreats, date nights", status: "Open", image: "/images/food-lobster.jpg" },
-  { href: "/catering", title: "Catering", detail: "Events, business meals, parties, celebrations", status: "Open", image: "/images/hero-catering.jpg" },
-  { href: "/jobs", title: "Find Crew", detail: "Chefs, cooks, servers, bartenders, event team", status: "Intake", image: "/images/food-bbq.jpg" },
-  { href: "/kitchens", title: "Find Space", detail: "Prep kitchens, commissary, cold storage, pop-up space", status: "Early", image: "/images/hero-lux.jpg" },
-  { href: "/shop", title: "Get Gear", detail: "Tools, catering gear, kitchen setup, FLAVR picks", status: "Soon", image: "/images/food-pasta.jpg" },
+  { href: "/private-chef", title: "Private Chef", detail: "Chef-led dinners, rentals, retreats, date nights", status: "Open", style: "from-[#061b3a] via-[#0b4fb3] to-[#33b8ff]" },
+  { href: "/catering", title: "Catering", detail: "Events, business meals, parties, celebrations", status: "Open", style: "from-[#121826] via-[#243b6b] to-[#9b6b2f]" },
+  { href: "/jobs", title: "Find Crew", detail: "Chefs, cooks, servers, bartenders, event team", status: "Intake", style: "from-[#151515] via-[#263238] to-[#0b4fb3]" },
+  { href: "/kitchens", title: "Find Space", detail: "Prep kitchens, commissary, cold storage, pop-up space", status: "Early", style: "from-[#0d1b2a] via-[#1f6f8b] to-[#0b4fb3]" },
+  { href: "/shop", title: "Get Gear", detail: "Tools, catering gear, kitchen setup, FLAVR picks", status: "Soon", style: "from-[#111827] via-[#3f2f1f] to-[#d39b2a]" },
 ];
 
 const boardSections = [
   {
     title: "Find Food",
-    links: [
-      "Private chef dinner",
-      "Catering request",
-      "Meal prep chef",
-      "Vacation rental chef",
-      "Corporate lunch",
-      "Drop-off catering",
-      "Pop-up food vendor",
-      "Food truck booking",
-    ],
+    links: ["Private chef dinner", "Catering request", "Meal prep chef", "Vacation rental chef", "Corporate lunch", "Drop-off catering", "Pop-up food vendor", "Food truck booking"],
   },
   {
     title: "Find Crew",
-    links: [
-      "Event servers",
-      "Line cooks",
-      "Bartenders",
-      "Prep cooks",
-      "Dish / porter",
-      "Banquet team",
-      "Chef for hire",
-      "Event captain",
-    ],
+    links: ["Event servers", "Line cooks", "Bartenders", "Prep cooks", "Dish / porter", "Banquet team", "Chef for hire", "Event captain"],
   },
   {
     title: "Find Space",
-    links: [
-      "Prep kitchen",
-      "Commissary kitchen",
-      "Ghost kitchen",
-      "Shared cooler space",
-      "Pop-up venue",
-      "Production kitchen",
-      "Storage support",
-      "Local sourcing",
-    ],
+    links: ["Prep kitchen", "Commissary kitchen", "Ghost kitchen", "Shared cooler space", "Pop-up venue", "Production kitchen", "Storage support", "Local sourcing"],
   },
   {
     title: "Get Gear",
-    links: [
-      "Chef knives",
-      "Chafing dishes",
-      "Cooler bags",
-      "Smallwares",
-      "FLAVR picks",
-      "Catering setup",
-      "Cookbooks",
-      "Starter kits",
-    ],
+    links: ["Chef knives", "Chafing dishes", "Cooler bags", "Smallwares", "FLAVR picks", "Catering setup", "Cookbooks", "Starter kits"],
   },
 ];
 
 const freshPosts = [
-  { tag: "Private Chef", title: "Dinner for 8 at an Airbnb", city: "Phoenix", detail: "Need chef, menu ideas, and light reset after service.", image: "/images/hero-lux.jpg" },
-  { tag: "Catering", title: "Brunch table for 24", city: "Atlanta", detail: "Pretty food, clean setup, bright daytime service.", image: "/images/hero-brunch.jpg" },
-  { tag: "Crew", title: "Servers for weekend event", city: "Las Vegas", detail: "Event team, polished look, evening shift.", image: "/images/hero-catering.jpg" },
-  { tag: "Pop-up", title: "BBQ station support", city: "Kansas City", detail: "Slicing, plating, and service flow for a high-volume day.", image: "/images/food-bbq.jpg" },
+  { tag: "Private Chef", title: "Dinner for 8 at an Airbnb", city: "Phoenix", detail: "Need chef, menu ideas, and light reset after service.", style: "from-[#061b3a] to-[#0b4fb3]" },
+  { tag: "Catering", title: "Brunch table for 24", city: "Atlanta", detail: "Pretty food, clean setup, bright daytime service.", style: "from-[#243b6b] to-[#d39b2a]" },
+  { tag: "Crew", title: "Servers for weekend event", city: "Las Vegas", detail: "Event team, polished look, evening shift.", style: "from-[#151515] to-[#0b4fb3]" },
+  { tag: "Pop-up", title: "BBQ station support", city: "Kansas City", detail: "Slicing, plating, and service flow for a high-volume day.", style: "from-[#3f2f1f] to-[#d39b2a]" },
 ];
 
 const cityLinks = ["Atlanta", "Phoenix", "Las Vegas", "Los Angeles", "Kansas City", "Seattle", "Charlotte", "Savannah", "Orlando", "Miami", "Dallas", "Chicago"];
@@ -124,14 +87,18 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="grid gap-4">
-            <div className="relative min-h-[430px] overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 shadow-2xl shadow-blue-900/20">
-              <Image src="/images/hero-catering.jpg" alt="Luxury catering board" fill priority className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-100">Featured request style</p>
-                <h2 className="mt-2 text-3xl font-black">Catering that looks like the invite mattered.</h2>
-                <p className="mt-3 max-w-md text-sm leading-6 text-white/85">Polished food, real service, clean details, and a board that lets clients ask for it without chasing ten different people.</p>
+          <aside className="relative min-h-[430px] overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-br from-slate-950 via-[#0b4fb3] to-[#d39b2a] p-6 text-white shadow-2xl shadow-blue-900/20">
+            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-white/20 blur-3xl" />
+            <div className="absolute -bottom-24 left-10 h-64 w-64 rounded-full bg-black/30 blur-3xl" />
+            <div className="relative z-10 flex h-full flex-col justify-between">
+              <div className="flex justify-between gap-4 text-xs font-black uppercase tracking-[0.2em] text-white/80">
+                <span>Featured request style</span>
+                <span>Luxury / Street / Tech</span>
+              </div>
+              <div>
+                <p className="mb-3 inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-black backdrop-blur">Built for real food work</p>
+                <h2 className="text-4xl font-black leading-tight">Catering that looks like the invite mattered.</h2>
+                <p className="mt-4 max-w-md text-sm leading-6 text-white/85">Polished food, real service, clean details, and a board that lets clients ask for it without chasing ten different people.</p>
               </div>
             </div>
           </aside>
@@ -141,9 +108,9 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-4 py-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {mainCategories.map((item) => (
-            <Link key={item.href} href={item.href} className="group relative flex h-[210px] overflow-hidden rounded-3xl border border-slate-200 bg-slate-950 p-5 text-white shadow-lg transition duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-2xl">
-              <Image src={item.image} alt={item.title} fill className="object-cover transition duration-500 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
+            <Link key={item.href} href={item.href} className={`group relative flex h-[210px] overflow-hidden rounded-3xl border border-white/30 bg-gradient-to-br ${item.style} p-5 text-white shadow-lg transition duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-2xl`}>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.28),_transparent_35%)]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-white/5" />
               <div className="relative z-10 mt-auto">
                 <span className="rounded-full bg-white/15 px-3 py-1 text-[11px] font-black uppercase tracking-wide backdrop-blur">{item.status}</span>
                 <h3 className="mt-4 text-xl font-black">{item.title}</h3>
@@ -189,15 +156,14 @@ export default function Home() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {freshPosts.map((post) => (
             <a key={post.title} href="#post" className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl">
-              <div className="relative h-40 w-full">
-                <Image src={post.image} alt={post.title} fill className="object-cover" />
+              <div className={`h-32 bg-gradient-to-br ${post.style} p-4 text-white`}>
+                <div className="flex h-full items-end justify-between text-xs font-black uppercase tracking-wide">
+                  <span>{post.tag}</span>
+                  <span>{post.city}</span>
+                </div>
               </div>
               <div className="p-5">
-                <div className="flex items-center justify-between text-xs font-black uppercase tracking-wide">
-                  <span className="text-[#0b4fb3]">{post.tag}</span>
-                  <span className="text-slate-400">{post.city}</span>
-                </div>
-                <h3 className="mt-4 text-lg font-black">{post.title}</h3>
+                <h3 className="text-lg font-black">{post.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{post.detail}</p>
                 <p className="mt-4 text-sm font-black text-[#0b4fb3]">Respond / request →</p>
               </div>
