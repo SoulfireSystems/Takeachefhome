@@ -1,154 +1,92 @@
-// app/private-chef/page.tsx
+import Link from "next/link";
 
 export default function PrivateChefPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
-      <section className="mx-auto max-w-5xl px-4 pt-16 pb-12">
-        <p className="text-xs uppercase tracking-[0.2em] text-emerald-300 mb-3">
-          Lane: Private Chef
-        </p>
-        <h1 className="text-3xl md:text-4xl font-semibold leading-tight mb-4">
-          Book a private chef for{" "}
-          <span className="text-emerald-300">real dinners, not stress.</span>
-        </h1>
-        <p className="text-slate-300 max-w-2xl text-sm md:text-base">
-          In-home dining, retreats, birthdays, anniversaries, chef&apos;s table
-          tastings, and Airbnb experiences. You tell Chef GoGee the vibe, the
-          city, and the budget — we handle the menus and the chef match.
-        </p>
+    <main className="min-h-screen bg-[#f4f9ff] text-slate-950">
+      <header className="border-b border-slate-200 bg-white">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+          <Link href="/" className="text-xl font-black text-[#0b4fb3]">
+            TakeaChefHome<span className="text-slate-950">.com</span>
+          </Link>
+          <Link href="/#post" className="rounded-full bg-[#0b4fb3] px-4 py-2 text-sm font-black text-white">
+            Post to the Board
+          </Link>
+        </div>
+      </header>
 
-        <div className="mt-8 grid gap-10 md:grid-cols-[1.3fr,1fr]">
-          {/* Left: Details & bullets */}
-          <div className="space-y-5">
-            <div>
-              <h2 className="text-lg font-semibold mb-2">
-                Perfect when you want:
-              </h2>
-              <ul className="space-y-2 text-sm text-slate-300">
-                <li>• A chef to come to your home, rental, or Airbnb</li>
-                <li>• A set menu or tasting menu built around your vibe</li>
-                <li>• Light cleanup handled so you can actually enjoy the night</li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-semibold mb-2">
-                Example experiences:
-              </h3>
-              <ul className="space-y-1 text-sm text-slate-300">
-                <li>• Gullah Coastal Night (seafood-forward, soulful coastal menu)</li>
-                <li>• Afro-Latin Love Feast (shared plates, bold flavors)</li>
-                <li>• Luxe Steakhouse At Home (multi-course steakhouse moment)</li>
-              </ul>
-            </div>
-
-            <p className="text-xs text-slate-400">
-              After you submit, you&apos;ll get a follow-up with menu ideas,
-              pricing tiers, and chef options that match your event.
+      <section className="border-b border-slate-200 bg-[radial-gradient(circle_at_top_left,_#cfe8ff,_transparent_30%),linear-gradient(180deg,_#ffffff,_#f4f9ff)]">
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 lg:grid-cols-[1.05fr,0.95fr]">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">
+              Private Chef
             </p>
+            <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">
+              Chef-led dinners without the group chat chaos.
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-700">
+              In-home dinners, vacation rental meals, retreats, tastings, birthdays, anniversaries, and chef-table moments. Post the request once and let the details get organized cleanly.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="#form" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20">
+                Start Private Chef Request
+              </a>
+              <Link href="/catering" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">
+                Need Catering?
+              </Link>
+            </div>
           </div>
 
-          {/* Right: Lane-specific lead form */}
-          <aside className="rounded-2xl border border-slate-800 bg-slate-900/70 p-5 text-sm">
-            <h2 className="text-base font-semibold mb-2">
-              Tell Chef GoGee about your dinner
-            </h2>
-            <p className="text-xs text-slate-400 mb-4">
-              This form goes straight into our Private Chef pipeline.
-            </p>
-
-            <form method="post" action="/api/leads" className="space-y-3">
-              <div className="flex flex-col gap-1">
-                <label htmlFor="name" className="text-xs text-slate-300">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  required
-                  className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                  placeholder="Your name"
-                />
+          <aside className="relative min-h-[360px] overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-br from-[#061b3a] via-[#0b4fb3] to-[#33b8ff] p-6 text-white shadow-2xl shadow-blue-900/20">
+            <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-white/20 blur-3xl" />
+            <div className="relative z-10 flex h-full flex-col justify-between">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">Dinner with intention</p>
+              <div>
+                <h2 className="text-3xl font-black leading-tight">The table should feel handled before the first plate lands.</h2>
+                <p className="mt-4 text-sm leading-6 text-white/85">Menu direction, timing, guest count, dietary notes, budget, and service style all belong in one clean request.</p>
               </div>
-
-              <div className="flex flex-col gap-1">
-                <label htmlFor="email" className="text-xs text-slate-300">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                  placeholder="you@example.com"
-                />
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <label htmlFor="city" className="text-xs text-slate-300">
-                  City + state
-                </label>
-                <input
-                  id="city"
-                  name="city"
-                  required
-                  className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                  placeholder="Atlanta, GA"
-                />
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="date" className="text-xs text-slate-300">
-                    Target date
-                  </label>
-                  <input
-                    id="date"
-                    name="date"
-                    type="date"
-                    className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="guests" className="text-xs text-slate-300">
-                    Guest count
-                  </label>
-                  <input
-                    id="guests"
-                    name="guests"
-                    className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                    placeholder="ex: 8–12"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <label htmlFor="details" className="text-xs text-slate-300">
-                  Vibe & details
-                </label>
-                <textarea
-                  id="details"
-                  name="details"
-                  rows={4}
-                  required
-                  className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-400"
-                  placeholder="Occasion, vibe (romantic, birthday, chef's table), any dietary notes, rough budget…"
-                />
-              </div>
-
-              {/* Hidden tags to mark this lane */}
-              <input type="hidden" name="serviceType" value="private-chef" />
-              <input type="hidden" name="source" value="private-chef-page" />
-
-              <button
-                type="submit"
-                className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/30 hover:bg-emerald-300"
-              >
-                Submit Private Chef request
-              </button>
-            </form>
+            </div>
           </aside>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-6xl gap-6 px-4 py-10 md:grid-cols-3">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-black text-[#0b4fb3]">For hosts</p>
+          <h3 className="mt-2 text-xl font-black">Dinner without doing everything.</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">Great for homes, rentals, small celebrations, couples, family trips, retreats, and curated dinner moments.</p>
+        </div>
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-black text-[#0b4fb3]">For chefs</p>
+          <h3 className="mt-2 text-xl font-black">Requests with context.</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">The board is built to make serious requests easier to price, qualify, and respond to.</p>
+        </div>
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-black text-[#0b4fb3]">For the night</p>
+          <h3 className="mt-2 text-xl font-black">Menu. Timing. Flow.</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">The best dinner starts with clear expectations before anyone walks through the door.</p>
+        </div>
+      </section>
+
+      <section id="form" className="mx-auto max-w-4xl px-4 pb-12">
+        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-blue-900/10 md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Private Chef Intake</p>
+          <h2 className="mt-2 text-3xl font-black">Tell us about the dinner</h2>
+          <form method="post" action="/api/leads" className="mt-6 grid gap-4">
+            <div className="grid gap-4 md:grid-cols-2">
+              <input name="name" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Name" />
+              <input name="email" type="email" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Email" />
+              <input name="phone" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Phone" />
+              <input name="city" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="City + state" />
+              <input name="eventDate" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Target date" />
+              <input name="guests" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Guest count" />
+            </div>
+            <textarea name="details" required rows={5} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Occasion, menu vibe, budget, dietary needs, kitchen setup, timing, and anything important." />
+            <input type="hidden" name="serviceType" value="private-chef" />
+            <input type="hidden" name="source" value="private-chef-page" />
+            <button className="rounded-2xl bg-[#0b4fb3] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#083f8e]">
+              Submit Private Chef Request
+            </button>
+          </form>
         </div>
       </section>
     </main>
