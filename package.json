@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/check-vercel-env.mjs && next build",
+    "build": "next build",
     "start": "next start"
   },
   "dependencies": {
