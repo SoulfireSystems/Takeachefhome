@@ -10,12 +10,14 @@ function money(value: number | null) {
 
 export default async function BoardPage() {
   const supabase = getSupabaseServer();
-  const { data: opportunities = [] } = await supabase
+  const { data } = await supabase
     .from('opportunities')
     .select('id,category,title,description,city,state,event_date,guest_count,budget_min,budget_max,status,created_at')
     .in('status', ['open', 'responses-received'])
     .order('created_at', { ascending: false })
     .limit(100);
+
+  const opportunities = data ?? [];
 
   return (
     <main className="min-h-screen bg-[#f5f8fc] text-slate-950">
