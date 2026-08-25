@@ -1,0 +1,41 @@
+name: Upgrade Next 16 Dependencies
+
+on:
+  push:
+    branches:
+      - v1-marketplace-engine
+    paths:
+      - package.json
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: v1-marketplace-engine
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Upgrade framework and React
+        run: npm install next@16.3.2 react@19.2.0 react-dom@19.2.0 @types/react@latest @types/react-dom@latest --save-exact
+
+      - name: Apply non-breaking audit fixes
+        run: npm audit fix || true
+
+      - name: Commit dependency files
+        run: |
+          git config user.name "TakeAChefHome CI"
+          git config user.email "actions@users.noreply.github.com"
+          git add package.json package-lock.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Upgrade to Next.js 16.3.2 and patched dependencies"
+          git push origin HEAD:v1-marketplace-engine
