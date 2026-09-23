@@ -17,9 +17,9 @@ export default function TalentPage() {
             <h1 className="text-4xl font-black tracking-[-0.055em]">Food work lives here.</h1>
           </div>
           <nav className="flex flex-wrap gap-2 text-xs font-black uppercase tracking-wide">
-            <Link href="/jobs" className="border-2 border-[#171310] bg-white px-4 py-3 hover:bg-[#E9F0FF]">Find Jobs</Link>
-            <Link href="/jobs" className="border-2 border-[#171310] bg-white px-4 py-3 hover:bg-[#E9F0FF]">Find Shifts</Link>
-            <Link href="/post-a-lead" className="border-2 border-[#171310] bg-[#135DFF] px-4 py-3 text-white">Post Work</Link>
+            <Link href="/talent/jobs" className="border-2 border-[#171310] bg-white px-4 py-3 hover:bg-[#E9F0FF]">Find Jobs</Link>
+            <Link href="/talent/jobs" className="border-2 border-[#171310] bg-white px-4 py-3 hover:bg-[#E9F0FF]">Find Shifts</Link>
+            <Link href="/talent/post" className="border-2 border-[#171310] bg-[#135DFF] px-4 py-3 text-white">Post Work</Link>
           </nav>
         </div>
       </header>
@@ -37,12 +37,12 @@ export default function TalentPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1">
-            <Link href="/jobs" className="border-b border-white/20 p-5 hover:bg-white/5 sm:border-r md:border-r-0">
+            <Link href="/talent/jobs" className="border-b border-white/20 p-5 hover:bg-white/5 sm:border-r md:border-r-0">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D4A64F]">01</span>
               <strong className="mt-2 block text-2xl font-black">Find Jobs →</strong>
               <span className="mt-1 block text-sm text-white/50">Full-time and part-time culinary work</span>
             </Link>
-            <Link href="/jobs" className="border-b border-white/20 p-5 hover:bg-white/5 sm:border-r md:border-r-0">
+            <Link href="/talent/jobs" className="border-b border-white/20 p-5 hover:bg-white/5 sm:border-r md:border-r-0">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D4A64F]">02</span>
               <strong className="mt-2 block text-2xl font-black">ALL DAY / Shifts →</strong>
               <span className="mt-1 block text-sm text-white/50">Prep crews, event labor and short-notice shifts</span>
