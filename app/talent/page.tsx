@@ -47,11 +47,11 @@ export default function TalentPage() {
               <strong className="mt-2 block text-2xl font-black">ALL DAY / Shifts →</strong>
               <span className="mt-1 block text-sm text-white/50">Prep crews, event labor and short-notice shifts</span>
             </Link>
-            <div className="p-5">
+            <Link href="/talent/join" className="p-5 hover:bg-white/5">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D4A64F]">03</span>
-              <strong className="mt-2 block text-2xl font-black">Get Listed</strong>
-              <span className="mt-1 block text-sm text-white/50">Professional profiles are the next Talent system we wire live.</span>
-            </div>
+              <strong className="mt-2 block text-2xl font-black">Get Listed →</strong>
+              <span className="mt-1 block text-sm text-white/50">Create a professional profile clients can discover across the marketplace.</span>
+            </Link>
           </div>
         </div>
       </section>
