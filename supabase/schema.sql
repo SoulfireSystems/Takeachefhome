@@ -146,3 +146,18 @@ revoke all on table public.talent_opportunities from anon, authenticated;
 revoke all on table public.talent_applications from anon, authenticated;
 grant select, insert, update, delete on table public.talent_opportunities to service_role;
 grant select, insert, update, delete on table public.talent_applications to service_role;
+
+
+-- Public provider profile photos. Writes are server-only through the marketplace API.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'provider-media',
+  'provider-media',
+  true,
+  5242880,
+  array['image/jpeg','image/png','image/webp']
+)
+on conflict (id) do update
+set public = excluded.public,
+    file_size_limit = excluded.file_size_limit,
+    allowed_mime_types = excluded.allowed_mime_types;
