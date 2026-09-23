@@ -97,3 +97,52 @@ create index if not exists provider_profiles_services_gin_idx on public.provider
 alter table public.provider_profiles enable row level security;
 revoke all on table public.provider_profiles from anon, authenticated;
 grant select, insert, update, delete on table public.provider_profiles to service_role;
+
+
+-- Talent jobs + ALL DAY shift engine.
+create table if not exists public.talent_opportunities (
+  id uuid primary key default gen_random_uuid(),
+  opportunity_type text not null check (opportunity_type in ('job','shift')),
+  role text not null,
+  company_name text not null,
+  city text not null,
+  state text,
+  work_date date,
+  start_time time,
+  end_time time,
+  pay_type text check (pay_type in ('hourly','flat','salary','daily')),
+  pay_min integer check (pay_min is null or pay_min >= 0),
+  pay_max integer check (pay_max is null or pay_max >= 0),
+  description text not null,
+  contact_name text not null,
+  contact_email text not null,
+  contact_phone text,
+  status text not null default 'open' check (status in ('open','filled','closed')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  check (pay_min is null or pay_max is null or pay_max >= pay_min)
+);
+
+create table if not exists public.talent_applications (
+  id uuid primary key default gen_random_uuid(),
+  opportunity_id uuid not null references public.talent_opportunities(id) on delete cascade,
+  applicant_name text not null,
+  applicant_email text not null,
+  applicant_phone text,
+  profile_url text,
+  message text not null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists talent_opportunities_type_idx on public.talent_opportunities(opportunity_type);
+create index if not exists talent_opportunities_status_idx on public.talent_opportunities(status);
+create index if not exists talent_opportunities_city_idx on public.talent_opportunities(city);
+create index if not exists talent_opportunities_created_at_idx on public.talent_opportunities(created_at desc);
+create index if not exists talent_applications_opportunity_idx on public.talent_applications(opportunity_id);
+
+alter table public.talent_opportunities enable row level security;
+alter table public.talent_applications enable row level security;
+revoke all on table public.talent_opportunities from anon, authenticated;
+revoke all on table public.talent_applications from anon, authenticated;
+grant select, insert, update, delete on table public.talent_opportunities to service_role;
+grant select, insert, update, delete on table public.talent_applications to service_role;
