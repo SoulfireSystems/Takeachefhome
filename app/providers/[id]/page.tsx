@@ -9,7 +9,7 @@ async function loadProvider(id:string) {
     const supabase = getSupabaseServer();
     const { data, error } = await supabase
       .from('provider_profiles')
-      .select('id,display_name,professional_type,services,city,state,bio,years_experience,starting_price,website_url,instagram_url,verified,status')
+      .select('id,display_name,professional_type,services,city,state,bio,years_experience,starting_price,profile_image_url,website_url,instagram_url,verified,status')
       .eq('id', id)
       .eq('status','active')
       .single();
@@ -37,6 +37,13 @@ export default async function ProviderPage({ params }: { params: Promise<{ id:st
       <section className="border-b-2 border-[#171310] bg-white">
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-[1fr_320px]">
           <div>
+            <div className="mb-7 aspect-[16/8] overflow-hidden border-2 border-[#171310] bg-[#171310]">
+              {provider.profile_image_url ? (
+                <img src={provider.profile_image_url} alt={provider.display_name} className="h-full w-full object-cover" />
+              ) : (
+                <div className="flex h-full items-end p-6 text-7xl font-black tracking-[-0.06em] text-white/15">{provider.display_name.slice(0,2).toUpperCase()}</div>
+              )}
+            </div>
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#135DFF]">{provider.professional_type?.replaceAll('-',' ')}</span>
               {provider.verified && <span className="bg-[#D4A64F] px-2 py-1 text-[9px] font-black uppercase">Verified</span>}
