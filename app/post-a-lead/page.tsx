@@ -1,6 +1,13 @@
 import Link from 'next/link';
 
-const allowedCategories = new Set(['private-chef','catering','meal-prep','food-truck','experience','class','kitchen-space','cold-storage']);\n\nfunction single(value: string | string[] | undefined) { return Array.isArray(value) ? value[0] : value || ''; }\n\nexport default async function PostALeadPage({ searchParams }: { searchParams: Promise<{ category?: string | string[] }> }) {\n  const params = await searchParams;\n  const requestedCategory = single(params.category);\n  const defaultCategory = allowedCategories.has(requestedCategory) ? requestedCategory : 'private-chef';
+const allowedCategories = new Set(['private-chef','catering','meal-prep','food-truck','experience','class','kitchen-space','cold-storage']);
+
+function single(value: string | string[] | undefined) { return Array.isArray(value) ? value[0] : value || ''; }
+
+export default async function PostALeadPage({ searchParams }: { searchParams: Promise<{ category?: string | string[] }> }) {
+  const params = await searchParams;
+  const requestedCategory = single(params.category);
+  const defaultCategory = allowedCategories.has(requestedCategory) ? requestedCategory : 'private-chef';
   return (
     <main className="min-h-screen bg-[#F5F2EA] text-[#171310]">
       <header className="border-b border-black/10 bg-white">
@@ -32,7 +39,9 @@ const allowedCategories = new Set(['private-chef','catering','meal-prep','food-t
                 <option value="meal-prep">Meal Prep</option>
                 <option value="food-truck">Food Truck</option>
                 <option value="experience">Food Experience</option>
-                <option value="class">Cooking Class</option>\n                <option value="kitchen-space">Kitchen Space</option>\n                <option value="cold-storage">Cold Storage</option>
+                <option value="class">Cooking Class</option>
+                <option value="kitchen-space">Kitchen Space</option>
+                <option value="cold-storage">Cold Storage</option>
               </select>
             </label>
             <label className="grid gap-1 text-sm font-bold">Opportunity title
