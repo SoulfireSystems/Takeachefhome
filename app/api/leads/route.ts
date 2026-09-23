@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSupabaseServer } from '@/lib/supabaseServer';
 
-const allowedCategories = new Set(['private-chef', 'catering', 'meal-prep', 'food-truck', 'experience', 'class']);
+const allowedCategories = new Set(['private-chef', 'catering', 'meal-prep', 'food-truck', 'experience', 'class', 'kitchen-space', 'cold-storage']);
 
 function clean(value: FormDataEntryValue | null, max = 5000) {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false }, { status: 400 });
     }
 
-    const requestedCategory = clean(formData.get('category'), 50) || 'private-chef';
+    const requestedCategory = clean(formData.get('category'), 50) || clean(formData.get('serviceType'), 50) || 'private-chef';
     const category = allowedCategories.has(requestedCategory) ? requestedCategory : 'private-chef';
 
     const opportunity = {
