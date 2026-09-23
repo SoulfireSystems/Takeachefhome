@@ -69,7 +69,9 @@ const categoryLabel: Record<string, string> = {
   'meal-prep': 'Meal Prep',
   'food-truck': 'Food Truck',
   experience: 'Experience',
-  class: 'Class',\n  'kitchen-space': 'Kitchen Space',\n  'cold-storage': 'Cold Storage',
+  class: 'Class',
+  'kitchen-space': 'Kitchen Space',
+  'cold-storage': 'Cold Storage',
 };
 
 function money(value: number | null) {
