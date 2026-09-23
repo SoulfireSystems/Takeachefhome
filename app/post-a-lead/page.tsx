@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function PostALeadPage() {
+const allowedCategories = new Set(['private-chef','catering','meal-prep','food-truck','experience','class','kitchen-space','cold-storage']);\n\nfunction single(value: string | string[] | undefined) { return Array.isArray(value) ? value[0] : value || ''; }\n\nexport default async function PostALeadPage({ searchParams }: { searchParams: Promise<{ category?: string | string[] }> }) {\n  const params = await searchParams;\n  const requestedCategory = single(params.category);\n  const defaultCategory = allowedCategories.has(requestedCategory) ? requestedCategory : 'private-chef';
   return (
     <main className="min-h-screen bg-[#F5F2EA] text-[#171310]">
       <header className="border-b border-black/10 bg-white">
@@ -26,7 +26,7 @@ export default function PostALeadPage() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <label className="grid gap-1 text-sm font-bold">Category
-              <select name="category" required className="rounded-lg border border-black/15 bg-white px-3 py-3 font-normal">
+              <select name="category" required defaultValue={defaultCategory} className="rounded-lg border border-black/15 bg-white px-3 py-3 font-normal">
                 <option value="private-chef">Private Chef</option>
                 <option value="catering">Catering</option>
                 <option value="meal-prep">Meal Prep</option>
