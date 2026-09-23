@@ -32,7 +32,7 @@ export default function PostALeadPage() {
                 <option value="meal-prep">Meal Prep</option>
                 <option value="food-truck">Food Truck</option>
                 <option value="experience">Food Experience</option>
-                <option value="class">Cooking Class</option>
+                <option value="class">Cooking Class</option>\n                <option value="kitchen-space">Kitchen Space</option>\n                <option value="cold-storage">Cold Storage</option>
               </select>
             </label>
             <label className="grid gap-1 text-sm font-bold">Opportunity title
