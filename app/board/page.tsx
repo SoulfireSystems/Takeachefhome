@@ -3,7 +3,7 @@ import { getSupabaseServer } from '@/lib/supabaseServer';
 
 export const dynamic = 'force-dynamic';
 
-const allowedCategories = new Set(['private-chef', 'catering', 'meal-prep', 'food-truck', 'experience', 'class']);
+const allowedCategories = new Set(['private-chef', 'catering', 'meal-prep', 'food-truck', 'experience', 'class', 'kitchen-space', 'cold-storage']);
 
 function money(value: number | null) {
   if (!value) return null;
@@ -92,7 +92,7 @@ export default async function BoardPage({
               <option value="meal-prep">Meal Prep</option>
               <option value="food-truck">Food Truck</option>
               <option value="experience">Experience</option>
-              <option value="class">Cooking Class</option>
+              <option value="class">Cooking Class</option>\n              <option value="kitchen-space">Kitchen Space</option>\n              <option value="cold-storage">Cold Storage</option>
             </select>
             <input name="city" defaultValue={city} placeholder="City" className="min-h-12 rounded-lg border border-white/15 bg-white px-4 text-[#171310]" />
             <button className="min-h-12 rounded-lg bg-[#135DFF] px-6 font-black text-white">FILTER BOARD</button>
