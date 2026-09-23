@@ -30,7 +30,7 @@ export default async function JoinTalentPage({ searchParams }:{ searchParams:Pro
             <h1 className="mt-2 text-5xl font-black tracking-[-0.055em]">Build your marketplace profile.</h1>
             <p className="mt-3 text-sm leading-6 text-black/60">One professional profile is the beginning of how clients discover you across TakeAChefHome.</p>
 
-            <form method="post" action="/api/providers" className="mt-7 grid gap-5 border-2 border-[#171310] bg-white p-6">
+            <form method="post" action="/api/providers" encType="multipart/form-data" className="mt-7 grid gap-5 border-2 border-[#171310] bg-white p-6">
               <div className="hidden" aria-hidden="true"><input name="company_website" tabIndex={-1} autoComplete="off" /></div>
 
               <div className="grid gap-4 md:grid-cols-2">
@@ -50,6 +50,13 @@ export default async function JoinTalentPage({ searchParams }:{ searchParams:Pro
                   ].map(([value,label]) => <label key={value} className="flex items-center gap-2 border border-black/20 p-3 text-sm font-bold"><input type="checkbox" name="services" value={value}/>{label}</label>)}
                 </div>
               </fieldset>
+
+              <div className="border-2 border-dashed border-[#171310] bg-[#F8F4EA] p-4">
+                <label className="grid gap-2 text-sm font-black">Profile photo
+                  <input name="profile_image" type="file" accept="image/jpeg,image/png,image/webp" className="block w-full text-sm font-normal file:mr-4 file:border-2 file:border-[#171310] file:bg-white file:px-4 file:py-2 file:font-black" />
+                </label>
+                <p className="mt-2 text-xs leading-5 text-black/50">Upload a JPG, PNG or WebP up to 5 MB. No pasted image URL required.</p>
+              </div>
 
               <div className="grid gap-4 md:grid-cols-2">
                 <label className="grid gap-1 text-sm font-black">City<input name="city" required className="border-2 border-[#171310] px-3 py-3 font-normal" /></label>
