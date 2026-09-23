@@ -8,42 +8,42 @@ const categories = [
     number: '01',
     label: 'Private Chef',
     value: 'private-chef',
-    href: '/private-chef',
+    href: '/providers?service=private-chef',
     note: 'Dinner parties · Airbnb · retreats · date nights',
   },
   {
     number: '02',
     label: 'Catering',
     value: 'catering',
-    href: '/catering',
+    href: '/providers?service=catering',
     note: 'Corporate · weddings · brunch · drop-off',
   },
   {
     number: '03',
     label: 'Meal Prep',
     value: 'meal-prep',
-    href: '/board?category=meal-prep',
+    href: '/providers?service=meal-prep',
     note: 'Weekly meals · families · athletes · seniors',
   },
   {
     number: '04',
     label: 'Food Trucks',
     value: 'food-truck',
-    href: '/board?category=food-truck',
+    href: '/providers?service=food-truck',
     note: 'Events · offices · neighborhoods · festivals',
   },
   {
     number: '05',
     label: 'Experiences',
     value: 'experience',
-    href: '/board?category=experience',
+    href: '/providers?service=experience',
     note: 'Chef tables · tastings · culinary events',
   },
   {
     number: '06',
     label: 'Cooking Classes',
     value: 'class',
-    href: '/board?category=class',
+    href: '/providers?service=class',
     note: 'Private · group · team-building · virtual',
   },
 ];
@@ -125,7 +125,7 @@ export default async function Home() {
           </Link>
 
           <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-black">
-            <Link href="#book-food" className="hover:text-[#135DFF]">Book Food</Link>
+            <Link href="/providers" className="hover:text-[#135DFF]">Find a Pro</Link>
             <Link href="/kitchens" className="hover:text-[#135DFF]">Find Space</Link>
             <Link href="/board" className="hover:text-[#135DFF]">The Board</Link>
             <Link href="/talent" className="hover:text-[#135DFF]">Talent</Link>
@@ -153,11 +153,11 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-2 border-t border-white/25 lg:border-t-0">
-            <Link href="/private-chef" className="border-b border-r border-white/25 p-4 hover:bg-white/10 sm:p-5">
+            <Link href="/providers?service=private-chef" className="border-b border-r border-white/25 p-4 hover:bg-white/10 sm:p-5">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/55">Need a chef?</span>
               <strong className="mt-1 block text-lg font-black">Find a Private Chef →</strong>
             </Link>
-            <Link href="/catering" className="border-b border-white/25 p-4 hover:bg-white/10 sm:p-5">
+            <Link href="/providers?service=catering" className="border-b border-white/25 p-4 hover:bg-white/10 sm:p-5">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/55">Need food service?</span>
               <strong className="mt-1 block text-lg font-black">Find Catering →</strong>
             </Link>
@@ -175,11 +175,11 @@ export default async function Home() {
 
       <section className="border-b-2 border-[#171310] bg-[#F8F4EA]">
         <div className="mx-auto max-w-7xl px-4 py-4">
-          <form action="/board" method="get" className="grid gap-2 md:grid-cols-[1fr_1fr_auto]">
+          <form action="/providers" method="get" className="grid gap-2 md:grid-cols-[1fr_1fr_auto]">
             <label className="sr-only" htmlFor="category">What do you need?</label>
             <select
               id="category"
-              name="category"
+              name="service"
               defaultValue=""
               className="min-h-14 border-2 border-[#171310] bg-white px-4 text-sm font-black outline-none focus:border-[#135DFF]"
             >
@@ -377,7 +377,7 @@ export default async function Home() {
             {markets.map((city) => (
               <Link
                 key={city}
-                href={`/board?city=${encodeURIComponent(city)}`}
+                href={`/providers?city=${encodeURIComponent(city)}`}
                 className="border-b-2 border-r-2 border-[#171310] px-4 py-3 text-sm font-black hover:bg-[#E9F0FF] hover:text-[#135DFF]"
               >
                 {city} →
@@ -406,7 +406,7 @@ export default async function Home() {
             <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-black/45">The Culinary Exchange</p>
           </div>
           <div className="flex flex-wrap gap-4 text-xs font-black uppercase tracking-wide">
-            <Link href="#book-food" className="hover:text-[#135DFF]">Book Food</Link>
+            <Link href="/providers" className="hover:text-[#135DFF]">Find a Pro</Link>
             <Link href="/board" className="hover:text-[#135DFF]">The Board</Link>
             <Link href="/kitchens" className="hover:text-[#135DFF]">Find Space</Link>
             <Link href="/shop" className="hover:text-[#135DFF]">Chef Gear</Link>
