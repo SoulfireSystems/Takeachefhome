@@ -100,7 +100,15 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
         ) : (
           <div className="grid border-l-2 border-t-2 border-[#171310] bg-white sm:grid-cols-2 lg:grid-cols-3">
             {providers.map((provider:any) => (
-              <Link key={provider.id} href={`/providers/${provider.id}`} className="group border-b-2 border-r-2 border-[#171310] p-5 hover:bg-[#E9F0FF]">
+              <Link key={provider.id} href={`/providers/${provider.id}`} className="group border-b-2 border-r-2 border-[#171310] hover:bg-[#E9F0FF]">
+                <div className="aspect-[16/9] overflow-hidden border-b-2 border-[#171310] bg-[#171310]">
+                  {provider.profile_image_url ? (
+                    <img src={provider.profile_image_url} alt={provider.display_name} className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]" />
+                  ) : (
+                    <div className="flex h-full items-end p-4 text-4xl font-black tracking-[-0.05em] text-white/15">{provider.display_name.slice(0,2).toUpperCase()}</div>
+                  )}
+                </div>
+                <div className="p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#135DFF]">{provider.professional_type?.replaceAll('-',' ')}</p>
@@ -114,6 +122,7 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
                   {(provider.services || []).slice(0,4).map((item:string) => <span key={item} className="bg-[#F3EEE2] px-2 py-1 text-[10px] font-black uppercase">{item.replaceAll('-',' ')}</span>)}
                 </div>
                 <span className="mt-5 block text-sm font-black text-[#135DFF]">View profile →</span>
+                </div>
               </Link>
             ))}
           </div>
