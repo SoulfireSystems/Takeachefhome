@@ -5,7 +5,7 @@ create extension if not exists pgcrypto;
 
 create table if not exists public.opportunities (
   id uuid primary key default gen_random_uuid(),
-  category text not null check (category in ('private-chef','catering','meal-prep','food-truck','experience','class')),
+  category text not null check (category in ('private-chef','catering','meal-prep','food-truck','experience','class','kitchen-space','cold-storage')),
   title text not null,
   description text not null,
   city text not null,
@@ -65,3 +65,35 @@ using (status in ('open','responses-received'));
 
 -- No browser insert/update/delete policies are intentionally provided.
 -- Responses remain server-write only and are never publicly readable.
+
+
+-- Provider directory: client-facing supply side of the marketplace.
+create table if not exists public.provider_profiles (
+  id uuid primary key default gen_random_uuid(),
+  display_name text not null,
+  professional_type text not null check (professional_type in ('chef','caterer','meal-prep','food-truck','instructor','culinary-business')),
+  services text[] not null default '{}',
+  city text not null,
+  state text,
+  bio text not null,
+  years_experience integer check (years_experience is null or years_experience >= 0),
+  starting_price integer check (starting_price is null or starting_price >= 0),
+  profile_image_url text,
+  website_url text,
+  instagram_url text,
+  contact_name text not null,
+  contact_email text not null,
+  contact_phone text,
+  verified boolean not null default false,
+  status text not null default 'pending' check (status in ('pending','active','inactive','rejected')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists provider_profiles_status_idx on public.provider_profiles(status);
+create index if not exists provider_profiles_city_idx on public.provider_profiles(city);
+create index if not exists provider_profiles_services_gin_idx on public.provider_profiles using gin(services);
+
+alter table public.provider_profiles enable row level security;
+revoke all on table public.provider_profiles from anon, authenticated;
+grant select, insert, update, delete on table public.provider_profiles to service_role;
