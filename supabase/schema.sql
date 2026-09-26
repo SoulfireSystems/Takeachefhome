@@ -1,0 +1,163 @@
+-- TakeAChefHome V1 Marketplace Engine
+-- Server-only marketplace data access through Supabase service role.
+
+create extension if not exists pgcrypto;
+
+create table if not exists public.opportunities (
+  id uuid primary key default gen_random_uuid(),
+  category text not null check (category in ('private-chef','catering','meal-prep','food-truck','experience','class','kitchen-space','cold-storage')),
+  title text not null,
+  description text not null,
+  city text not null,
+  state text,
+  event_date date,
+  guest_count integer check (guest_count is null or guest_count > 0),
+  budget_min integer check (budget_min is null or budget_min >= 0),
+  budget_max integer check (budget_max is null or budget_max >= 0),
+  client_name text not null,
+  client_email text not null,
+  client_phone text,
+  status text not null default 'open' check (status in ('open','responses-received','booked','closed')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  check (budget_min is null or budget_max is null or budget_max >= budget_min)
+);
+
+create table if not exists public.responses (
+  id uuid primary key default gen_random_uuid(),
+  opportunity_id uuid not null references public.opportunities(id) on delete cascade,
+  provider_name text not null,
+  provider_email text not null,
+  provider_phone text,
+  profile_url text,
+  message text not null,
+  quote_amount integer check (quote_amount is null or quote_amount >= 0),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists opportunities_created_at_idx on public.opportunities(created_at desc);
+create index if not exists opportunities_city_idx on public.opportunities(city);
+create index if not exists opportunities_category_idx on public.opportunities(category);
+create index if not exists opportunities_status_idx on public.opportunities(status);
+create index if not exists responses_opportunity_id_idx on public.responses(opportunity_id);
+
+alter table public.opportunities enable row level security;
+alter table public.responses enable row level security;
+
+-- Do not expose marketplace records directly to anonymous browser clients.
+-- All public reads/writes flow through our Next.js server routes.
+revoke all on table public.opportunities from anon, authenticated;
+revoke all on table public.responses from anon, authenticated;
+
+-- Supabase changed Data API defaults in 2026, so explicitly grant the
+-- server-side service role the privileges our marketplace engine requires.
+grant select, insert, update, delete on table public.opportunities to service_role;
+grant select, insert, update, delete on table public.responses to service_role;
+
+-- Defense in depth: if these tables are ever granted to browser roles later,
+-- only open marketplace opportunities may be selected.
+drop policy if exists "public read open opportunities" on public.opportunities;
+create policy "public read open opportunities"
+on public.opportunities
+for select
+to anon, authenticated
+using (status in ('open','responses-received'));
+
+-- No browser insert/update/delete policies are intentionally provided.
+-- Responses remain server-write only and are never publicly readable.
+
+
+-- Provider directory: client-facing supply side of the marketplace.
+create table if not exists public.provider_profiles (
+  id uuid primary key default gen_random_uuid(),
+  display_name text not null,
+  professional_type text not null check (professional_type in ('chef','caterer','meal-prep','food-truck','instructor','culinary-business')),
+  services text[] not null default '{}',
+  city text not null,
+  state text,
+  bio text not null,
+  years_experience integer check (years_experience is null or years_experience >= 0),
+  starting_price integer check (starting_price is null or starting_price >= 0),
+  profile_image_url text,
+  website_url text,
+  instagram_url text,
+  contact_name text not null,
+  contact_email text not null,
+  contact_phone text,
+  verified boolean not null default false,
+  status text not null default 'pending' check (status in ('pending','active','inactive','rejected')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists provider_profiles_status_idx on public.provider_profiles(status);
+create index if not exists provider_profiles_city_idx on public.provider_profiles(city);
+create index if not exists provider_profiles_services_gin_idx on public.provider_profiles using gin(services);
+
+alter table public.provider_profiles enable row level security;
+revoke all on table public.provider_profiles from anon, authenticated;
+grant select, insert, update, delete on table public.provider_profiles to service_role;
+
+
+-- Talent jobs + ALL DAY shift engine.
+create table if not exists public.talent_opportunities (
+  id uuid primary key default gen_random_uuid(),
+  opportunity_type text not null check (opportunity_type in ('job','shift')),
+  role text not null,
+  company_name text not null,
+  city text not null,
+  state text,
+  work_date date,
+  start_time time,
+  end_time time,
+  pay_type text check (pay_type in ('hourly','flat','salary','daily')),
+  pay_min integer check (pay_min is null or pay_min >= 0),
+  pay_max integer check (pay_max is null or pay_max >= 0),
+  description text not null,
+  contact_name text not null,
+  contact_email text not null,
+  contact_phone text,
+  status text not null default 'open' check (status in ('open','filled','closed')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  check (pay_min is null or pay_max is null or pay_max >= pay_min)
+);
+
+create table if not exists public.talent_applications (
+  id uuid primary key default gen_random_uuid(),
+  opportunity_id uuid not null references public.talent_opportunities(id) on delete cascade,
+  applicant_name text not null,
+  applicant_email text not null,
+  applicant_phone text,
+  profile_url text,
+  message text not null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists talent_opportunities_type_idx on public.talent_opportunities(opportunity_type);
+create index if not exists talent_opportunities_status_idx on public.talent_opportunities(status);
+create index if not exists talent_opportunities_city_idx on public.talent_opportunities(city);
+create index if not exists talent_opportunities_created_at_idx on public.talent_opportunities(created_at desc);
+create index if not exists talent_applications_opportunity_idx on public.talent_applications(opportunity_id);
+
+alter table public.talent_opportunities enable row level security;
+alter table public.talent_applications enable row level security;
+revoke all on table public.talent_opportunities from anon, authenticated;
+revoke all on table public.talent_applications from anon, authenticated;
+grant select, insert, update, delete on table public.talent_opportunities to service_role;
+grant select, insert, update, delete on table public.talent_applications to service_role;
+
+
+-- Public provider profile photos. Writes are server-only through the marketplace API.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'provider-media',
+  'provider-media',
+  true,
+  5242880,
+  array['image/jpeg','image/png','image/webp']
+)
+on conflict (id) do update
+set public = excluded.public,
+    file_size_limit = excluded.file_size_limit,
+    allowed_mime_types = excluded.allowed_mime_types;
