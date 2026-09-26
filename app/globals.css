@@ -2,15 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Your custom base styling */
-html, body {
-  height: 100%;
-  background-color: #0f172a;
-  color: #e2e8f0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+:root {
+  --ink: #171310;
+  --paper: #F3EEE2;
+  --paper-light: #F8F4EA;
+  --blue: #135DFF;
+  --gold: #D4A64F;
+  --cream: #F3D37C;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
-  color: #3b82f6;
+  color: inherit;
   text-decoration: none;
+}
+
+::selection {
+  background: var(--blue);
+  color: white;
+}
+
+.exchange-paper {
+  background-color: var(--paper-light);
+  background-image:
+    linear-gradient(rgba(23,19,16,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23,19,16,.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.exchange-rule {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(23,19,16,.25) 0,
+    rgba(23,19,16,.25) 8px,
+    transparent 8px,
+    transparent 14px
+  );
+}
+
+.exchange-stamp {
+  transform: rotate(-2deg);
+}
+
+.exchange-stamp-right {
+  transform: rotate(2deg);
+}
+
+.exchange-serif {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.exchange-shadow {
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.exchange-shadow-blue {
+  box-shadow: 6px 6px 0 var(--blue);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .exchange-lift {
+    transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  }
+
+  .exchange-lift:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
 }
