@@ -7,9 +7,9 @@ async function getTalentCounts(){
   try{
     const supabase=getSupabaseServer();
     const [jobs,shifts,profiles]=await Promise.all([
-      supabase.from('talent_opportunities').select('id',{count:'exact',head:true}).eq('opportunity_type','job').eq('status','open'),
-      supabase.from('talent_opportunities').select('id',{count:'exact',head:true}).eq('opportunity_type','shift').eq('status','open'),
-      supabase.from('provider_profiles').select('id',{count:'exact',head:true}).eq('status','active'),
+      supabase.from('talent_opportunities').select('id',{count:'exact',head:true}).eq('opportunity_type','job').eq('status','open').gt('expires_at',new Date().toISOString()),
+      supabase.from('talent_opportunities').select('id',{count:'exact',head:true}).eq('opportunity_type','shift').eq('status','open').gte('work_date',new Date().toISOString().slice(0,10)),
+      supabase.from('crew_profiles').select('id',{count:'exact',head:true}).eq('status','active'),
     ]);
     return {
       jobs:jobs.count??0,
@@ -43,8 +43,8 @@ export default async function TalentPage(){
           <nav className="flex flex-wrap gap-2 text-xs font-black uppercase tracking-wide">
             <Link href="/talent/jobs" className="border-2 border-[#171310] bg-white px-4 py-3 hover:bg-[#E9F0FF]">Find Jobs</Link>
             <Link href="/talent/all-day" className="border-2 border-[#171310] bg-white px-4 py-3 hover:bg-[#E9F0FF]">ALL DAY</Link>
-            <Link href="/talent/post" className="border-2 border-[#171310] bg-[#135DFF] px-4 py-3 text-white">Post Work</Link>
-            <Link href="/talent/join" className="border-2 border-[#171310] bg-[#D4A64F] px-4 py-3">Get Listed</Link>
+            <Link href="/talent/post-job" className="border-2 border-[#171310] bg-[#135DFF] px-4 py-3 text-white">Post Job</Link>\n            <Link href="/talent/all-day/post" className="border-2 border-[#171310] bg-[#171310] px-4 py-3 text-white">Post Shift</Link>
+            <Link href="/talent/join" className="border-2 border-[#171310] bg-[#D4A64F] px-4 py-3">Create Crew Pass</Link>
           </nav>
         </div>
       </header>
@@ -59,7 +59,7 @@ export default async function TalentPage(){
             <div className="mt-7 grid max-w-xl grid-cols-3 border-l border-t border-white/25">
               <div className="border-b border-r border-white/25 p-3"><strong className="block text-2xl">{counts.available?counts.jobs:'—'}</strong><span className="text-[9px] font-black uppercase tracking-wide text-white/45">Open jobs</span></div>
               <div className="border-b border-r border-white/25 p-3"><strong className="block text-2xl">{counts.available?counts.shifts:'—'}</strong><span className="text-[9px] font-black uppercase tracking-wide text-white/45">Open shifts</span></div>
-              <div className="border-b border-r border-white/25 p-3"><strong className="block text-2xl">{counts.available?counts.profiles:'—'}</strong><span className="text-[9px] font-black uppercase tracking-wide text-white/45">Active pros</span></div>
+              <div className="border-b border-r border-white/25 p-3"><strong className="block text-2xl">{counts.available?counts.profiles:'—'}</strong><span className="text-[9px] font-black uppercase tracking-wide text-white/45">Active crew</span></div>
             </div>
           </div>
 
@@ -77,7 +77,7 @@ export default async function TalentPage(){
             <Link href="/talent/join" className="p-5 hover:bg-white/5">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#D4A64F]">03</span>
               <strong className="mt-2 block text-2xl font-black">Get Listed →</strong>
-              <span className="mt-1 block text-sm text-white/50">Create one professional profile clients can discover.</span>
+              <span className="mt-1 block text-sm text-white/50">Create your worker identity for jobs and ALL DAY shifts.</span>
             </Link>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default async function TalentPage(){
           <div className="border-b-2 border-r-2 border-[#171310] p-5">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#135DFF]">Profiles</p>
             <h3 className="mt-2 text-xl font-black">One identity across the exchange.</h3>
-            <p className="mt-2 text-sm leading-6 text-black/55">Your professional profile is the bridge between client services, jobs and shifts.</p>
+            <p className="mt-2 text-sm leading-6 text-black/55">Crew Pass is workforce identity. Customer-facing Pro Cards stay on The Roster.</p>
           </div>
         </div>
       </section>
