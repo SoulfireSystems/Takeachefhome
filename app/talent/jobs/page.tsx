@@ -8,9 +8,10 @@ async function load(city: string) {
     const supabase = getSupabaseServer();
     let query = supabase
       .from('talent_opportunities')
-      .select('id,role,company_name,city,state,pay_type,pay_min,pay_max,description,created_at')
+      .select('id,role,company_name,city,state,employment_type,pay_type,pay_min,pay_max,description,created_at,expires_at')
       .eq('opportunity_type', 'job')
-      .eq('status', 'open');
+      .eq('status', 'open')
+      .gt('expires_at', new Date().toISOString());
 
     if (city) query = query.ilike('city', '%' + city.slice(0, 80) + '%');
 
@@ -32,7 +33,7 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
       <header className="border-b-2 border-[#171310] bg-[#171310] text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
           <Link href="/talent" className="text-2xl font-black">TakeAChefHome / <span className="text-[#D4A64F]">Talent</span></Link>
-          <Link href="/talent/post" className="border-2 border-white bg-[#135DFF] px-4 py-2 text-sm font-black">Post Work</Link>
+          <Link href="/talent/post-job" className="border-2 border-white bg-[#135DFF] px-4 py-2 text-sm font-black">Post a Job</Link>
         </div>
       </header>
 
