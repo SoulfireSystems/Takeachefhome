@@ -50,7 +50,7 @@ export default async function ProvidersPage({searchParams}:{searchParams:Promise
       <div className="border-b-2 border-[#171310] bg-[#171310] text-white">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em]">
           <span className="text-white/45">TakeAChefHome / Pro Cards</span>
-          <Link href="/talent/join" className="text-[#D4A64F]">Get your card →</Link>
+          <Link href="/providers/join" className="text-[#D4A64F]">Get your card →</Link>
         </div>
       </div>
 
@@ -103,7 +103,7 @@ export default async function ProvidersPage({searchParams}:{searchParams:Promise
             <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#135DFF]">Active cards</p>
             <h2 className="text-3xl font-black tracking-[-0.045em]">{available?providers.length+' on the roster':'Roster connection pending'}</h2>
           </div>
-          <Link href="/talent/join" className="border-b-2 border-[#171310] pb-1 text-xs font-black uppercase tracking-[0.12em]">Food professional? Get listed →</Link>
+          <Link href="/providers/join" className="border-b-2 border-[#171310] pb-1 text-xs font-black uppercase tracking-[0.12em]">Food professional? Get listed →</Link>
         </div>
 
         {!available?(
@@ -114,7 +114,7 @@ export default async function ProvidersPage({searchParams}:{searchParams:Promise
               <h3 className="text-2xl font-black">The inaugural set is empty.</h3>
               <p className="mt-2 text-sm text-black/55">Your first five professionals become cards #001–#005. No placeholders.</p>
             </div>
-            <Link href="/talent/join" className="border-2 border-[#171310] bg-[#D4A64F] px-5 py-3 text-sm font-black uppercase shadow-[3px_3px_0_#171310]">Create First Card →</Link>
+            <Link href="/providers/join" className="border-2 border-[#171310] bg-[#D4A64F] px-5 py-3 text-sm font-black uppercase shadow-[3px_3px_0_#171310]">Create First Card →</Link>
           </div>
         ):(
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
