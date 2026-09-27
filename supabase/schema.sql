@@ -130,7 +130,20 @@ create table if not exists public.talent_opportunities (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   expires_at timestamptz,
-  check (pay_min is null or pay_max is null or pay_max >= pay_min)
+  check (pay_min is null or pay_max is null or pay_max >= pay_min),
+  constraint talent_job_lifecycle_check check (
+    opportunity_type <> 'job' or expires_at is not null
+  ),
+  constraint talent_shift_callsheet_check check (
+    opportunity_type <> 'shift'
+    or (
+      work_date is not null
+      and start_time is not null
+      and end_time is not null
+      and workers_needed is not null
+      and workers_needed > 0
+    )
+  )
 );
 
 create table if not exists public.talent_applications (
