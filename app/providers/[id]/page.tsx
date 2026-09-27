@@ -17,7 +17,7 @@ async function loadProvider(id:string){
     const supabase=getSupabaseServer();
     const {data,error}=await supabase
       .from('provider_profiles')
-      .select('id,card_number,display_name,professional_type,services,city,state,bio,years_experience,starting_price,profile_image_url,website_url,instagram_url,verified,status')
+      .select('id,card_number,display_name,professional_title,professional_type,services,city,state,bio,years_experience,starting_price,profile_image_url,website_url,instagram_url,verified,status')
       .eq('id',id)
       .eq('status','active')
       .single();
@@ -72,7 +72,7 @@ export default async function ProviderPage({params}:{params:Promise<{id:string}>
                 )}
 
                 <div className="absolute inset-x-4 bottom-4 border-2 border-[#171310] bg-[#135DFF] px-4 py-3 text-white">
-                  <p className="text-[8px] font-black uppercase tracking-[0.2em] text-white/65">{provider.professional_type?.replaceAll('-',' ')}</p>
+                  <p className="text-[8px] font-black uppercase tracking-[0.2em] text-white/65">{provider.professional_title||provider.professional_type?.replaceAll('-',' ')}</p>
                   <h1 className="mt-1 text-3xl font-black leading-none tracking-[-0.055em]">{provider.display_name}</h1>
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default async function ProviderPage({params}:{params:Promise<{id:string}>
             <div className="grid border-x-2 border-b-2 border-[#171310] bg-white sm:grid-cols-3">
               <div className="border-b-2 border-[#171310] p-4 sm:border-b-0 sm:border-r-2">
                 <p className="text-[8px] font-black uppercase tracking-[0.2em] text-black/40">Position</p>
-                <p className="mt-1 text-lg font-black capitalize">{provider.professional_type?.replaceAll('-',' ')}</p>
+                <p className="mt-1 text-lg font-black capitalize">{provider.professional_title||provider.professional_type?.replaceAll('-',' ')}</p>
               </div>
               <div className="border-b-2 border-[#171310] p-4 sm:border-b-0 sm:border-r-2">
                 <p className="text-[8px] font-black uppercase tracking-[0.2em] text-black/40">Experience</p>
