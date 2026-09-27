@@ -201,3 +201,168 @@ Track:
 - gross booking value when payments are added
 
 Pages shipped are not the scoreboard. Marketplace activity is.
+
+
+## Visual Metaphors by Marketplace Lane
+
+TakeAChefHome does **not** use one generic card component for every category. Each lane borrows a familiar visual language that matches how people already think about that kind of purchase or work.
+
+### The Roster — provider cards
+
+Used for:
+- Private Chefs
+- Catering companies / teams
+- Food Trucks
+
+Visual language:
+- premium trading card / baseball card
+- serial card number
+- strong portrait or vehicle/team image
+- role / business type
+- home market
+- verified mark
+- factual stats only
+- services
+- experience
+- starting minimum
+
+Private Chef cards emphasize the individual.
+Catering cards emphasize the team/business and event capacity.
+Food Truck cards emphasize the truck, cuisine, event fit and service radius.
+
+Do not use invented ratings, fake scores or gamified skill numbers.
+
+### The Weekly — meal prep
+
+Meal Prep uses a **weekly meal sheet / subscription plan / grocery circular** visual language.
+
+Primary information:
+- meals per week
+- portions
+- cuisine style
+- dietary options
+- delivery or pickup days
+- service market
+- weekly starting price
+- rotating menu or sample menu
+
+The product is the plan, not the provider portrait.
+
+### The Experience Guide — culinary experiences
+
+Experiences use a **ticket / event poster / showbill** visual language.
+
+Primary information:
+- experience title
+- host
+- city
+- date or availability
+- duration
+- capacity
+- private / ticketed / group
+- starting price
+
+The interface should feel like discovering something to attend.
+
+### The Class Catalog — cooking classes
+
+Cooking Classes use a **course catalog / workshop card / recipe index card** visual language.
+
+Primary information:
+- class title
+- level
+- duration
+- class size
+- format
+- what guests will make or learn
+- what is included
+- price
+
+The interface should feel educational without resembling a generic school website.
+
+### ALL DAY — shift workers
+
+ALL DAY uses a **crew credential + timecard + call sheet** visual language.
+
+Shift workers do not get the same trading-card treatment as client-facing chefs/caterers.
+
+#### Worker identity: Crew Pass
+
+Each worker has a compact **Crew Pass** inspired by an event credential or union work card.
+
+Display only factual information:
+- name / preferred work name
+- primary roles
+- home market
+- travel radius or service area
+- availability status
+- years experience, when supplied
+- certifications, when verified
+- transportation status, when voluntarily supplied and appropriate
+- profile photo
+- completed-platform shifts, once real data exists
+- last active / availability update, once real data exists
+
+Possible role marks:
+- PREP
+- LINE
+- BANQUET
+- SERVER
+- BAR
+- DISH
+- LEAD
+- RUNNER
+- SETUP
+- BREAKDOWN
+
+Do not invent a reliability score, star rating, speed score or other gamified worker ranking.
+
+#### Shift opportunity: Call Sheet
+
+Every ALL DAY shift is presented like a **call sheet / shift ticket**.
+
+Primary information:
+- role needed
+- date
+- call time
+- end time
+- market / venue area
+- pay
+- number of workers needed
+- uniform
+- key duties
+- requirements
+- parking / arrival instructions when appropriate
+- status: OPEN / FILLING / FILLED
+
+The visual hierarchy should make date, call time and pay readable in seconds.
+
+#### Worker-to-shift flow
+
+Worker opens ALL DAY
+→ scans Call Sheets
+→ opens a shift
+→ sees role, time, pay and requirements
+→ applies / claims interest
+→ operator reviews Crew Pass
+→ operator confirms worker
+→ shift moves toward FILLED
+→ completed work becomes factual marketplace history
+
+The design goal is to feel closer to **back-of-house dispatch** than a generic jobs website.
+
+### Marketplace visual map
+
+- Private Chef → Player Card
+- Catering → Team Card
+- Food Truck → Truck Card
+- Meal Prep → Weekly Meal Sheet
+- Experience → Ticket / Poster
+- Cooking Class → Course / Recipe Card
+- Shift Worker → Crew Pass
+- Shift Opportunity → Call Sheet
+- The Board → Classified Exchange Board
+- Kitchen Exchange / Cold Grid → Property / Infrastructure Listing
+- Chef Gear → Equipment Classified
+
+Familiar behavior, distinct TakeAChefHome identity.
