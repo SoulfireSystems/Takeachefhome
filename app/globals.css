@@ -87,3 +87,48 @@ a {
     box-shadow: 5px 5px 0 var(--ink);
   }
 }
+
+
+/* Culinary trading-card system */
+.pro-card {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background: var(--paper-light);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.pro-card::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 7px;
+  z-index: 20;
+  border: 1px solid rgba(212,166,79,.95);
+}
+
+.pro-card-foil {
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.55), transparent 24%, rgba(212,166,79,.22) 48%, transparent 68%),
+    var(--gold);
+}
+
+.pro-card-number {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.04em;
+}
+
+.pro-card-stat {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pro-card {
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .pro-card:hover {
+    transform: translateY(-5px) rotate(-.35deg);
+    box-shadow: 10px 12px 0 var(--ink);
+  }
+}
