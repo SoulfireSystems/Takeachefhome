@@ -109,9 +109,16 @@ create table if not exists public.talent_opportunities (
   company_name text not null,
   city text not null,
   state text,
+  employment_type text check (employment_type is null or employment_type in ('full-time','part-time','seasonal','temporary','contract')),
   work_date date,
   start_time time,
   end_time time,
+  workers_needed integer check (workers_needed is null or workers_needed > 0),
+  venue_area text,
+  uniform text,
+  requirements text,
+  arrival_instructions text,
+  parking_notes text,
   pay_type text check (pay_type in ('hourly','flat','salary','daily')),
   pay_min integer check (pay_min is null or pay_min >= 0),
   pay_max integer check (pay_max is null or pay_max >= 0),
@@ -122,6 +129,7 @@ create table if not exists public.talent_opportunities (
   status text not null default 'open' check (status in ('open','filled','closed')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
+  expires_at timestamptz,
   check (pay_min is null or pay_max is null or pay_max >= pay_min)
 );
 
@@ -140,6 +148,7 @@ create index if not exists talent_opportunities_type_idx on public.talent_opport
 create index if not exists talent_opportunities_status_idx on public.talent_opportunities(status);
 create index if not exists talent_opportunities_city_idx on public.talent_opportunities(city);
 create index if not exists talent_opportunities_created_at_idx on public.talent_opportunities(created_at desc);
+create index if not exists talent_opportunities_expires_at_idx on public.talent_opportunities(expires_at);
 create index if not exists talent_applications_opportunity_idx on public.talent_applications(opportunity_id);
 
 alter table public.talent_opportunities enable row level security;
