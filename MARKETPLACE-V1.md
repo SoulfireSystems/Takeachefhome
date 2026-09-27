@@ -545,3 +545,48 @@ Cross-over links should be deliberate doors:
 - Talent side → "Need food service? Client Marketplace"
 
 Do not blend both navigation systems into one giant menu.
+
+
+## Identity Is Product Architecture
+
+The visual identities are permanent marketplace concepts, not temporary page decoration.
+
+### Customer-facing identity
+
+- Private Chef → **Pro Card**
+- Catering company/team → **Team Card**
+- Food Truck → **Truck Card**
+
+These live in the customer-provider world and are designed for hiring/buying decisions.
+
+The card serial number is a stable TakeAChefHome marketplace identifier. It is not a rating or ranking.
+
+Roster onboarding lives at:
+- `/providers/join`
+
+### Workforce identity
+
+Shift workers use **Crew Pass**, not Pro Cards.
+
+Crew Pass is designed for staffing decisions and may contain workforce-only facts such as:
+- working roles
+- availability
+- travel radius
+- verified certifications
+- voluntarily supplied transportation status
+- real completed-platform shift history when that data exists
+
+Crew Pass onboarding lives at:
+- `/talent/join`
+
+### Linked identity without mixed presentation
+
+A person may eventually have both a Pro Card and Crew Pass.
+
+The records may be linked underneath for account identity, but:
+- Pro Card data does not become a shift-worker profile automatically
+- Crew Pass data does not become customer-facing commercial copy automatically
+- customer contacts do not see workforce-only fields
+- operators staffing shifts do not receive customer-marketplace private fields
+
+The two worlds share identity infrastructure, not presentation.
