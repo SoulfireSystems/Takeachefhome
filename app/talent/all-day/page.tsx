@@ -8,9 +8,10 @@ async function load(city: string) {
     const supabase = getSupabaseServer();
     let query = supabase
       .from('talent_opportunities')
-      .select('id,role,company_name,city,state,work_date,start_time,end_time,pay_type,pay_min,pay_max,created_at')
+      .select('id,role,company_name,city,state,work_date,start_time,end_time,workers_needed,venue_area,pay_type,pay_min,pay_max,created_at')
       .eq('opportunity_type', 'shift')
-      .eq('status', 'open');
+      .eq('status', 'open')
+      .gte('work_date', new Date().toISOString().slice(0,10));
 
     if (city) query = query.ilike('city', '%' + city.slice(0, 80) + '%');
 
@@ -32,7 +33,7 @@ export default async function AllDayPage({ searchParams }: { searchParams: Promi
       <header className="border-b border-white/20">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
           <Link href="/talent" className="text-2xl font-black">TakeAChefHome / <span className="text-[#D4A64F]">Talent</span></Link>
-          <Link href="/talent/post?type=shift" className="border-2 border-white bg-[#135DFF] px-4 py-2 text-sm font-black">Post Shift</Link>
+          <Link href="/talent/all-day/post" className="border-2 border-white bg-[#135DFF] px-4 py-2 text-sm font-black">Post Shift</Link>
         </div>
       </header>
 
