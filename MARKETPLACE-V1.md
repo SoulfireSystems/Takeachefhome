@@ -366,3 +366,182 @@ The design goal is to feel closer to **back-of-house dispatch** than a generic j
 - Chef Gear → Equipment Classified
 
 Familiar behavior, distinct TakeAChefHome identity.
+
+
+## Hard Customer / Provider Separation
+
+TakeAChefHome has two distinct operating worlds. They share marketplace infrastructure underneath, but they do **not** share navigation language, posting forms, dashboards or calls to action.
+
+### Customer world
+
+Routes and actions are client-facing:
+- `/`
+- `/providers`
+- `/private-chef`
+- `/catering`
+- `/board`
+- `/post-a-lead`
+- `/kitchens`
+- `/shop`
+
+Customer intent:
+- hire food service
+- find a provider
+- post a service request
+- find kitchen / cold-storage infrastructure
+- browse gear
+
+Customer language:
+- Find a Pro
+- Post a Request
+- Find Space
+- Browse The Board
+
+The customer side must never ask someone to "post a shift," "apply for work," or use workforce terminology as a primary action.
+
+### Provider / workforce world
+
+Routes and actions are Talent-facing:
+- `/talent`
+- `/talent/jobs`
+- `/talent/all-day`
+- `/talent/join`
+- dedicated job posting flow
+- dedicated ALL DAY shift posting flow
+- worker application / Crew Pass flows
+
+Provider/workforce intent:
+- find work
+- pick up a shift
+- post a culinary job
+- staff an immediate shift
+- maintain a professional identity / Crew Pass
+
+Talent language:
+- Find Jobs
+- ALL DAY
+- Post a Job
+- Post a Shift
+- Crew Pass
+- Call Sheet
+- Crew Lineup
+
+A client service request and a staffing request are different objects and must never use the same posting form.
+
+## Dedicated posting flows
+
+### Customer request form
+
+Customer Post Request collects:
+- food-service / infrastructure category
+- event or service title
+- city / state
+- date
+- guest count when relevant
+- budget
+- service details
+- private customer contact information
+
+It creates a marketplace `opportunity`.
+
+### Job posting form
+
+A regular culinary job is an employment-style listing.
+
+Required information:
+- role
+- company / operator
+- city / state
+- employment type when added
+- pay type and pay range
+- job description
+- requirements
+- private hiring contact
+
+It creates a Talent `job`.
+
+### ALL DAY shift posting form
+
+A shift is operational dispatch, not a mini job ad.
+
+The Call Sheet must prioritize:
+- role
+- number of workers needed
+- work date
+- call time
+- end time
+- pay / rate
+- market / venue area
+- key duties
+- uniform
+- requirements / certifications
+- arrival instructions
+- parking / access notes when applicable
+- private operator contact
+
+It creates a Talent `shift`.
+
+Shift posting should feel fast enough that a caterer or operator can post an urgent crew need from a phone in a few minutes.
+
+## Listing Life / Expiration Rules
+
+Dead listings damage marketplace trust. Work inventory must age out automatically.
+
+### Regular jobs
+
+- Default public life: **30 days**
+- Job receives an explicit `expires_at`
+- At expiration it stops appearing in Find Jobs
+- Employer can renew only by confirming the role is still open
+- Renewal creates another limited listing window; it does not make jobs permanent
+- Filled or closed jobs disappear immediately from open-job results
+
+V1 default: 30 days. We can later offer shorter or paid extended windows without changing the trust rule.
+
+### ALL DAY shifts
+
+- Shift requires a work date
+- Shift should also require call time for normal publication
+- It remains discoverable only while operationally relevant
+- Once the shift date has passed, it disappears from the open ALL DAY board automatically
+- If marked FILLED or CLOSED, it disappears immediately
+- Once time-zone-aware expiration is implemented, the precise target is shortly after scheduled shift end rather than end-of-day
+
+V1 safety rule: never display yesterday's shift as OPEN.
+
+### Customer opportunities
+
+Customer/event requests are separately governed by their event/service date and status.
+- booked / closed requests leave the open Board immediately
+- dated requests should stop appearing as current demand after the relevant service date
+- undated/flexible requests require later freshness rules rather than living forever
+
+## Identity boundary
+
+One human or business may participate in more than one lane, but the context presented to the viewer remains separate.
+
+Example:
+- Client marketplace: culinary Pro Card / Team Card / Truck Card
+- Talent: Crew Pass
+- Operator view: Crew Lineup
+
+The underlying identity may eventually be shared, but customer-facing commercial presentation must not leak workforce-only information, and workforce presentation must not expose private client-marketplace details.
+
+## Navigation boundary
+
+A user should always know which world they are in.
+
+Customer masthead:
+**TakeAChefHome.com / The Culinary Exchange**
+
+Talent masthead:
+**TakeAChefHome / Talent**
+
+ALL DAY masthead:
+**TakeAChefHome / Talent / ALL DAY**
+
+Cross-over links should be deliberate doors:
+- Customer side → "Work in food? Enter Talent"
+- Talent side → "Need food service? Client Marketplace"
+
+Do not blend both navigation systems into one giant menu.
