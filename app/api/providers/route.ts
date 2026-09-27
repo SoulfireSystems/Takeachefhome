@@ -74,6 +74,7 @@ export async function POST(req:Request){
 
     const profile={
       display_name:displayName,
+      professional_title:clean(formData.get('professional_title'),120)||null,
       professional_type,
       services,
       city,
@@ -93,7 +94,7 @@ export async function POST(req:Request){
     const {error}=await supabase.from('provider_profiles').insert(profile);
     if(error) throw error;
 
-    return NextResponse.redirect(new URL('/talent/join?submitted=1',req.url),303);
+    return NextResponse.redirect(new URL('/providers/join?submitted=1',req.url),303);
   }catch(error){
     console.error('CREATE PROVIDER PROFILE FAILED',error);
 
