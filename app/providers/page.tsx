@@ -23,7 +23,7 @@ async function loadProviders(service:string,city:string){
     const supabase=getSupabaseServer();
     let query=supabase
       .from('provider_profiles')
-      .select('id,card_number,display_name,professional_type,services,city,state,bio,years_experience,starting_price,profile_image_url,verified,created_at')
+      .select('id,card_number,display_name,professional_title,professional_type,services,city,state,bio,years_experience,starting_price,profile_image_url,verified,created_at')
       .eq('status','active');
 
     if(service&&allowedServices.has(service)) query=query.contains('services',[service]);
@@ -137,7 +137,7 @@ export default async function ProvidersPage({searchParams}:{searchParams:Promise
                   )}
 
                   <div className="absolute inset-x-3 bottom-3 border-2 border-[#171310] bg-[#135DFF] px-3 py-2 text-white">
-                    <p className="text-[8px] font-black uppercase tracking-[0.18em] text-white/65">{provider.professional_type?.replaceAll('-',' ')}</p>
+                    <p className="text-[8px] font-black uppercase tracking-[0.18em] text-white/65">{provider.professional_title||provider.professional_type?.replaceAll('-',' ')}</p>
                     <h3 className="mt-0.5 text-2xl font-black leading-none tracking-[-0.05em]">{provider.display_name}</h3>
                   </div>
                 </div>
