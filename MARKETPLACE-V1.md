@@ -590,3 +590,57 @@ The records may be linked underneath for account identity, but:
 - operators staffing shifts do not receive customer-marketplace private fields
 
 The two worlds share identity infrastructure, not presentation.
+
+
+## Pro Card Back — Career Record
+
+The front of a Pro Card is collectible and fast to scan. The back is the professional's structured career record.
+
+### Front
+
+Primary elements:
+- stable card number
+- card-facing public name
+- professional title
+- cuisine / style when relevant
+- portrait / team / truck image
+- home market
+- verified mark
+- factual stat strip
+- service tags
+
+The card-facing name may differ from the formal profile record name.
+Example:
+- card face: **Chef Gregg**
+- official record: **Greggory Miller**
+
+### Back
+
+Every mature Pro Card may use these sections:
+
+**THE STORY**
+Narrative career biography and culinary point of view.
+
+**THE NUMBERS**
+Only factual career measurements such as:
+- years of experience
+- largest event / service scale
+- graduation year
+- number of bookable service lanes
+
+**CAREER TAPE**
+Scannable named career highlights, major roles, assignments, events, residencies or recognized achievements.
+
+**THE RANGE**
+Areas of professional experience and specialties.
+
+**CREDENTIALS**
+Education, certifications and relevant professional qualifications.
+
+Optional:
+- markets worked
+- external website / social links
+- starting minimum
+- direct Request This Pro action
+
+Do not convert Career Tape into rankings or subjective scores. The trading-card metaphor organizes real career facts; it does not manufacture performance ratings.
