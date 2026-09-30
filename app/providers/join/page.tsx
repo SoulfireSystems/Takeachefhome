@@ -40,15 +40,14 @@ export default async function JoinTalentPage({ searchParams }:{ searchParams:Pro
 
               <div className="grid gap-4 md:grid-cols-2">
                 <label className="grid gap-1 text-sm font-black">Professional title<input name="professional_title" maxLength={120} placeholder="Executive Chef" className="border-2 border-[#171310] px-3 py-3 font-normal" /></label>
+                <label className="grid gap-1 text-sm font-black">Cuisine / style<input name="cuisine_style" maxLength={160} placeholder="Global Soul Cuisine" className="border-2 border-[#171310] px-3 py-3 font-normal" /></label>
               </div>
 
               <label className="grid gap-1 text-sm font-black">Professional type
-                  <select name="professional_type" className="border-2 border-[#171310] bg-white px-3 py-3 font-normal">
-                    <option value="chef">Chef</option><option value="caterer">Caterer</option><option value="meal-prep">Meal Prep</option><option value="food-truck">Food Truck</option><option value="instructor">Instructor</option><option value="culinary-business">Culinary Business</option>
-                  </select>
-                </label>
-                <label className="grid gap-1 text-sm font-black">Cuisine / style<input name="cuisine_style" maxLength={160} placeholder="Global Soul Cuisine" className="border-2 border-[#171310] px-3 py-3 font-normal" /></label>
-              </div>
+                <select name="professional_type" className="border-2 border-[#171310] bg-white px-3 py-3 font-normal">
+                  <option value="chef">Chef</option><option value="caterer">Caterer</option><option value="meal-prep">Meal Prep</option><option value="food-truck">Food Truck</option><option value="instructor">Instructor</option><option value="culinary-business">Culinary Business</option>
+                </select>
+              </label>
 
               <fieldset>
                 <legend className="text-sm font-black">Services</legend>
