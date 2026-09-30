@@ -74,8 +74,10 @@ export async function POST(req:Request){
 
     const profile={
       display_name:displayName,
+      card_name:clean(formData.get('card_name'),120)||null,
       professional_title:clean(formData.get('professional_title'),120)||null,
       professional_type,
+      cuisine_style:clean(formData.get('cuisine_style'),160)||null,
       services,
       city,
       state:clean(formData.get('state'),50)||null,
