@@ -32,7 +32,7 @@ export async function POST(req: Request) {
       !emailLooksValid(email) ||
       !phone ||
       !primaryRole ||
-      !Number.isFinite(yearsExperience) ||
+      !Number.isInteger(yearsExperience) ||
       yearsExperience < 0 ||
       yearsExperience > 60 ||
       !termsAccepted;
@@ -43,9 +43,11 @@ export async function POST(req: Request) {
 
     const supabase = getSupabaseAdmin();
     const { data: shift, error: shiftError } = await supabase
-      .from("prep_shifts")
-      .select("id, status, shift_date")
+      .from("talent_opportunities")
+      .select("id, status, work_date")
       .eq("id", shiftId)
+      .eq("marketplace_lane", "prep_your_shift")
+      .eq("opportunity_type", "shift")
       .eq("status", "open")
       .maybeSingle();
 
@@ -54,17 +56,17 @@ export async function POST(req: Request) {
       return NextResponse.redirect(new URL("/prep-your-shift?error=closed", req.url), 303);
     }
 
-    const { error } = await supabase.from("prep_shift_applications").insert({
-      shift_id: shiftId,
-      full_name: fullName,
-      email,
-      phone,
+    const { error } = await supabase.from("talent_applications").insert({
+      opportunity_id: shiftId,
+      applicant_name: fullName,
+      applicant_email: email,
+      applicant_phone: phone,
+      message: availabilityNote || `Available for ${primaryRole} prep work.`,
       primary_role: primaryRole,
-      years_experience: Math.round(yearsExperience),
+      years_experience: yearsExperience,
       food_safety_cert: foodSafetyCert,
-      availability_note: availabilityNote || null,
-      status: "submitted",
       worker_terms_accepted: true,
+      status: "submitted",
     });
 
     if (error) {
