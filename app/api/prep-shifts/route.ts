@@ -18,19 +18,39 @@ export async function GET() {
     const today = new Date().toISOString().slice(0, 10);
 
     const { data, error } = await supabase
-      .from("prep_shifts")
+      .from("talent_opportunities")
       .select(
-        "id, city, state, role_type, shift_date, start_time, end_time, crew_needed, pay_rate, pay_type, duties, urgency, tier, dress_code, created_at",
+        "id, city, state, role, work_date, start_time, end_time, workers_needed, hourly_rate, pay_type, description, urgency, posting_tier, uniform, created_at",
       )
+      .eq("marketplace_lane", "prep_your_shift")
+      .eq("opportunity_type", "shift")
       .eq("status", "open")
-      .gte("shift_date", today)
-      .order("shift_date", { ascending: true })
+      .gte("work_date", today)
+      .order("work_date", { ascending: true })
       .order("start_time", { ascending: true })
       .limit(50);
 
     if (error) throw error;
 
-    return NextResponse.json({ shifts: data ?? [] });
+    const shifts = (data ?? []).map((row) => ({
+      id: row.id,
+      city: row.city,
+      state: row.state,
+      role_type: row.role,
+      shift_date: row.work_date,
+      start_time: row.start_time,
+      end_time: row.end_time,
+      crew_needed: row.workers_needed,
+      pay_rate: row.hourly_rate,
+      pay_type: row.pay_type,
+      duties: row.description,
+      urgency: row.urgency,
+      tier: row.posting_tier,
+      dress_code: row.uniform,
+      created_at: row.created_at,
+    }));
+
+    return NextResponse.json({ shifts });
   } catch (error) {
     console.error("PREP SHIFT GET ERROR", error);
     return NextResponse.json({ shifts: [], error: "Board temporarily unavailable." }, { status: 503 });
@@ -59,11 +79,14 @@ export async function POST(req: Request) {
     const crewNeeded = Number(text(formData.get("crewNeeded")) || "1");
     const payRate = Number(text(formData.get("payRate")));
     const termsAccepted = formData.get("termsAccepted") === "on";
+    const today = new Date().toISOString().slice(0, 10);
 
     const required = [employerName, email, phone, city, state, shiftDate, startTime, endTime, roleType, duties];
     const invalid =
       required.some((value) => !value) ||
       !emailLooksValid(email) ||
+      state.length !== 2 ||
+      shiftDate < today ||
       !Number.isInteger(crewNeeded) ||
       crewNeeded < 1 ||
       crewNeeded > 100 ||
@@ -78,26 +101,32 @@ export async function POST(req: Request) {
     }
 
     const supabase = getSupabaseAdmin();
-    const { error } = await supabase.from("prep_shifts").insert({
-      employer_name: employerName,
-      business_name: businessName || null,
-      contact_email: email,
-      contact_phone: phone,
+    const { error } = await supabase.from("talent_opportunities").insert({
+      opportunity_type: "shift",
+      marketplace_lane: "prep_your_shift",
+      role: roleType,
+      company_name: businessName || employerName,
       city,
       state,
-      shift_date: shiftDate,
+      work_date: shiftDate,
       start_time: startTime,
       end_time: endTime,
-      crew_needed: crewNeeded,
-      role_type: roleType,
-      pay_rate: payRate,
       pay_type: "hourly",
-      duties,
-      dress_code: dressCode || null,
-      notes: notes || null,
-      tier,
-      urgency,
+      pay_min: Math.round(payRate),
+      pay_max: Math.round(payRate),
+      hourly_rate: payRate,
+      description: duties,
+      contact_name: employerName,
+      contact_email: email,
+      contact_phone: phone,
       status: "pending_review",
+      employment_type: "temporary",
+      workers_needed: crewNeeded,
+      venue_area: `${city}, ${state}`,
+      uniform: dressCode || null,
+      requirements: notes || null,
+      urgency,
+      posting_tier: tier,
       poster_terms_accepted: true,
     });
 
