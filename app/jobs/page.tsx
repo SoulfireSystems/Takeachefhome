@@ -17,22 +17,15 @@ export default function JobsPage() {
       <section className="border-b border-slate-200 bg-[radial-gradient(circle_at_top_left,_#cfe8ff,_transparent_30%),linear-gradient(180deg,_#ffffff,_#f4f9ff)]">
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 lg:grid-cols-[1.05fr,0.95fr]">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">
-              Find Crew
-            </p>
-            <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">
-              Staff the room right the first time.
-            </h1>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Find Crew</p>
+            <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">Staff the room right the first time.</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-700">
               Chefs, cooks, bartenders, servers, banquet teams, and event support for catering runs, private events, restaurants, hotels, and production kitchens.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#staff-form" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20">
-                Request Crew
-              </a>
-              <Link href="/private-chef" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">
-                Need a Private Chef?
-              </Link>
+              <a href="#staff-form" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20">Request Crew</a>
+              <Link href="/prep-your-shift" className="rounded-full border border-[#0b4fb3] bg-white px-5 py-3 text-sm font-black text-[#0b4fb3]">Need Prep-Only Help?</Link>
+              <Link href="/private-chef" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">Need a Private Chef?</Link>
             </div>
           </div>
 
@@ -68,23 +61,21 @@ export default function JobsPage() {
       </section>
 
       <section className="border-y border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-10">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">On the Board Now</p>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <div className="rounded-3xl border border-slate-200 bg-[#f7fbff] p-5">
-              <p className="text-xs font-black uppercase tracking-wide text-[#0b4fb3]">Atlanta</p>
-              <h3 className="mt-3 text-lg font-black">Servers needed for wedding weekend</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Black attire, banquet experience, two-day event schedule.</p>
-            </div>
-            <div className="rounded-3xl border border-slate-200 bg-[#f7fbff] p-5">
-              <p className="text-xs font-black uppercase tracking-wide text-[#0b4fb3]">Dallas</p>
-              <h3 className="mt-3 text-lg font-black">Line cooks for pop-up kitchen</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Fast-paced service, prep-heavy menu, weekend run.</p>
-            </div>
-            <div className="rounded-3xl border border-slate-200 bg-[#f7fbff] p-5">
-              <p className="text-xs font-black uppercase tracking-wide text-[#0b4fb3]">Miami</p>
-              <h3 className="mt-3 text-lg font-black">Bartenders for rooftop event</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Luxury vibe, cocktail experience preferred, evening shift.</p>
+        <div className="mx-auto grid max-w-6xl gap-7 px-4 py-11 lg:grid-cols-[1.2fr,.8fr] lg:items-center">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">PREP YOUR SHIFT™</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight">Need hands before service—not a whole staffing package?</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">Post a paid prep shift for vegetable prep, portioning, pastry, cold prep, hors d&apos;oeuvre assembly, dish/utility, packing, labeling, loading, or other pre-service kitchen work. Workers apply free and the poster confirms the crew.</p>
+            <Link href="/prep-your-shift" className="mt-5 inline-flex rounded-full bg-[#08182d] px-5 py-3 text-sm font-black text-white">Open Prep Your Shift →</Link>
+          </div>
+          <div className="rounded-[2rem] border border-blue-200 bg-blue-50 p-6">
+            <p className="text-sm font-black text-[#0b4fb3]">The prep-only lane</p>
+            <div className="mt-4 grid gap-2 text-sm font-bold text-slate-700">
+              <span>✓ Pay shown up front</span>
+              <span>✓ Date + shift time shown</span>
+              <span>✓ City-level location until confirmed</span>
+              <span>✓ No worker application fees</span>
+              <span>✓ No fake demo listings</span>
             </div>
           </div>
         </div>
@@ -104,24 +95,19 @@ export default function JobsPage() {
             </div>
 
             <textarea name="positions" rows={4} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="How many people do you need? Servers, bartenders, cooks, prep, captains, setup crew, etc." />
-
             <textarea name="details" required rows={5} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Event type, dates, shift times, dress code, pay structure, kitchen setup, and anything important." />
 
             <input type="hidden" name="serviceType" value="staff" />
             <input type="hidden" name="source" value="find-crew-page" />
 
-            <button className="rounded-2xl bg-[#0b4fb3] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#083f8e]">
-              Submit Crew Request
-            </button>
+            <button className="rounded-2xl bg-[#0b4fb3] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#083f8e]">Submit Crew Request</button>
           </form>
         </div>
       </section>
 
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 text-xs text-slate-500">
-          <Link href="/" className="hover:text-slate-900">
-            ← Back to the Board
-          </Link>
+          <Link href="/" className="hover:text-slate-900">← Back to the Board</Link>
           <span>Find Crew · TakeaChefHome.com</span>
         </div>
       </footer>
