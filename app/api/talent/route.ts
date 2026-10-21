@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'We could not save your profile right now. Please try again.' }, { status: 500 });
     }
 
-    void sendConfirmations(data, editToken);
+    await sendConfirmations(data, editToken);
     return NextResponse.json({ ok:true,talent_id:data.talent_id,profile_completion:data.profile_completion,referral_code:data.referral_code,edit_token:editToken }, { status: 201 });
   } catch (error) {
     console.error('Talent API error', error);
