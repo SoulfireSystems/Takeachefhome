@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 
 const availabilityChoices=['Weekday mornings','Weekday afternoons','Weekday evenings','Friday','Saturday','Sunday','Overnight','On-call / Last-minute','Flexible'];
 const opportunityChoices=['Pick-Up Work','Event Work','Private Clients','Prep + Production','Full-Time','Part-Time','Travel','Build My Business'];
@@ -14,12 +13,14 @@ function Toggle({active,label,onClick}:{active:boolean;label:string;onClick:()=>
 function Field({label,value,onChange}:{label:string;value:string;onChange:(v:string)=>void}){return <label className="grid gap-2 text-sm font-bold">{label}<input value={value||''} onChange={e=>onChange(e.target.value)} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3"/></label>}
 
 export default function TalentProfilePage(){
-  const q=useSearchParams(); const talent=q.get('talent')||''; const token=q.get('token')||'';
+  const [access,setAccess]=useState({talent:'',token:''});
   const [form,setForm]=useState<any>(null); const [error,setError]=useState(''); const [message,setMessage]=useState(''); const [saving,setSaving]=useState(false);
+  const talent=access.talent; const token=access.token;
   const toggle=(key:string,value:string)=>setForm((p:any)=>({...p,[key]:(p[key]||[]).includes(value)?p[key].filter((x:string)=>x!==value):[...(p[key]||[]),value]}));
-  useEffect(()=>{if(!talent||!token){setError('This profile update link is incomplete.');return;}fetch(`/api/talent/profile?talent=${encodeURIComponent(talent)}&token=${encodeURIComponent(token)}`).then(async r=>{const d=await r.json();if(!r.ok)throw new Error(d.error||'Unable to load profile.');setForm(d.profile)}).catch(e=>setError(e.message));},[talent,token]);
+  useEffect(()=>{const q=new URLSearchParams(window.location.search);setAccess({talent:q.get('talent')||'',token:q.get('token')||''});},[]);
+  useEffect(()=>{if(!talent&&!token)return;if(!talent||!token){setError('This profile update link is incomplete.');return;}fetch(`/api/talent/profile?talent=${encodeURIComponent(talent)}&token=${encodeURIComponent(token)}`).then(async r=>{const d=await r.json();if(!r.ok)throw new Error(d.error||'Unable to load profile.');setForm(d.profile)}).catch(e=>setError(e.message));},[talent,token]);
   const save=async()=>{setSaving(true);setError('');setMessage('');try{const r=await fetch('/api/talent/profile',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({...form,talent_id:talent,token})});const d=await r.json();if(!r.ok)throw new Error(d.error||'Unable to update profile.');setForm(d.profile);setMessage('Profile updated.');}catch(e){setError(e instanceof Error?e.message:'Unable to update profile.');}finally{setSaving(false)}};
-  const upload=async(kind:string,file:File|null)=>{if(!file)return;const fd=new FormData();fd.append('talentId',talent);fd.append('editToken',token);fd.append('kind',kind);fd.append('file',file);const r=await fetch('/api/talent/upload',{method:'POST',body:fd});const d=await r.json().catch(()=>({}));if(!r.ok)setError(d.error||'Upload failed.');else setMessage(`${kind} uploaded.`)};
+  const upload=async(kind:string,file:File|null)=>{if(!file)return;setError('');setMessage('');const fd=new FormData();fd.append('talentId',talent);fd.append('editToken',token);fd.append('kind',kind);fd.append('file',file);const r=await fetch('/api/talent/upload',{method:'POST',body:fd});const d=await r.json().catch(()=>({}));if(!r.ok)setError(d.error||'Upload failed.');else setMessage(`${kind} uploaded.`)};
 
   if(error&&!form)return <main className="min-h-screen bg-[#F4F9FF] px-4 py-12"><section className="mx-auto max-w-2xl rounded-3xl bg-white p-8"><h1 className="text-3xl font-black">Profile access</h1><p className="mt-4 text-red-700">{error}</p><Link href="/talent" className="mt-6 inline-flex font-black text-[#135DFF]">Back to Talent</Link></section></main>;
   if(!form)return <main className="min-h-screen bg-[#F4F9FF] grid place-items-center"><p className="font-black">Loading your profile…</p></main>;
