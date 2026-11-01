@@ -5,14 +5,14 @@ import Link from "next/link";
 
 const primaryServices = [
   {
-    href: "/private-chef",
+    href: "https://prep-your-shift.ggg398.chatgpt.site/private-chefs",
     title: "Private Chef",
     detail: "In-home dinners, Airbnb meals, retreats, birthdays, date nights, chef-table experiences.",
     cta: "Book a Private Chef",
     style: "from-[#061b3a] via-[#135DFF] to-[#33b8ff]",
   },
   {
-    href: "/catering",
+    href: "https://prep-your-shift.ggg398.chatgpt.site/catering",
     title: "Catering",
     detail: "Events, business meals, parties, weddings, brunches, drop-offs, buffets, and full-service food.",
     cta: "Request Catering",
@@ -21,9 +21,9 @@ const primaryServices = [
 ];
 
 const supportCategories = [
-  { href: "/jobs", title: "Find Crew", detail: "Chefs, cooks, servers, bartenders, event teams", status: "Support" },
-  { href: "/kitchens", title: "Find Space", detail: "Prep kitchens, commissary, cold storage, pop-up space", status: "Support" },
-  { href: "/shop", title: "Get Gear", detail: "Tools, catering gear, kitchen setup, chef picks", status: "Support" },
+  { href: "https://prep-your-shift.ggg398.chatgpt.site/find-crew", title: "Find Crew", detail: "Post paid work and review applicants for your own crew.", status: "Jobs & shifts" },
+  { href: "/kitchens", title: "Find Space", detail: "Prep kitchens, commissary, cold storage, pop-up space", status: "Preview" },
+  { href: "/shop", title: "Shop", detail: "The shop is coming soon. Product checkout is not open.", status: "Coming soon" },
 ];
 
 const boardSections = [
@@ -41,14 +41,58 @@ const boardSections = [
   },
 ];
 
-const freshPosts = [
-  { tag: "Private Chef", title: "Dinner for 8 at an Airbnb", city: "Phoenix", detail: "Need chef, menu ideas, and light reset after service.", style: "from-[#061b3a] to-[#135DFF]" },
-  { tag: "Catering", title: "Brunch table for 24", city: "Atlanta", detail: "Pretty food, clean setup, bright daytime service.", style: "from-[#135DFF] to-[#D4A64F]" },
-  { tag: "Private Chef", title: "Birthday dinner for 12", city: "Miami", detail: "Seafood-forward menu, upscale rental, relaxed service.", style: "from-[#0F172A] to-[#135DFF]" },
-  { tag: "Catering", title: "Office lunch for 40", city: "Dallas", detail: "Drop-off or buffet-style setup for a weekday team meal.", style: "from-[#111827] to-[#D4A64F]" },
-];
-
 const cityLinks = ["Atlanta", "Phoenix", "Las Vegas", "Los Angeles", "Kansas City", "Seattle", "Charlotte", "Savannah", "Orlando", "Miami", "Dallas", "Chicago"];
+
+const marketplaceSections = [
+  {
+    "title": "Customer Intake",
+    "label": "PLAN YOUR SERVICE",
+    "href": "https://prep-your-shift.ggg398.chatgpt.site/start",
+    "detail": "Describe the service, city, dates and headcount. Save your private request link to follow the next step.",
+    "cta": "Start my request",
+    "note": "No card needed to send a request."
+  },
+  {
+    "title": "Talent Pool",
+    "label": "FOR CULINARY PROFESSIONALS",
+    "href": "/talent",
+    "detail": "Choose your roles, service area, experience and availability in the existing seven-step talent application.",
+    "cta": "Join the talent pool",
+    "note": "A profile is not a job guarantee."
+  },
+  {
+    "title": "Jobs & Shifts",
+    "label": "FIND WORK / FIND CREW",
+    "href": "https://prep-your-shift.ggg398.chatgpt.site/jobs",
+    "detail": "Browse real posted opportunities or post paid work and review applicants for your own crew.",
+    "cta": "Open jobs & shifts",
+    "note": "New market: the board may have no open shifts."
+  },
+  {
+    "title": "Prep Your Shift",
+    "label": "OUTSOURCE PREPARATION",
+    "href": "https://prep-your-shift.ggg398.chatgpt.site/prep-your-shift",
+    "detail": "Hand off cutting, portioning, batch work and packing with your quantities, specifications and deadline.",
+    "cta": "Explore prep services",
+    "note": "Partner availability and scope must be agreed."
+  },
+  {
+    "title": "Provider Listings",
+    "label": "FOR INDEPENDENT BUSINESSES",
+    "href": "https://prep-your-shift.ggg398.chatgpt.site/list-services",
+    "detail": "Create a service listing with your specialties, service area, pricing, photos and availability.",
+    "cta": "List my services",
+    "note": "Sign in to save and manage your listing."
+  },
+  {
+    "title": "Classes & Workshops",
+    "label": "LEARN / TEACH",
+    "href": "https://prep-your-shift.ggg398.chatgpt.site/classes",
+    "detail": "Explore culinary skills and send a class inquiry, or list the subjects and formats you teach.",
+    "cta": "Explore classes",
+    "note": "Class inquiries are open; seat checkout is not active."
+  }
+];
 
 export default function Home() {
   return (
@@ -62,8 +106,8 @@ export default function Home() {
           <nav className="flex flex-wrap items-center gap-2 text-sm font-bold text-slate-700">
             <a href="#services" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#135DFF]">Private Chef</a>
             <a href="#services" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#135DFF]">Catering</a>
-            <a href="#board" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#135DFF]">The Board</a>
-            <a href="#post" className="rounded-full bg-[#135DFF] px-4 py-2 text-white hover:bg-[#104de0]">Post Request</a>
+            <a href="#marketplace" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#135DFF]">Marketplace</a>
+            <a href="https://prep-your-shift.ggg398.chatgpt.site/start" className="rounded-full bg-[#135DFF] px-4 py-2 text-white hover:bg-[#104de0]">Start Request</a>
           </nav>
         </div>
       </header>
@@ -85,13 +129,10 @@ export default function Home() {
               </p>
             </div>
 
-            <form method="get" action="#services" className="grid gap-3 rounded-[1.75rem] border border-slate-200 bg-white p-3 shadow-xl shadow-blue-900/5 md:grid-cols-[1fr,1fr,auto]">
-              <input name="need" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]" placeholder="Private chef, catering, brunch, dinner party..." />
-              <input name="where" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]" placeholder="City or state" />
-              <button className="rounded-2xl bg-[#135DFF] px-6 py-3 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#104de0]">
-                Search
-              </button>
-            </form>
+            <div className="flex flex-wrap gap-3" aria-label="Explore TakeaChefHome">
+              <a href="#marketplace" className="rounded-2xl bg-[#135DFF] px-6 py-3 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#104de0]">Explore the Marketplace →</a>
+              <a href="https://prep-your-shift.ggg398.chatgpt.site/states" className="rounded-2xl border border-[#135DFF]/30 bg-white px-6 py-3 text-sm font-black text-[#135DFF]">Browse by location</a>
+            </div>
 
             <div className="flex flex-wrap gap-2 text-xs font-bold text-slate-600">
               {cityLinks.map((city) => (
@@ -125,6 +166,29 @@ export default function Home() {
               </div>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section id="marketplace" aria-labelledby="marketplace-title" className="mx-auto max-w-7xl scroll-mt-36 px-4 py-10">
+        <div className="mb-6 max-w-3xl">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">TakeaChefHome / The Culinary Exchange</p>
+          <h2 id="marketplace-title" className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Your marketplace. Choose your next step.</h2>
+          <p className="mt-3 text-base leading-7 text-slate-700">Find food service, join the talent pool, post paid work or hand off your prep. Independent people and businesses agree their own scope and service terms.</p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {marketplaceSections.map((item) => (
+            <article key={item.title} className="flex flex-col rounded-3xl border border-blue-200 bg-white p-6 shadow-sm transition hover:border-[#135DFF]/60 hover:shadow-lg">
+              <p className="text-[11px] font-black uppercase tracking-widest text-[#135DFF]">{item.label}</p>
+              <h3 className="mt-3 text-2xl font-black">{item.title}</h3>
+              <p className="mt-3 flex-1 text-sm leading-6 text-slate-700">{item.detail}</p>
+              <p className="mb-4 mt-3 text-xs leading-5 text-slate-600">{item.note}</p>
+              <a href={item.href} className="inline-flex min-h-12 items-center justify-between gap-3 rounded-2xl bg-[#135DFF] px-4 py-3 text-sm font-black text-white hover:bg-[#104de0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#135DFF]">{item.cta}<span aria-hidden="true">↗</span></a>
+            </article>
+          ))}
+        </div>
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-[#135DFF]">
+          <a href="https://prep-your-shift.ggg398.chatgpt.site/directory" className="underline underline-offset-4">Browse the full service directory</a>
+          <a href="https://prep-your-shift.ggg398.chatgpt.site/my-request" className="underline underline-offset-4">Return to my private request</a>
         </div>
       </section>
 
@@ -201,58 +265,17 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="fresh" className="mx-auto max-w-7xl px-4 py-10">
-        <div className="mb-6">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">On the Board Now</p>
-          <h2 className="mt-1 text-3xl font-black tracking-tight">Private chef and catering requests moving now</h2>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {freshPosts.map((post) => (
-            <a key={post.title} href="#post" className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl">
-              <div className={`h-32 bg-gradient-to-br ${post.style} p-4 text-white`}>
-                <div className="flex h-full items-end justify-between text-xs font-black uppercase tracking-wide">
-                  <span>{post.tag}</span>
-                  <span>{post.city}</span>
-                </div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-black">{post.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{post.detail}</p>
-                <p className="mt-4 text-sm font-black text-[#135DFF]">Respond / request →</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-
       <section id="post" className="mx-auto max-w-4xl px-4 py-12">
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-blue-900/10 md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">Post a food service request</p>
           <h2 className="mt-2 text-3xl font-black tracking-tight">What do you need?</h2>
           <p className="mt-2 text-sm leading-6 text-slate-600">Start with Private Chef or Catering. Add support details if you also need crew, space, or gear.</p>
 
-          <form method="post" action="/api/leads" className="mt-6 grid gap-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <input name="name" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]" placeholder="Name" />
-              <input name="email" type="email" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]" placeholder="Email" />
-              <input name="phone" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]" placeholder="Phone" />
-              <input name="city" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]" placeholder="City + state" />
-            </div>
-            <select name="serviceType" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]">
-              <option value="private-chef">Private Chef</option>
-              <option value="catering">Catering</option>
-              <option value="meal-prep">Meal Prep</option>
-              <option value="food-truck">Food Truck / Pop-up Vendor</option>
-              <option value="staff">Need Crew / Event Staff</option>
-              <option value="kitchen">Need Kitchen Space</option>
-              <option value="gear">Need Gear / Product Help</option>
-              <option value="other">Something else</option>
-            </select>
-            <textarea name="details" required rows={5} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]" placeholder="Date, guest count, budget, menu style, staffing needs, kitchen needs, equipment needs, or anything important..." />
-            <input type="hidden" name="source" value="homepage-primary" />
-            <button className="rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#104de0]">Submit Request</button>
-          </form>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href="https://prep-your-shift.ggg398.chatgpt.site/start" className="rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#104de0]">Start my request →</a>
+            <a href="https://prep-your-shift.ggg398.chatgpt.site/my-request" className="rounded-2xl border border-slate-300 bg-white px-6 py-4 text-sm font-bold text-slate-700">Return to my request</a>
+          </div>
+          <p className="mt-4 text-sm leading-6 text-slate-600">The request builder saves your details and gives you a private link. Sending a request does not reserve a provider or collect payment.</p>
         </div>
       </section>
 
