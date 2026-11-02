@@ -82,7 +82,7 @@ export default async function PrepYourShiftPage({
               TakeaChefHome<span className="text-slate-950">.com</span>
             </Link>
             <span className="hidden border-l border-slate-200 pl-5 text-xs font-black uppercase tracking-[0.18em] text-slate-500 md:block">
-              Talent / Prep Your Shift
+              Talent / Prep Work
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -101,7 +101,7 @@ export default async function PrepYourShiftPage({
         <div className="absolute right-0 top-0 h-full w-1/3 bg-[linear-gradient(135deg,transparent,#0b4fb3_180%)] opacity-70" />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 lg:grid-cols-[1.25fr,.75fr] lg:py-24">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#84bfff]">PREP YOUR SHIFT™</p>
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#84bfff]">JOBS &amp; SHIFTS</p>
             <h1 className="mt-5 max-w-4xl text-5xl font-black leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
               YOUR EVENT IS BOOKED.<br />
               <span className="text-[#84bfff]">YOUR PREP LIST ISN&apos;T.</span>
@@ -126,10 +126,10 @@ export default async function PrepYourShiftPage({
           </div>
 
           <aside className="self-end rounded-[2rem] border border-white/15 bg-white/10 p-6 shadow-2xl backdrop-blur">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#84bfff]">This is not a generic job board.</p>
-            <p className="mt-4 text-2xl font-black leading-tight">You don&apos;t always need another employee.</p>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#84bfff]">CULINARY WORK. CLEAR EXPECTATIONS.</p>
+            <p className="mt-4 text-2xl font-black leading-tight">Get the kitchen ready for service.</p>
             <p className="mt-3 text-sm leading-6 text-slate-300">
-              Sometimes you need three people who can cut, portion, pan, wrap, label, organize, and get the kitchen service-ready by 4 PM. That is what this lane is for.
+              Post the cuts, portions, packing, labeling and other prep you need covered. Show the hours and pay so workers can decide whether the shift fits.
             </p>
           </aside>
         </div>
@@ -173,13 +173,13 @@ export default async function PrepYourShiftPage({
 
           {!available ? (
             <div className="mt-7 rounded-3xl border border-amber-200 bg-amber-50 p-6">
-              <p className="font-black text-amber-950">The live board is reconnecting.</p>
-              <p className="mt-1 text-sm text-amber-900">Shift posting remains available. Approved listings will appear here when the board connection is active.</p>
+              <p className="font-black text-amber-950">We cannot load the shifts right now.</p>
+              <p className="mt-1 text-sm text-amber-900">Please try again shortly. You can still submit a shift for review below.</p>
             </div>
           ) : shifts.length === 0 ? (
             <div className="mt-7 rounded-3xl border border-dashed border-slate-300 bg-[#f8fbff] p-8 text-center">
-              <p className="text-xl font-black">No approved prep shifts are live yet.</p>
-              <p className="mt-2 text-sm text-slate-600">That&apos;s not filler. We don&apos;t publish fake openings. Post the first real one.</p>
+              <p className="text-xl font-black">No prep shifts are listed yet.</p>
+              <p className="mt-2 text-sm text-slate-600">Check back for work in your area, or post the paid shift you need covered.</p>
               <a href="#post" className="mt-5 inline-flex rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white">Post a Prep Shift</a>
             </div>
           ) : (
@@ -229,7 +229,7 @@ export default async function PrepYourShiftPage({
             <div className="rounded-2xl border border-[#0b4fb3]/25 bg-blue-50 p-5"><strong>Standard · $7</strong><p className="mt-1 text-sm text-slate-600">Stronger placement for scheduled prep needs.</p></div>
             <div className="rounded-2xl border border-slate-800 bg-[#08182d] p-5 text-white"><strong>Priority · $12</strong><p className="mt-1 text-sm text-slate-300">Priority treatment for urgent or harder-to-fill prep calls.</p></div>
           </div>
-          <p className="mt-4 text-xs leading-5 text-slate-500">Launch workflow: submissions are reviewed before publication. Activation/payment instructions follow approval. Workers never pay to apply.</p>
+          <p className="mt-4 text-xs leading-5 text-slate-500">Your shift is reviewed before it appears on the board. This form does not take a posting payment. Workers apply free and agree pay directly with the business.</p>
         </div>
 
         <form method="post" action="/api/prep-shifts" className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-blue-950/5 md:p-8">
@@ -268,7 +268,7 @@ export default async function PrepYourShiftPage({
 
           <label className="mt-5 flex items-start gap-3 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-700">
             <input name="termsAccepted" type="checkbox" required className="mt-1 h-4 w-4" />
-            <span>I am posting real paid work, the stated pay and scope are accurate, and I agree to the <Link href="/prep-your-shift/rules" className="font-black text-[#0b4fb3] underline">Prep Your Shift rules</Link>.</span>
+            <span>I am posting real paid work, the stated pay and scope are accurate, and I agree to the <Link href="/prep-your-shift/rules" className="font-black text-[#0b4fb3] underline">posting and workplace rules</Link>.</span>
           </label>
           <button className="mt-5 w-full rounded-2xl bg-[#0b4fb3] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-900/15 hover:bg-[#083f8e]">Submit Shift for Review</button>
         </form>
@@ -292,7 +292,7 @@ export default async function PrepYourShiftPage({
           <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
             <h3 className="text-2xl font-black">Read the full rules</h3>
             <p className="mt-3 text-sm leading-6 text-slate-600">Posting standards, worker conduct, cancellations, no-shows, pay expectations, safety, privacy, moderation, and disputes.</p>
-            <Link href="/prep-your-shift/rules" className="mt-6 inline-flex rounded-full bg-[#08182d] px-5 py-3 text-sm font-black text-white">Prep Your Shift Rules →</Link>
+            <Link href="/prep-your-shift/rules" className="mt-6 inline-flex rounded-full bg-[#08182d] px-5 py-3 text-sm font-black text-white">Posting + Workplace Rules →</Link>
             <Link href="/jobs" className="mt-3 block text-sm font-black text-[#0b4fb3]">Need full event staffing instead? Go to Find Crew →</Link>
           </div>
         </div>
@@ -300,10 +300,11 @@ export default async function PrepYourShiftPage({
 
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 px-4 py-7 text-xs text-slate-500 sm:flex-row sm:items-center">
-          <span>Prep Your Shift™ · A TakeaChefHome.com Talent lane</span>
+          <span>Jobs &amp; Shifts · TakeaChefHome Talent</span>
           <div className="flex gap-4"><Link href="/">Board Home</Link><Link href="/jobs">Find Crew</Link><Link href="/prep-your-shift/rules">Rules</Link></div>
         </div>
       </footer>
     </main>
   );
 }
+

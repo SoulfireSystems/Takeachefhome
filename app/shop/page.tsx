@@ -5,22 +5,20 @@ export default function ShopPage() {
     <main className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4">
       <div className="max-w-xl text-center">
         <p className="text-xs uppercase tracking-[0.2em] text-emerald-300 mb-3">
-          Lane: Shop
+          TAKEACHEFHOME SHOP
         </p>
         <h1 className="text-3xl font-semibold mb-3">
-          Chef tools, FLAVR picks, and gear —{" "}
+          Kitchen tools, useful gear and culinary finds —{" "}
           <span className="text-emerald-300">coming soon.</span>
         </h1>
         <p className="text-sm text-slate-300 mb-6">
-          A curated shop for knives, pans, chafers, cooler bags, FLAVR sauce
-          sets, and chef-approved picks — plus affiliate drops from Walmart and
-          Amazon that actually make sense for working kitchens.
+          The shop is not open for browsing or purchases yet. Come back for kitchen tools, food-service gear and culinary products.
         </p>
         <p className="text-xs text-slate-400">
-          For now, you can still ask for product recommendations in your event
-          request — we&apos;ll keep building the shop in the background.
+          <a href="/" className="underline underline-offset-4">Explore chefs, catering and culinary services →</a>
         </p>
       </div>
     </main>
   );
 }
+

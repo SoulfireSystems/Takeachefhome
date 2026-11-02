@@ -24,7 +24,7 @@ export default function JobsPage() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a href="#staff-form" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20">Request Crew</a>
-              <Link href="/prep-your-shift" className="rounded-full border border-[#0b4fb3] bg-white px-5 py-3 text-sm font-black text-[#0b4fb3]">Need Prep-Only Help?</Link>
+              <Link href="https://prep-your-shift.ggg398.chatgpt.site/prep-your-shift" className="rounded-full border border-[#0b4fb3] bg-white px-5 py-3 text-sm font-black text-[#0b4fb3]">Need Prep-Only Help?</Link>
               <Link href="/private-chef" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">Need a Private Chef?</Link>
             </div>
           </div>
@@ -32,10 +32,10 @@ export default function JobsPage() {
           <aside className="relative min-h-[360px] overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-br from-[#151515] via-[#263238] to-[#0b4fb3] p-6 text-white shadow-2xl shadow-blue-900/20">
             <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-white/15 blur-3xl" />
             <div className="relative z-10 flex h-full flex-col justify-between">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">Built for real service</p>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">KITCHEN + EVENT CREWS</p>
               <div>
-                <h2 className="text-3xl font-black leading-tight">Good events fall apart fast when the crew is wrong.</h2>
-                <p className="mt-4 text-sm leading-6 text-white/85">The board is built to connect operators with people who understand pace, prep, timing, setup, cleanup, and guest flow.</p>
+                <h2 className="text-3xl font-black leading-tight">Find the right people for service.</h2>
+                <p className="mt-4 text-sm leading-6 text-white/85">Post the roles, hours, pay and work you need covered. Review applications and choose your crew.</p>
               </div>
             </div>
           </aside>
@@ -63,19 +63,19 @@ export default function JobsPage() {
       <section className="border-y border-slate-200 bg-white">
         <div className="mx-auto grid max-w-6xl gap-7 px-4 py-11 lg:grid-cols-[1.2fr,.8fr] lg:items-center">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">PREP YOUR SHIFT™</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight">Need hands before service—not a whole staffing package?</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">Post a paid prep shift for vegetable prep, portioning, pastry, cold prep, hors d&apos;oeuvre assembly, dish/utility, packing, labeling, loading, or other pre-service kitchen work. Workers apply free and the poster confirms the crew.</p>
-            <Link href="/prep-your-shift" className="mt-5 inline-flex rounded-full bg-[#08182d] px-5 py-3 text-sm font-black text-white">Open Prep Your Shift →</Link>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">HAND OFF YOUR PREP</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight">Need your prep list taken care of?</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">Send a Prep Partner your ingredients, quantities, cuts, portions and deadline. Agree what should be prepared and how you will receive it, so you can focus on service.</p>
+            <Link href="https://prep-your-shift.ggg398.chatgpt.site/prep-your-shift" className="mt-5 inline-flex rounded-full bg-[#08182d] px-5 py-3 text-sm font-black text-white">Open Prep Your Shift →</Link>
           </div>
           <div className="rounded-[2rem] border border-blue-200 bg-blue-50 p-6">
-            <p className="text-sm font-black text-[#0b4fb3]">The prep-only lane</p>
+            <p className="text-sm font-black text-[#0b4fb3]">PLAN YOUR CREW</p>
             <div className="mt-4 grid gap-2 text-sm font-bold text-slate-700">
               <span>✓ Pay shown up front</span>
               <span>✓ Date + shift time shown</span>
               <span>✓ City-level location until confirmed</span>
               <span>✓ No worker application fees</span>
-              <span>✓ No fake demo listings</span>
+              <span>✓ Clear duties and requirements</span>
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@ export default function JobsPage() {
           <h2 className="mt-2 text-3xl font-black">Tell us what kind of team you need</h2>
 
           <div className="mt-6 space-y-4">
-            <p className="text-sm leading-6 text-slate-700">Post the paid work in the existing Jobs & Shifts marketplace and manage responses from your operator desk.</p>
+            <p className="text-sm leading-6 text-slate-700">Post your paid work, review applications and message the people you want to hire.</p>
             <a href="https://prep-your-shift.ggg398.chatgpt.site/talent?view=post" className="inline-flex min-h-12 items-center rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white">Post paid work →</a>
           </div>
         </div>
@@ -102,3 +102,4 @@ export default function JobsPage() {
     </main>
   );
 }
+

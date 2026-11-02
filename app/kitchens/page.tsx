@@ -13,7 +13,7 @@ export default function KitchensPage() {
             href="#space-form"
             className="rounded-full bg-[#135DFF] px-4 py-2 text-sm font-black text-white shadow-lg shadow-blue-900/20"
           >
-            Post to the Board
+            KITCHENS · COMING SOON
           </Link>
         </div>
       </header>
@@ -26,7 +26,7 @@ export default function KitchensPage() {
             </p>
 
             <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">
-              Kitchens are infrastructure.
+              Room for your next big batch.
             </h1>
 
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-700">
@@ -40,7 +40,7 @@ export default function KitchensPage() {
                 href="#space-form"
                 className="rounded-full bg-[#135DFF] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20"
               >
-                Request Space
+                ABOUT KITCHEN SPACE
               </a>
 
               <Link
@@ -57,7 +57,7 @@ export default function KitchensPage() {
 
             <div className="relative z-10 flex h-full flex-col justify-between">
               <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">
-                Built for food operators
+                FOR CHEFS + FOOD BUSINESSES
               </p>
 
               <div>
@@ -66,9 +66,7 @@ export default function KitchensPage() {
                 </h2>
 
                 <p className="mt-4 text-sm leading-6 text-white/85">
-                  Shared kitchens, refrigeration, prep access, and production
-                  support are the backbone of modern food businesses. This board
-                  is being built to help operators find real workable space.
+                  From a prep counter to extra refrigeration, the right space depends on what you produce. Kitchen listings and space requests are not available yet.
                 </p>
               </div>
             </div>
@@ -126,49 +124,49 @@ export default function KitchensPage() {
       <section className="border-y border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-10">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">
-            Examples of space types — no live inventory
+            WHAT TO CONSIDER WHEN CHOOSING A SPACE
           </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <div className="rounded-3xl border border-slate-200 bg-[#f7fbff] p-5">
               <p className="text-xs font-black uppercase tracking-wide text-[#135DFF]">
-                Atlanta
+                KITCHEN ACCESS
               </p>
 
               <h3 className="mt-3 text-lg font-black">
-                Commissary kitchen with overnight access
+                Hours that fit your production
               </h3>
 
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                Prep-friendly setup with freezer space and shared dry storage.
+                Ask about access hours, prep surfaces, equipment, dry storage and cleaning responsibilities.
               </p>
             </div>
 
             <div className="rounded-3xl border border-slate-200 bg-[#f7fbff] p-5">
               <p className="text-xs font-black uppercase tracking-wide text-[#135DFF]">
-                Dallas
+                PRODUCTION SETUP
               </p>
 
               <h3 className="mt-3 text-lg font-black">
-                Ghost kitchen stations available
+                Equipment for the work you do
               </h3>
 
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                Delivery-focused setup with prep counters and shared receiving.
+                Check cooking equipment, power, ventilation, receiving access and any restrictions on your products.
               </p>
             </div>
 
             <div className="rounded-3xl border border-slate-200 bg-[#f7fbff] p-5">
               <p className="text-xs font-black uppercase tracking-wide text-[#135DFF]">
-                Phoenix
+                COLD STORAGE
               </p>
 
               <h3 className="mt-3 text-lg font-black">
-                Shared cold storage access
+                The right space and temperature
               </h3>
 
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                Cooler support for caterers, events, and mobile operators.
+                Confirm cooler or freezer temperatures, capacity, access and labeling requirements.
               </p>
             </div>
           </div>
@@ -178,15 +176,15 @@ export default function KitchensPage() {
       <section id="space-form" className="mx-auto max-w-5xl px-4 py-12">
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-blue-900/10 md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">
-            Space Request
+            KITCHENS · COMING SOON
           </p>
 
           <h2 className="mt-2 text-3xl font-black">
-            Tell us what kind of kitchen support you need
+            Kitchen listings are not available yet.
           </h2>
 
           <div className="mt-6 space-y-4">
-            <p className="text-sm leading-6 text-slate-700">Kitchen listings and space requests are not open yet. This page is a preview.</p>
+            <p className="text-sm leading-6 text-slate-700">You cannot post, request or book kitchen space here yet. You can still browse chefs, caterers and other culinary services.</p>
             <a href="https://www.takeachefhome.com/#marketplace" className="inline-flex min-h-12 items-center rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white">Return to the marketplace</a>
           </div>
         </div>
@@ -204,3 +202,4 @@ export default function KitchensPage() {
     </main>
   );
 }
+

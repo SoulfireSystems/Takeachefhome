@@ -7,8 +7,8 @@ const primaryServices = [
   {
     href: "https://prep-your-shift.ggg398.chatgpt.site/private-chefs",
     title: "Private Chef",
-    detail: "In-home dinners, Airbnb meals, retreats, birthdays, date nights, chef-table experiences.",
-    cta: "Book a Private Chef",
+    detail: "Breakfast, brunch, dinner parties, vacation meals, retreats and celebrations.",
+    cta: "Find a Private Chef",
     style: "from-[#061b3a] via-[#135DFF] to-[#33b8ff]",
   },
   {
@@ -22,7 +22,7 @@ const primaryServices = [
 
 const supportCategories = [
   { href: "https://prep-your-shift.ggg398.chatgpt.site/find-crew", title: "Find Crew", detail: "Post paid work and review applicants for your own crew.", status: "Jobs & shifts" },
-  { href: "/kitchens", title: "Find Space", detail: "Prep kitchens, commissary, cold storage, pop-up space", status: "Preview" },
+  { href: "/kitchens", title: "Find Space", detail: "Prep kitchens, commissary, cold storage, pop-up space", status: "Coming soon" },
   { href: "/shop", title: "Shop", detail: "The shop is coming soon. Product checkout is not open.", status: "Coming soon" },
 ];
 
@@ -45,7 +45,7 @@ const cityLinks = ["Atlanta", "Phoenix", "Las Vegas", "Los Angeles", "Kansas Cit
 
 const marketplaceSections = [
   {
-    "title": "Customer Intake",
+    "title": "Plan Your Service",
     "label": "PLAN YOUR SERVICE",
     "href": "https://prep-your-shift.ggg398.chatgpt.site/start",
     "detail": "Describe the service, city, dates and headcount. Save your private request link to follow the next step.",
@@ -56,7 +56,7 @@ const marketplaceSections = [
     "title": "Talent Pool",
     "label": "FOR CULINARY PROFESSIONALS",
     "href": "/talent",
-    "detail": "Choose your roles, service area, experience and availability in the existing seven-step talent application.",
+    "detail": "Share your skills, work preferences and availability so your next opportunity starts with the right details.",
     "cta": "Join the talent pool",
     "note": "A profile is not a job guarantee."
   },
@@ -64,9 +64,9 @@ const marketplaceSections = [
     "title": "Jobs & Shifts",
     "label": "FIND WORK / FIND CREW",
     "href": "https://prep-your-shift.ggg398.chatgpt.site/jobs",
-    "detail": "Browse real posted opportunities or post paid work and review applicants for your own crew.",
+    "detail": "Find paid culinary work, or post a shift and choose the people for your crew.",
     "cta": "Open jobs & shifts",
-    "note": "New market: the board may have no open shifts."
+    "note": "Filter by role, location, date and hourly pay."
   },
   {
     "title": "Prep Your Shift",
@@ -80,9 +80,9 @@ const marketplaceSections = [
     "title": "Provider Listings",
     "label": "FOR INDEPENDENT BUSINESSES",
     "href": "https://prep-your-shift.ggg398.chatgpt.site/list-services",
-    "detail": "Create a service listing with your specialties, service area, pricing, photos and availability.",
-    "cta": "List my services",
-    "note": "Sign in to save and manage your listing."
+    "detail": "Create your business profile with your specialties, menus, service area and photos.",
+    "cta": "Create my provider profile",
+    "note": "Save and edit your profile now. New public listings are not available yet."
   },
   {
     "title": "Classes & Workshops",
@@ -90,7 +90,7 @@ const marketplaceSections = [
     "href": "https://prep-your-shift.ggg398.chatgpt.site/classes",
     "detail": "Explore culinary skills and send a class inquiry, or list the subjects and formats you teach.",
     "cta": "Explore classes",
-    "note": "Class inquiries are open; seat checkout is not active."
+    "note": "Ask the instructor about dates, group size and pricing."
   }
 ];
 
@@ -125,7 +125,7 @@ export default function Home() {
               </h1>
 
               <p className="max-w-3xl text-base leading-7 text-slate-700 sm:text-lg">
-                Private chefs and catering first — with crew, kitchen space, and gear support underneath when the job needs more than food.
+                Find a private chef for your home or holiday, catering for your celebration, or culinary talent for your next event.
               </p>
             </div>
 
@@ -149,8 +149,8 @@ export default function Home() {
 
             <div className="relative z-10 flex h-full flex-col justify-between">
               <div className="flex justify-between gap-4 text-xs font-black uppercase tracking-[0.2em] text-white/80">
-                <span>Built for real food work</span>
-                <span>Chef Board Blue</span>
+                <span>FOR YOUR TABLE + YOUR OCCASION</span>
+                <span>CHEFS + CATERING</span>
               </div>
 
               <div>
@@ -158,10 +158,10 @@ export default function Home() {
                   Private Chef + Catering
                 </p>
                 <h2 className="text-4xl font-black leading-tight">
-                  The main door is food service. The support stack makes it stronger.
+                  A good meal starts with the right people.
                 </h2>
                 <p className="mt-4 max-w-md text-sm leading-6 text-white/85">
-                  Start with the dinner, brunch, event, or celebration. Add crew, space, and gear only when the job calls for it.
+                  Tell a chef or caterer about your guests, occasion and menu ideas. Agree the details directly with the provider you choose.
                 </p>
               </div>
             </div>
@@ -173,7 +173,7 @@ export default function Home() {
         <div className="mb-6 max-w-3xl">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">TakeaChefHome / The Culinary Exchange</p>
           <h2 id="marketplace-title" className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Your marketplace. Choose your next step.</h2>
-          <p className="mt-3 text-base leading-7 text-slate-700">Find food service, join the talent pool, post paid work or hand off your prep. Independent people and businesses agree their own scope and service terms.</p>
+          <p className="mt-3 text-base leading-7 text-slate-700">Find food service, join the talent pool, post paid work or hand off your prep. You choose who to work with and agree the details directly.</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {marketplaceSections.map((item) => (
@@ -206,7 +206,7 @@ export default function Home() {
 
               <div className="relative z-10 flex h-full flex-col justify-between">
                 <div className="flex items-center justify-between gap-4">
-                  <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-black uppercase tracking-wide backdrop-blur">Primary</span>
+                  <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-black uppercase tracking-wide backdrop-blur">FOR YOUR TABLE</span>
                   <span className="text-2xl transition group-hover:translate-x-1">→</span>
                 </div>
 
@@ -223,7 +223,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-4 pb-10">
         <div className="mb-5">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">Support categories</p>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">FOR YOUR NEXT EVENT</p>
           <h2 className="mt-1 text-2xl font-black tracking-tight">When the job needs more support</h2>
         </div>
 
@@ -243,7 +243,7 @@ export default function Home() {
           <div className="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">The Board</p>
-              <h2 className="mt-1 text-3xl font-black tracking-tight">Food service first. Support when needed.</h2>
+              <h2 className="mt-1 text-3xl font-black tracking-tight">Find the help your plans need.</h2>
             </div>
             <a href="#post" className="text-sm font-black text-[#135DFF] hover:underline">Post your own request →</a>
           </div>
@@ -269,7 +269,7 @@ export default function Home() {
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-blue-900/10 md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">Post a food service request</p>
           <h2 className="mt-2 text-3xl font-black tracking-tight">What do you need?</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">Start with Private Chef or Catering. Add support details if you also need crew, space, or gear.</p>
+          <p className="mt-2 text-sm leading-6 text-slate-600">Tell us the service, city, date, guest count and the details that matter to you.</p>
 
           <div className="mt-6 flex flex-wrap gap-3">
             <a href="https://prep-your-shift.ggg398.chatgpt.site/start" className="rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#104de0]">Start my request →</a>
@@ -294,3 +294,4 @@ export default function Home() {
     </main>
   );
 }
+

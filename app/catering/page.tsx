@@ -70,17 +70,17 @@ export default function CateringPage() {
           </div>
           <div className="rounded-3xl border border-slate-200 bg-white p-6">
             <p className="text-sm font-black text-[#0b4fb3]">3. Confirm the fit</p>
-            <p className="mt-2 text-sm leading-6 text-slate-600">The request gets reviewed and moved toward a clear quote or next conversation.</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Discuss the menu, availability, total price and service details with your caterer before you confirm.</p>
           </div>
         </div>
       </section>
 
       <section id="form" className="mx-auto max-w-4xl px-4 pb-12">
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-blue-900/10 md:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Catering Intake</p>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">YOUR CATERING REQUEST</p>
           <h2 className="mt-2 text-3xl font-black">Tell us what you need</h2>
           <div className="mt-6 space-y-4">
-            <p className="text-sm leading-6 text-slate-700">Continue in the TakeaChefHome request builder. Your saved private link lets you return to provider responses.</p>
+            <p className="text-sm leading-6 text-slate-700">Share your plans and save your private link. Return there to read caterer replies, compare quotes and ask questions.</p>
             <a href="https://prep-your-shift.ggg398.chatgpt.site/start?service=Catering" className="inline-flex min-h-12 items-center rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white">Start my request →</a>
           </div>
         </div>
@@ -88,3 +88,4 @@ export default function CateringPage() {
     </main>
   );
 }
+
