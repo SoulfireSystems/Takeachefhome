@@ -126,7 +126,7 @@ export default function KitchensPage() {
       <section className="border-y border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-10">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#135DFF]">
-            On the Board Now
+            Examples of space types — no live inventory
           </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -185,51 +185,10 @@ export default function KitchensPage() {
             Tell us what kind of kitchen support you need
           </h2>
 
-          <form method="post" action="/api/leads" className="mt-6 grid gap-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <input
-                name="name"
-                required
-                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]"
-                placeholder="Name"
-              />
-
-              <input
-                name="email"
-                type="email"
-                required
-                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]"
-                placeholder="Email"
-              />
-
-              <input
-                name="phone"
-                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]"
-                placeholder="Phone"
-              />
-
-              <input
-                name="city"
-                className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]"
-                placeholder="City + state"
-              />
-            </div>
-
-            <textarea
-              name="details"
-              required
-              rows={5}
-              className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#135DFF]"
-              placeholder="Prep kitchen, commissary, cold storage, overnight access, delivery setup, ghost kitchen, event prep, or anything important."
-            />
-
-            <input type="hidden" name="serviceType" value="kitchen-space" />
-            <input type="hidden" name="source" value="find-space-page" />
-
-            <button className="rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#104de0]">
-              Submit Space Request
-            </button>
-          </form>
+          <div className="mt-6 space-y-4">
+            <p className="text-sm leading-6 text-slate-700">Kitchen listings and space requests are not open yet. This page is a preview.</p>
+            <a href="https://www.takeachefhome.com/#marketplace" className="inline-flex min-h-12 items-center rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white">Return to the marketplace</a>
+          </div>
         </div>
       </section>
 

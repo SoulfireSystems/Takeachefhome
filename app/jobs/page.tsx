@@ -86,22 +86,10 @@ export default function JobsPage() {
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Crew Request</p>
           <h2 className="mt-2 text-3xl font-black">Tell us what kind of team you need</h2>
 
-          <form method="post" action="/api/leads" className="mt-6 grid gap-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <input name="name" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Name" />
-              <input name="email" type="email" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Email" />
-              <input name="phone" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Phone" />
-              <input name="city" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="City + state" />
-            </div>
-
-            <textarea name="positions" rows={4} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="How many people do you need? Servers, bartenders, cooks, prep, captains, setup crew, etc." />
-            <textarea name="details" required rows={5} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Event type, dates, shift times, dress code, pay structure, kitchen setup, and anything important." />
-
-            <input type="hidden" name="serviceType" value="staff" />
-            <input type="hidden" name="source" value="find-crew-page" />
-
-            <button className="rounded-2xl bg-[#0b4fb3] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#083f8e]">Submit Crew Request</button>
-          </form>
+          <div className="mt-6 space-y-4">
+            <p className="text-sm leading-6 text-slate-700">Post the paid work in the existing Jobs & Shifts marketplace and manage responses from your operator desk.</p>
+            <a href="https://prep-your-shift.ggg398.chatgpt.site/talent?view=post" className="inline-flex min-h-12 items-center rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white">Post paid work →</a>
+          </div>
         </div>
       </section>
 

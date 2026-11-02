@@ -71,22 +71,10 @@ export default function PrivateChefPage() {
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-2xl shadow-blue-900/10 md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">Private Chef Intake</p>
           <h2 className="mt-2 text-3xl font-black">Tell us about the dinner</h2>
-          <form method="post" action="/api/leads" className="mt-6 grid gap-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <input name="name" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Name" />
-              <input name="email" type="email" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Email" />
-              <input name="phone" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Phone" />
-              <input name="city" required className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="City + state" />
-              <input name="eventDate" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Target date" />
-              <input name="guests" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Guest count" />
-            </div>
-            <textarea name="details" required rows={5} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0b4fb3]" placeholder="Occasion, menu vibe, budget, dietary needs, kitchen setup, timing, and anything important." />
-            <input type="hidden" name="serviceType" value="private-chef" />
-            <input type="hidden" name="source" value="private-chef-page" />
-            <button className="rounded-2xl bg-[#0b4fb3] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-800/20 hover:bg-[#083f8e]">
-              Submit Private Chef Request
-            </button>
-          </form>
+          <div className="mt-6 space-y-4">
+            <p className="text-sm leading-6 text-slate-700">Continue in the TakeaChefHome request builder. Your saved private link lets you return to provider responses.</p>
+            <a href="https://prep-your-shift.ggg398.chatgpt.site/start?service=Private%20Chef" className="inline-flex min-h-12 items-center rounded-2xl bg-[#135DFF] px-6 py-4 text-sm font-black text-white">Start my request →</a>
+          </div>
         </div>
       </section>
     </main>

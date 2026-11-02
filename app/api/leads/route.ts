@@ -1,14 +1,8 @@
 import { NextResponse } from 'next/server';
-
-export async function POST(req: Request) {
-  const formData = await req.formData();
-  const data = Object.fromEntries(formData.entries());
-
-  console.log('NEW LEAD:', data);
-
-  return NextResponse.redirect(new URL('/thanks', req.url));
+const intakeUrl = 'https://prep-your-shift.ggg398.chatgpt.site/start';
+export function POST() {
+  return NextResponse.json({ok:false,error:'This form endpoint has been retired. Open the request builder to save and send your request.',intakeUrl},{status:410});
 }
-
 export function GET() {
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ok:true,acceptsSubmissions:false,intakeUrl});
 }
