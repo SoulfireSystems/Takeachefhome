@@ -2,9 +2,9 @@ import Link from "next/link";
 
 const sections = [
   {
-    title: "1. What belongs on Prep Your Shift",
+    title: "1. What belongs on Jobs & Shifts",
     body: [
-      "Prep Your Shift is for legitimate, paid culinary prep and kitchen-support work connected to food businesses, caterers, chefs, events, production kitchens, pop-ups, meal-prep operations, commissaries, and similar professional food operations.",
+      "Jobs & Shifts is for paid culinary prep and kitchen-support work connected to food businesses, caterers, chefs, events, production kitchens, pop-ups, meal-prep operations, commissaries, and similar professional food operations.",
       "Examples include prep cook work, cold prep, protein portioning, pastry prep, banquet prep, dish and utility support, pack-and-label work, kitchen loading, and catering-prep assistance.",
       "General household chores, unpaid internships, vague 'come help out' requests, personal errands, and non-culinary gigs do not belong on this board.",
     ],
@@ -12,7 +12,7 @@ const sections = [
   {
     title: "2. Who may use the board",
     body: [
-      "V1 is for adults age 18 or older. Posters must have authority to request labor for the business, chef, event, or kitchen named in the listing. Workers must provide truthful contact information, experience, availability, and credentials.",
+      "You must be age 18 or older to use this board. Posters must have authority to request labor for the business, chef, event, or kitchen named in the listing. Workers must provide truthful contact information, experience, availability, and credentials.",
       "TakeaChefHome may request additional verification before publishing a shift or allowing continued use of the marketplace.",
     ],
   },
@@ -28,14 +28,14 @@ const sections = [
     title: "4. No unpaid trials or worker fees",
     body: [
       "If a person is asked to perform productive prep work, that work must be paid as agreed and as required by law. 'Trial shifts' may not be used to obtain free labor.",
-      "Workers do not pay to apply for Prep Your Shift listings. Posters may never ask an applicant to send a deposit, gift card, application fee, background-check payment, equipment payment, or similar money in order to be considered for a shift.",
+      "Workers do not pay to apply for Jobs & Shifts listings. Posters may never ask an applicant to send a deposit, gift card, application fee, background-check payment, equipment payment, or similar money in order to be considered for a shift.",
     ],
   },
   {
     title: "5. Posting levels",
     body: [
-      "Launch posting levels are Quick ($2), Standard ($7), and Priority ($12). A submitted shift is not automatically public. It enters review first and is published only after approval and any required activation step is completed.",
-      "Priority improves placement and review urgency; it does not guarantee that workers will apply or that a shift will be filled.",
+      "Submitted shifts are reviewed before they appear on the board. The shift form does not take a posting payment. Any applicable posting fee must be agreed before you pay.",
+      "Paid promotion is not available yet. Worker pay is separate from any posting fee, and applying for work is free.",
     ],
   },
   {
@@ -68,10 +68,10 @@ const sections = [
     ],
   },
   {
-    title: "10. Payments during V1",
+    title: "10. Agreeing worker pay",
     body: [
-      "Prep Your Shift V1 does not hold or run payroll for worker wages. Unless a listing expressly says otherwise, the poster and confirmed worker arrange lawful payment directly and should agree on method and timing before work begins.",
-      "Future on-platform payment, completion-fee, escrow, payroll, or payout features may add separate terms that are shown before a user accepts them.",
+      "TakeaChefHome does not handle worker wages or run payroll. Unless a listing expressly says otherwise, the poster and confirmed worker arrange lawful payment directly and should agree on method and timing before work begins.",
+      "Keep a written record of the agreed hours, pay, payment method and payment timing.",
     ],
   },
   {
@@ -95,19 +95,19 @@ export default function PrepYourShiftRulesPage() {
     <main className="min-h-screen bg-[#f4f8ff] text-[#101828]">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-          <Link href="/prep-your-shift" className="text-xl font-black text-[#0b4fb3]">Prep Your Shift™</Link>
+          <Link href="/prep-your-shift" className="text-xl font-black text-[#0b4fb3]">Jobs &amp; Shifts</Link>
           <Link href="/prep-your-shift" className="rounded-full bg-[#08182d] px-4 py-2 text-sm font-black text-white">Back to Board</Link>
         </div>
       </header>
 
       <section className="border-b border-slate-200 bg-[#08182d] text-white">
         <div className="mx-auto max-w-5xl px-4 py-14">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#84bfff]">Marketplace Rules · V1</p>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#84bfff]">POSTING + WORKPLACE RULES</p>
           <h1 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">Real work. Clear pay. Professional behavior.</h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-slate-300">
-            These rules govern the Prep Your Shift marketplace lane. They are designed to keep a fast-moving culinary work board useful, safe, and honest while the platform grows.
+            Use these rules when posting a shift, applying for work or agreeing the details with someone you meet through TakeaChefHome.
           </p>
-          <p className="mt-5 text-xs font-bold uppercase tracking-[0.12em] text-slate-400">Last updated October 13, 2026</p>
+          <p className="mt-5 text-xs font-bold uppercase tracking-[0.12em] text-slate-400">Last updated November 2, 2026</p>
         </div>
       </section>
 
@@ -136,7 +136,7 @@ export default function PrepYourShiftRulesPage() {
 
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-6 text-xs text-slate-500">
-          <span>Prep Your Shift™ · TakeaChefHome.com</span>
+          <span>Jobs &amp; Shifts · TakeaChefHome.com</span>
           <Link href="/prep-your-shift" className="font-black text-[#0b4fb3]">Return to Prep Board →</Link>
         </div>
       </footer>
