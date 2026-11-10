@@ -1,3 +1,4 @@
+import { notifySavedLead } from '@/lib/lead-notifications';
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase-server';
 
@@ -76,6 +77,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'We could not save your profile right now. Please try again.' }, { status: 500 });
     }
 
+    await notifySavedLead({ category: 'talent', name: `${first_name} ${last_name}`, email, city, reference: data?.talent_id });
     return NextResponse.json({ ok: true, ...data }, { status: 201 });
   } catch (error) {
     console.error('Talent API error', error);
