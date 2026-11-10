@@ -9,16 +9,17 @@ type LeadNotice = {
 };
 
 // Called only AFTER the database insert succeeds. Email failure never rolls back a saved lead.
-// Configure RESEND_API_KEY and LEAD_EMAIL_FROM on Vercel; sender domain must be verified with Resend.
+// Reuse RESEND_API_KEY, TALENT_FROM_EMAIL and LEAD_NOTIFICATION_EMAIL where configured.
+// Optional LEAD_EMAIL_FROM overrides TALENT_FROM_EMAIL. Sender domain must be verified in Resend.
 // Zoho MX records remain unchanged: Zoho receives the notifications.
 export async function notifySavedLead(lead: LeadNotice): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.LEAD_EMAIL_FROM;
+  const from = process.env.LEAD_EMAIL_FROM || process.env.TALENT_FROM_EMAIL;
   if (!apiKey || !from) {
     console.warn('Lead email notification not configured; saved record remains in database.');
     return false;
   }
-  const address = lead.category + '@takeachefhome.com';
+  const address = process.env.LEAD_NOTIFICATION_EMAIL || (lead.category + '@takeachefhome.com');
   const safe = (s: string | undefined) => (s || '').replace(/[\r\n<>]/g, ' ').slice(0, 180);
   try {
     const result = await new Resend(apiKey).emails.send({
