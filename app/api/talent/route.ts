@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     const city = clean(body.city, 100);
     const state = clean(body.state, 2).toUpperCase();
     const zip = clean(body.zip, 15);
+    const account_type = clean(body.account_type, 30);
     const roles = strings(body.roles, 40);
     const categories = strings(body.talent_categories, 15);
     const opportunity_types = strings(body.opportunity_types, 15);
@@ -26,8 +27,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Please complete all required fields before joining the network.' }, { status: 400 });
     }
 
+    const work_background = strings(body.work_background);
+    if (account_type === 'Solo professional' || account_type === 'Business / team') work_background.unshift(account_type);
+
     const completionChecks = [
-      roles.length > 0, categories.length > 0, city && state && zip, body.years_experience, strings(body.work_background).length > 0,
+      roles.length > 0, categories.length > 0, city && state && zip, body.years_experience, work_background.length > 0,
       clean(body.bio).length >= 20, strings(body.skills).length > 0, opportunity_types.length > 0, availability.length > 0,
       compensation_type.length > 0, body.transportation, first_name && last_name && email && phone,
       strings(body.certifications).length > 0, Boolean(body.has_resume), Boolean(body.has_headshot), Boolean(body.has_portfolio)
@@ -48,7 +52,7 @@ export async function POST(req: NextRequest) {
       travel_radius: clean(body.travel_radius, 40),
       overnight_travel: clean(body.overnight_travel, 20),
       years_experience: clean(body.years_experience, 30),
-      work_background: strings(body.work_background),
+      work_background,
       bio: clean(body.bio, 1200) || null,
       skills: strings(body.skills, 50),
       cuisine_specialties: strings(body.cuisine_specialties, 30),
