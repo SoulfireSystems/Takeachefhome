@@ -1,3 +1,4 @@
+import { notifySavedLead } from '@/lib/lead-notifications';
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
 
@@ -76,6 +77,7 @@ export async function POST(req: Request) {
       throw error;
     }
 
+    await notifySavedLead({ category: "prep", name: fullName, email, reference: `Shift application: ${shiftId}` });
     return NextResponse.redirect(new URL("/prep-your-shift/application-received", req.url), 303);
   } catch (error) {
     console.error("PREP SHIFT APPLICATION ERROR", error);
