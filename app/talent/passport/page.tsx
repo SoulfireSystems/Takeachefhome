@@ -14,7 +14,7 @@ type FormState = {
 };
 
 type FilesState = { resume: File | null; headshot: File | null; portfolio: File | null; certification: File | null };
-const initial: FormState = { account_type:'',talent_categories:[],roles:[],city:'',state:'NC',zip:'',travel_radius:'Up to 25 miles',overnight_travel:'Sometimes',years_experience:'',work_background:[],bio:'',skills:[],cuisine_specialties:[],opportunity_types:[],availability:[],available_now:false,earliest_start:'',compensation_type:[],compensation_min:'',compensation_max:'',transportation:'',certifications:[],first_name:'',last_name:'',professional_name:'',email:'',phone:'',preferred_contact:'Text',hear_about:'',referral_source:'',communications_consent:false,marketing_consent:false };
+const initial: FormState = { account_type:'',talent_categories:[],roles:[],city:'',state:'',zip:'',travel_radius:'Up to 25 miles',overnight_travel:'Sometimes',years_experience:'',work_background:[],bio:'',skills:[],cuisine_specialties:[],opportunity_types:[],availability:[],available_now:false,earliest_start:'',compensation_type:[],compensation_min:'',compensation_max:'',transportation:'',certifications:[],first_name:'',last_name:'',professional_name:'',email:'',phone:'',preferred_contact:'Text',hear_about:'',referral_source:'',communications_consent:false,marketing_consent:false };
 
 const availabilityChoices = ['Weekday mornings','Weekday afternoons','Weekday evenings','Friday','Saturday','Sunday','Overnight','On-call / Last-minute','Flexible'];
 const compensationChoices = ['Hourly','Day Rate','Per Event','Per Project','Negotiable'];
