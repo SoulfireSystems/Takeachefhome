@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase-server';
+import { TALENT_COOKIE, newTalentSession, talentCookieOptions } from '@/lib/talent-session';
 
 const allowedStatuses = new Set(['NEW','PROFILE INCOMPLETE','READY FOR REVIEW','REVIEWING','APPROVED','ACTIVE','AVAILABLE NOW','MATCHED','BOOKED','INACTIVE','PAUSED','REJECTED']);
 const clean = (v: unknown, max = 500) => typeof v === 'string' ? v.trim().slice(0, max) : '';
@@ -80,7 +81,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'We could not save your profile right now. Please try again.' }, { status: 500 });
     }
 
-    return NextResponse.json({ ok: true, ...data }, { status: 201 });
+    const response = NextResponse.json({ ok: true, ...data }, { status: 201 });
+    response.cookies.set(TALENT_COOKIE, newTalentSession(data.id), talentCookieOptions());
+    return response;
   } catch (error) {
     console.error('Talent API error', error);
     return NextResponse.json({ error: 'Invalid submission.' }, { status: 400 });
