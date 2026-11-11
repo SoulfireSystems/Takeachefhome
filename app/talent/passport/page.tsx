@@ -28,7 +28,7 @@ function Pill({active,label,onClick}:{active:boolean;label:string;onClick:()=>vo
 
 export default function TalentPage(){
   const [started,setStarted]=useState(true); const [step,setStep]=useState(1); const [form,setForm]=useState<FormState>(initial); const [files,setFiles]=useState<FilesState>({resume:null,headshot:null,portfolio:null,certification:null});
-  const [skillInput,setSkillInput]=useState(''); const [error,setError]=useState(''); const [saving,setSaving]=useState(false); const [success,setSuccess]=useState<{talent_id:string;profile_completion:number;referral_code:string}|null>(null);
+  const [skillInput,setSkillInput]=useState(''); const [error,setError]=useState(''); const [saving,setSaving]=useState(false); const [uploadWarning,setUploadWarning]=useState(''); const [copied,setCopied]=useState(''); const [success,setSuccess]=useState<{talent_id:string;profile_completion:number;referral_code:string}|null>(null);
   const selectedCategories = TALENT_CATEGORIES.filter(c=>form.talent_categories.includes(c.id));
   const marketButtons = form.state && US_MARKETS[form.state] ? US_MARKETS[form.state] : [];
   const toggle=(key:keyof FormState,value:string)=>setForm(prev=>{ const current=prev[key]; if(!Array.isArray(current)) return prev; const arr=current as string[]; return {...prev,[key]:arr.includes(value)?arr.filter(x=>x!==value):[...arr,value]}; });
@@ -53,12 +53,59 @@ export default function TalentPage(){
     try{
       const payload={...form,source:'talent-passport',has_resume:Boolean(files.resume),has_headshot:Boolean(files.headshot),has_portfolio:Boolean(files.portfolio)};
       const res=await fetch('/api/talent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); const data=await res.json(); if(!res.ok) throw new Error(data.error||'Unable to save profile.');
-      for(const [kind,file] of Object.entries(files)){ if(!file) continue; const fd=new FormData();fd.append('talentId',data.talent_id);fd.append('kind',kind);fd.append('file',file);await fetch('/api/talent/upload',{method:'POST',body:fd}); }
+      const failedUploads:string[]=[];
+      for(const [kind,file] of Object.entries(files)){
+        if(!file) continue;
+        const fd=new FormData();fd.append('talentId',data.talent_id);fd.append('kind',kind);fd.append('file',file);
+        try{const upload=await fetch('/api/talent/upload',{method:'POST',body:fd});if(!upload.ok) failedUploads.push(kind);}
+        catch{failedUploads.push(kind);}
+      }
+      setUploadWarning(failedUploads.length ? 'Your Talent Passport was saved, but these attachments could not be uploaded: '+failedUploads.join(', ')+'. We may ask you to resend them during review.' : '');
       setSuccess(data);
     }catch(err){setError(err instanceof Error?err.message:'Unable to save profile.');}finally{setSaving(false);}
   };
 
-  if(success){return <main className="min-h-screen bg-[#F4F9FF] text-slate-950"><section className="mx-auto max-w-3xl px-4 py-16 sm:py-24"><div className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-2xl shadow-blue-900/10"><div className="bg-gradient-to-br from-[#071b3d] via-[#135DFF] to-[#37b7ff] p-8 text-white sm:p-12"><p className="text-xs font-black uppercase tracking-[.2em] text-white/70">TakeAChefHome Talent</p><h1 className="mt-3 text-5xl font-black tracking-tight">YOU&apos;RE IN THE NETWORK.</h1><p className="mt-4 max-w-2xl text-lg leading-8 text-white/85">Welcome to TakeAChefHome Talent. Your profile has been received. As opportunities develop in your market, TakeAChefHome can use your profile to identify potential matches.</p></div><div className="p-8 sm:p-12"><div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-xs font-black uppercase tracking-[.18em] text-[#135DFF]">Talent ID</p><p className="mt-1 text-2xl font-black">{success.talent_id}</p></div><div className="sm:text-right"><p className="text-xs font-black uppercase tracking-[.18em] text-slate-500">Profile completion</p><p className="mt-1 text-4xl font-black text-[#135DFF]">{success.profile_completion}%</p></div></div><div className="mt-5 h-3 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full bg-[#135DFF]" style={{width:`${success.profile_completion}%`}}/></div><p className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm leading-7 text-slate-600">Your Talent Passport was received. If you added optional documents during registration, they are reviewed privately. We will contact you if further information is needed.</p><div className="mt-8 rounded-3xl bg-[#eef5ff] p-5"><p className="font-black">Know somebody good?</p><p className="mt-1 text-sm text-slate-600">Invite another culinary professional with your recruiting code.</p><p className="mt-3 inline-flex rounded-full bg-white px-4 py-2 font-mono font-black text-[#135DFF]">{success.referral_code}</p></div><div className="mt-8 flex flex-wrap gap-3"><Link href="/talent" className="rounded-full bg-[#135DFF] px-5 py-3 text-sm font-black text-white">EXPLORE TAKEACHEFHOME</Link><button onClick={()=>navigator.clipboard?.writeText(`${window.location.origin}/talent?ref=${success.referral_code}`)} className="rounded-full border border-slate-200 px-5 py-3 text-sm font-black">SHARE REFERRAL LINK</button></div></div></div></section></main>}
+  if(success){
+    const shareLink=`${typeof window!=='undefined'?window.location.origin:'https://www.takeachefhome.com'}/talent?ref=${encodeURIComponent(success.referral_code||'')}`;
+    const copy=(value:string,label:string)=>{navigator.clipboard?.writeText(value).then(()=>setCopied(label)).catch(()=>setCopied(''));};
+    return <main className="min-h-screen bg-[#F5F7FB] text-[#101D31]">
+      <header className="border-b border-slate-200 bg-white"><div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-5 py-5"><Link href="/talent" className="text-lg font-black text-[#112C4E]">TakeAChefHome <span className="text-[#2467D5]">/ Talent</span></Link><span className="text-xs font-bold uppercase tracking-[.15em] text-slate-500">Talent Passport</span></div></header>
+      <section className="mx-auto max-w-4xl px-5 py-12 sm:py-20">
+        <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-900/5">
+          <div className="bg-[#101D31] px-7 py-12 text-white sm:px-12">
+            <div className="inline-flex rounded-full border border-[#96BEFF]/40 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[.18em] text-[#B9D2FF]">Application received</div>
+            <h1 className="mt-6 text-4xl font-black tracking-tight sm:text-5xl">You’re in. Here’s what happens next.</h1>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-200">Thanks, {form.first_name}. Your Talent Passport has been submitted to TakeAChefHome. You don’t need to apply again.</p>
+          </div>
+          <div className="p-7 sm:p-12">
+            <div className="flex flex-col justify-between gap-5 rounded-3xl border border-[#D8E5FF] bg-[#F0F5FF] p-6 sm:flex-row sm:items-center">
+              <div><p className="text-xs font-black uppercase tracking-[.15em] text-[#2467D5]">Your Talent ID — save this</p><p className="mt-2 break-all font-mono text-2xl font-black">{success.talent_id}</p><p className="mt-2 text-sm text-slate-600">Your reference number for any future questions.</p></div>
+              <button type="button" onClick={()=>copy(success.talent_id,'id')} className="shrink-0 rounded-full bg-[#2467D5] px-6 py-3 text-sm font-black text-white">{copied==='id'?'COPIED':'COPY TALENT ID'}</button>
+            </div>
+            {uploadWarning&&<p role="alert" className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-7 text-amber-900">{uploadWarning}</p>}
+            <h2 className="mt-11 text-2xl font-black">What happens from here?</h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {[
+                ['01','Passport received','Your background, work preferences and service area have been saved for consideration.'],
+                ['02','Profile review','Our team can review your details and may request clarification or credentials.'],
+                ['03','Potential matches','If a relevant opportunity develops, TakeAChefHome may contact you using your preferred method.']
+              ].map(([n,title,body])=><article key={n} className="rounded-2xl border border-slate-200 bg-white p-5"><p className="text-sm font-black text-[#2467D5]">{n}</p><h3 className="mt-3 font-black">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{body}</p></article>)}
+            </div>
+            <div className="mt-9 rounded-3xl bg-slate-50 p-6"><h2 className="text-xl font-black">Your registration summary</h2><div className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+              <div><span className="font-semibold text-slate-500">Joining as</span><p className="mt-1 font-bold">{form.account_type}</p></div>
+              <div><span className="font-semibold text-slate-500">Home market</span><p className="mt-1 font-bold">{form.city}, {form.state}</p></div>
+              <div><span className="font-semibold text-slate-500">Primary role</span><p className="mt-1 font-bold">{form.roles[0]}</p></div>
+              <div><span className="font-semibold text-slate-500">Travel reach</span><p className="mt-1 font-bold">{form.travel_radius}</p></div>
+              <div><span className="font-semibold text-slate-500">Preferred contact</span><p className="mt-1 font-bold">{form.preferred_contact}</p></div>
+              <div><span className="font-semibold text-slate-500">Profile detail score</span><p className="mt-1 font-bold">{success.profile_completion}% complete</p></div>
+            </div></div>
+            <p className="mt-7 text-sm leading-7 text-slate-600">You don’t have to keep checking this page. Save your Talent ID. We’ll contact you if we need more information or have a suitable opportunity. Registration does not guarantee work, placement or a response within a particular time.</p>
+            <div className="mt-9 flex flex-wrap gap-3"><Link href="/talent" className="inline-flex rounded-full bg-[#2467D5] px-7 py-4 text-sm font-black text-white">BACK TO TALENT NETWORK</Link><button type="button" onClick={()=>copy(shareLink,'referral')} className="rounded-full border border-slate-300 px-6 py-4 text-sm font-black text-[#101D31]">{copied==='referral'?'REFERRAL LINK COPIED':'SHARE THE TALENT NETWORK'}</button></div>
+          </div>
+        </div>
+      </section>
+    </main>;
+  }
 
   if(started){return <main className="min-h-screen bg-[#F4F9FF] text-slate-950"><header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 backdrop-blur"><div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4"><button onClick={()=>window.location.assign("/talent")} className="text-lg font-black text-[#135DFF]">TakeAChefHome <span className="text-slate-950">/ Talent</span></button><span className="text-xs font-black uppercase tracking-[.16em] text-slate-500">Step {step} of 7</span></div></header><div className="mx-auto max-w-4xl px-4 py-8"><div className="mb-8 h-2 overflow-hidden rounded-full bg-white shadow-sm"><div className="h-full bg-[#135DFF] transition-all" style={{width:`${(step/7)*100}%`}}/></div><form onSubmit={submit} className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-xl shadow-blue-900/5 sm:p-8">
   {step===1&&<><p className="text-xs font-black uppercase tracking-[.18em] text-[#135DFF]">Step 1</p><h1 className="mt-2 text-3xl font-black">Build your Talent Passport.</h1><p className="mt-2 text-slate-600">First, tell us how you work. Then add the skills and experience that set you apart.</p><div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5"><p className="mb-3 text-sm font-black">Are you joining independently or as a business?</p><div className="flex flex-wrap gap-3">{['Solo professional','Business / team'].map(x=><Pill key={x} label={x} active={form.account_type===x} onClick={()=>setForm(q=>({...q,account_type:x}))}/>)}</div></div><div className="mt-7 grid gap-3 sm:grid-cols-2">{TALENT_CATEGORIES.map(c=><button key={c.id} type="button" onClick={()=>toggle('talent_categories',c.id)} className={`rounded-3xl border p-5 text-left transition ${form.talent_categories.includes(c.id)?'border-[#135DFF] bg-[#eef5ff] shadow-md':'border-slate-200 hover:border-[#135DFF]/40'}`}><div className="flex items-center justify-between"><h3 className="text-lg font-black">{c.title}</h3><span className="text-[#135DFF]">{form.talent_categories.includes(c.id)?'✓':'+'}</span></div><p className="mt-2 text-sm leading-6 text-slate-600">{c.line}</p></button>)}</div>{selectedCategories.length>0&&<div className="mt-8"><h2 className="text-xl font-black">What should people hire you for?</h2><div className="mt-4 flex flex-wrap gap-2">{selectedCategories.flatMap(c=>c.roles).filter((v,i,a)=>a.indexOf(v)===i).map(role=><Pill key={role} label={role} active={form.roles.includes(role)} onClick={()=>toggle('roles',role)}/>)}</div></div>}</>}
