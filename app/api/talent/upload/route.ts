@@ -1,3 +1,5 @@
+import { createHash, timingSafeEqual } from 'node:crypto';
+import { accountUser } from '@/lib/account-server';
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase-server';
 
@@ -19,8 +21,15 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = getSupabaseAdmin();
-    const { data: profile, error: profileError } = await supabase.from('talent_profiles').select('id').eq('talent_id', talentId).single();
+    const { data: profile, error: profileError } = await supabase.from('talent_profiles').select('id,account_id,edit_token_hash').eq('talent_id', talentId).single();
     if (profileError || !profile) return NextResponse.json({ error: 'Talent profile not found.' }, { status: 404 });
+
+    const user = await accountUser();
+    const token = String(form.get('uploadToken') || '');
+    const digest = createHash('sha256').update(token).digest('hex');
+    const expected = profile.edit_token_hash;
+    const tokenValid = !profile.account_id && token.length >= 40 && typeof expected === 'string' && expected.length === digest.length && timingSafeEqual(Buffer.from(expected), Buffer.from(digest));
+    if (!(user && profile.account_id === user.id) && !tokenValid) return NextResponse.json({ error: 'Sign in with the email on your Passport before uploading.' }, { status: 403 });
 
     const ext = file.name.split('.').pop()?.toLowerCase().replace(/[^a-z0-9]/g,'') || 'bin';
     const path = `${profile.id}/${kind}/${crypto.randomUUID()}.${ext}`;

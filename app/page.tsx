@@ -5,14 +5,14 @@ import Link from "next/link";
 
 const primaryServices = [
   {
-    href: "https://prep-your-shift.ggg398.chatgpt.site/private-chefs",
+    href: "/providers?service=private-chef",
     title: "Private Chef",
     detail: "Breakfast, brunch, dinner parties, vacation meals, retreats and celebrations.",
     cta: "Find a Private Chef",
     style: "from-[#061b3a] via-[#135DFF] to-[#33b8ff]",
   },
   {
-    href: "https://prep-your-shift.ggg398.chatgpt.site/catering",
+    href: "/providers?service=catering",
     title: "Catering",
     detail: "Events, business meals, parties, weddings, brunches, drop-offs, buffets, and full-service food.",
     cta: "Request Catering",
@@ -108,7 +108,7 @@ export default function Home() {
             <a href="#services" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#135DFF]">Catering</a>
             <a href="#marketplace" className="rounded-full px-3 py-2 hover:bg-[#eaf3ff] hover:text-[#135DFF]">Marketplace</a>
             <a href="https://prep-your-shift.ggg398.chatgpt.site/start" className="rounded-full bg-[#135DFF] px-4 py-2 text-white hover:bg-[#104de0]">Start Request</a>
-          </nav>
+          <Link href="/providers" className="rounded-full border border-slate-300 px-4 py-2">Find a Pro</Link><Link href="/account" className="rounded-full bg-[#135DFF] px-4 py-2 text-white">My Account / Inbox</Link></nav>
         </div>
       </header>
 

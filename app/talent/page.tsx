@@ -12,7 +12,7 @@ export default function TalentHome() {
     <header className="border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-5">
         <Link href="/talent" className="text-lg font-black tracking-tight text-[#112C4E] sm:text-xl">TakeAChefHome<span className="text-[#2467D5]"> / Talent</span></Link>
-        <Link href="/talent/passport" className="rounded-full bg-[#2467D5] px-5 py-3 text-xs font-extrabold text-white">CREATE MY PASSPORT</Link>
+        <Link href="/account" className="text-sm font-bold text-[#2467D5]">MY ACCOUNT / INBOX</Link><Link href="/talent/passport" className="rounded-full bg-[#2467D5] px-5 py-3 text-xs font-extrabold text-white">CREATE MY PASSPORT</Link>
       </div>
     </header>
     <section className="relative overflow-hidden bg-[#101D31] text-white">

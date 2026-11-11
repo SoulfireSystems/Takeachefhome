@@ -14,3 +14,7 @@ a {
   color: #3b82f6;
   text-decoration: none;
 }
+
+/* Recovered provider card styling, scoped to existing card components. */
+.pro-card{position:relative;overflow:hidden;border:2px solid #171310;background:#F8F4EA;box-shadow:7px 7px 0 #171310;display:block}
+.pro-card-foil{background:#D4A64F}
