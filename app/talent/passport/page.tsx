@@ -62,6 +62,7 @@ export default function TalentPage(){
       }
       setUploadWarning(failedUploads.length ? 'Your Talent Passport was saved, but these attachments could not be uploaded: '+failedUploads.join(', ')+'. We may ask you to resend them during review.' : '');
       setSuccess(data);
+      if(!failedUploads.length) window.location.assign('/talent/home');
     }catch(err){setError(err instanceof Error?err.message:'Unable to save profile.');}finally{setSaving(false);}
   };
 
@@ -100,7 +101,7 @@ export default function TalentPage(){
               <div><span className="font-semibold text-slate-500">Profile detail score</span><p className="mt-1 font-bold">{success.profile_completion}% complete</p></div>
             </div></div>
             <p className="mt-7 text-sm leading-7 text-slate-600">You don’t have to keep checking this page. Save your Talent ID. We’ll contact you if we need more information or have a suitable opportunity. Registration does not guarantee work, placement or a response within a particular time.</p>
-            <div className="mt-9 flex flex-wrap gap-3"><Link href="/talent" className="inline-flex rounded-full bg-[#2467D5] px-7 py-4 text-sm font-black text-white">BACK TO TALENT NETWORK</Link><button type="button" onClick={()=>copy(shareLink,'referral')} className="rounded-full border border-slate-300 px-6 py-4 text-sm font-black text-[#101D31]">{copied==='referral'?'REFERRAL LINK COPIED':'SHARE THE TALENT NETWORK'}</button></div>
+            <div className="mt-9 flex flex-wrap gap-3"><Link href="/talent/home" className="inline-flex rounded-full bg-[#101D31] px-7 py-4 text-sm font-black text-white">OPEN MY TALENT HOME</Link><Link href="/talent" className="inline-flex rounded-full bg-[#2467D5] px-7 py-4 text-sm font-black text-white">BACK TO TALENT NETWORK</Link><button type="button" onClick={()=>copy(shareLink,'referral')} className="rounded-full border border-slate-300 px-6 py-4 text-sm font-black text-[#101D31]">{copied==='referral'?'REFERRAL LINK COPIED':'SHARE THE TALENT NETWORK'}</button></div>
           </div>
         </div>
       </section>
