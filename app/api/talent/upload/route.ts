@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase-server';
+import { getTalentProfileId } from '@/lib/talent-session';
 
 const allowedKinds = new Set(['resume','headshot','portfolio','certification']);
 const allowedTypes = new Set(['application/pdf','image/jpeg','image/png','image/webp']);
@@ -18,9 +19,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Use PDF, JPG, PNG or WEBP files up to 10MB.' }, { status: 400 });
     }
 
+    const signedInId = await getTalentProfileId();
+    if(!signedInId) return NextResponse.json({error:'Talent session required.'},{status:401});
     const supabase = getSupabaseAdmin();
     const { data: profile, error: profileError } = await supabase.from('talent_profiles').select('id').eq('talent_id', talentId).single();
-    if (profileError || !profile) return NextResponse.json({ error: 'Talent profile not found.' }, { status: 404 });
+    if (profileError || !profile || profile.id !== signedInId) return NextResponse.json({ error: 'Upload not authorized for this Passport.' }, { status: 403 });
 
     const ext = file.name.split('.').pop()?.toLowerCase().replace(/[^a-z0-9]/g,'') || 'bin';
     const path = `${profile.id}/${kind}/${crypto.randomUUID()}.${ext}`;
