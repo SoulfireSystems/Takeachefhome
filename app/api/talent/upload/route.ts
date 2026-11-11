@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     const token = String(form.get('uploadToken') || '');
     const digest = createHash('sha256').update(token).digest('hex');
     const expected = profile.edit_token_hash;
-    const tokenValid = token.length >= 40 && typeof expected === 'string' && expected.length === digest.length && timingSafeEqual(Buffer.from(expected), Buffer.from(digest));
+    const tokenValid = !profile.account_id && token.length >= 40 && typeof expected === 'string' && expected.length === digest.length && timingSafeEqual(Buffer.from(expected), Buffer.from(digest));
     if (!(user && profile.account_id === user.id) && !tokenValid) return NextResponse.json({ error: 'Sign in with the email on your Passport before uploading.' }, { status: 403 });
 
     const ext = file.name.split('.').pop()?.toLowerCase().replace(/[^a-z0-9]/g,'') || 'bin';
