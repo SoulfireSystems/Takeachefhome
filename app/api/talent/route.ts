@@ -1,3 +1,5 @@
+import { createHash, randomBytes } from 'node:crypto';
+import { accountUser } from '@/lib/account-server';
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase-server';
 
@@ -39,9 +41,13 @@ export async function POST(req: NextRequest) {
     const profile_completion = Math.round((completionChecks.filter(Boolean).length / completionChecks.length) * 100);
     const application_status = profile_completion >= 70 ? 'READY FOR REVIEW' : 'PROFILE INCOMPLETE';
 
+    const uploadToken = randomBytes(32).toString('base64url');
+    const signedIn = await accountUser();
     const supabase = getSupabaseAdmin();
     const { data, error } = await supabase.from('talent_profiles').insert({
       first_name, last_name,
+      account_id: signedIn?.email?.toLowerCase() === email ? signedIn.id : null,
+      edit_token_hash: createHash('sha256').update(uploadToken).digest('hex'),
       professional_name: clean(body.professional_name, 140) || null,
       email, phone,
       preferred_contact: clean(body.preferred_contact, 20) || 'text',
@@ -80,7 +86,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'We could not save your profile right now. Please try again.' }, { status: 500 });
     }
 
-    return NextResponse.json({ ok: true, ...data }, { status: 201 });
+    return NextResponse.json({ ok: true, ...data, upload_token: uploadToken }, { status: 201 });
   } catch (error) {
     console.error('Talent API error', error);
     return NextResponse.json({ error: 'Invalid submission.' }, { status: 400 });
