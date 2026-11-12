@@ -30,7 +30,7 @@ export async function POST(req:NextRequest){
   try{body=await req.json()}catch{return NextResponse.json({error:'Invalid request'},{status:400})}
   if(body.action==='moderate'){
     const id=text(body.id,40),status=text(body.status,20);
-    if(!validUuid(id)||!['draft','open','closed','cancelled'].includes(status)||typeof body.approved!=='boolean')return NextResponse.json({error:'Invalid review action'},{status:400});
+    if(!validUuid(id)||!['pending_review','open','closed','cancelled'].includes(status)||typeof body.approved!=='boolean')return NextResponse.json({error:'Invalid review action'},{status:400});
     const {error}=await getSupabaseAdmin().from('talent_opportunities').update({status,talent_board_approved:body.approved,updated_at:new Date().toISOString()}).eq('id',id);
     return error?NextResponse.json({error:'Unable to update listing'},{status:500}):NextResponse.json({ok:true});
   }
@@ -44,17 +44,27 @@ export async function POST(req:NextRequest){
   const role=text(body.role,100),type=text(body.opportunity_type,60),company=text(body.company_name,140),
     city=text(body.city,100),state=text(body.state,2).toUpperCase(),description=text(body.description,2000),
     contactName=text(body.contact_name,100),contactEmail=text(body.contact_email,180);
-  if(!role||!type||!company||!city||!/^[A-Z]{2}$/.test(state)||description.length<30||!contactName||!/^\S+@\S+\.\S+$/.test(contactEmail))return NextResponse.json({error:'Fill in role, type, organization, location, description, and internal contact.'},{status:400});
+  if(!role||!['job','shift'].includes(type)||!company||!city||!/^[A-Z]{2}$/.test(state)||description.length<30||!contactName||!/^\S+@\S+\.\S+$/.test(contactEmail))return NextResponse.json({error:'Fill in role, type, organization, location, description, and internal contact.'},{status:400});
   const amount=(v:unknown)=>v==null||v===''?null:Number.isFinite(Number(v))&&Number(v)>=0&&Number(v)<=100000?Number(v):null;
   const date=(v:unknown)=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)?v:null;
+  const expires=typeof body.expires_at==='string'&&Number.isFinite(Date.parse(body.expires_at))?new Date(body.expires_at).toISOString():null;
+  const workDate=date(body.work_date);
+  const startTime=text(body.start_time,5),endTime=text(body.end_time,5);
+  const workers=amount(body.workers_needed);
+  const payType=text(body.pay_type,40).toLowerCase();
+  const employment=text(body.employment_type,40).toLowerCase();
+  if(!['hourly','flat','salary','daily'].includes(payType)||employment&& !['full-time','part-time','seasonal','temporary','contract'].includes(employment))return NextResponse.json({error:'Choose a valid pay and employment type.'},{status:400});
+  if(type==='job'&&!expires)return NextResponse.json({error:'Job postings require an expiration date.'},{status:400});
+  if(type==='shift'&&(!workDate||!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(startTime)||!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(endTime)||!workers||workers<1))return NextResponse.json({error:'Shifts require work date, start and end times, and crew size.'},{status:400});
+  if(expires && Date.parse(expires)<=Date.now())return NextResponse.json({error:'Expiration must be in the future.'},{status:400});
   const {data,error}=await getSupabaseAdmin().from('talent_opportunities').insert({
     role,opportunity_type:type,company_name:company,city,state,description,contact_name:contactName,contact_email:contactEmail,
-    contact_phone:null,work_date:date(body.work_date),pay_type:text(body.pay_type,40)||null,pay_min:amount(body.pay_min),pay_max:amount(body.pay_max),
-    requirements:text(body.requirements,900)||null,employment_type:text(body.employment_type,70)||null,
-    workers_needed:amount(body.workers_needed),status:'draft',talent_board_approved:false,
-    expires_at:typeof body.expires_at==='string'&&Number.isFinite(Date.parse(body.expires_at))?new Date(body.expires_at).toISOString():null,
+    contact_phone:null,work_date:workDate,start_time:startTime||null,end_time:endTime||null,pay_type:payType,pay_min:amount(body.pay_min),pay_max:amount(body.pay_max),
+    requirements:text(body.requirements,900)||null,employment_type:employment||null,
+    workers_needed:workers, status:'pending_review',talent_board_approved:false,
+    expires_at:expires,
     poster_terms_accepted:true
   }).select('id').single();
   if(error){console.error('Talent opportunity admin create',error);return NextResponse.json({error:'Could not save opportunity'},{status:500})}
-  return NextResponse.json({ok:true,id:data.id,status:'draft',approved:false},{status:201});
+  return NextResponse.json({ok:true,id:data.id,status:'pending_review',approved:false},{status:201});
 }
