@@ -39,6 +39,12 @@ export async function POST(req:NextRequest){
   if(listingError||!listing)return NextResponse.json({error:'This opportunity is not open.'},{status:404});
   const {data:existing}=await supabase.from('talent_board_interests').select('status,created_at').eq('talent_profile_id',id).eq('opportunity_id',listing.id).maybeSingle();
   if(body.action==='interest'&&existing?.status==='interested')return NextResponse.json({error:'You already expressed interest in this opportunity.'},{status:409});
+  if(body.action==='interest'&&existing?.status!=='interested'){
+    const since=new Date(Date.now()-24*60*60*1000).toISOString();
+    const {count,error:rateError}=await supabase.from('talent_board_interests').select('id',{count:'exact',head:true}).eq('talent_profile_id',id).in('status',['interested','reviewed','shortlisted']).gte('updated_at',since);
+    if(rateError)return NextResponse.json({error:'Unable to validate interest limit.'},{status:500});
+    if((count||0)>=10)return NextResponse.json({error:'You have reached the daily interest limit. Please try again tomorrow.'},{status:429});
+  }
   const status=body.action==='interest'?'interested':body.action==='withdraw'?'withdrawn':'saved';
   if(status==='interested'&&existing?.created_at&&Date.now()-new Date(existing.created_at).getTime()<30_000)return NextResponse.json({error:'Please wait before changing your interest.'},{status:429});
   const note=typeof body.note==='string'?body.note.trim().slice(0,400):'';
