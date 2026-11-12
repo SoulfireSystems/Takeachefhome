@@ -19,7 +19,7 @@ export async function GET(req:NextRequest){
     sb.from('talent_board_interests').select('id,opportunity_id,talent_profile_id,status,note,created_at').order('created_at',{ascending:false}).limit(200)
   ]);
   if(listings.error||interests.error)return NextResponse.json({error:'Unable to load Talent Board admin'},{status:500});
-  const profiles=interests.data?.length? await sb.from('talent_profiles').select('id,talent_id,first_name,last_name,primary_role,city,state,email,phone').in('id',[...new Set(interests.data.map(i=>i.talent_profile_id))]):{data:[]};
+  const profiles=interests.data?.length? await sb.from('talent_profiles').select('id,talent_id,first_name,last_name,primary_role,city,state,email,phone').in('id',Array.from(new Set(interests.data.map(i=>i.talent_profile_id)))):{data:[]};
   const map=new Map((profiles.data||[]).map(p=>[p.id,p]));
   return NextResponse.json({opportunities:listings.data||[],interests:(interests.data||[]).map(i=>({...i,talent:map.get(i.talent_profile_id)||null}))},{headers:{'Cache-Control':'no-store'}});
 }
