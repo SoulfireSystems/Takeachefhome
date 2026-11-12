@@ -31,13 +31,20 @@ export async function POST(req:NextRequest){
   if(body.action==='moderate'){
     const id=text(body.id,40),status=text(body.status,20);
     if(!validUuid(id)||!['pending_review','open','closed','cancelled'].includes(status)||typeof body.approved!=='boolean')return NextResponse.json({error:'Invalid review action'},{status:400});
-    const {error}=await getSupabaseAdmin().from('talent_opportunities').update({status,talent_board_approved:body.approved,updated_at:new Date().toISOString()}).eq('id',id);
+    const sb=getSupabaseAdmin();
+    if(status==='open'&&body.approved){
+      const {data:opening}=await sb.from('talent_opportunities').select('id,opportunity_type,work_date,expires_at').eq('id',id).maybeSingle();
+      if(!opening)return NextResponse.json({error:'Opening not found'},{status:404});
+      if(opening.expires_at&&new Date(opening.expires_at).getTime()<=Date.now())return NextResponse.json({error:'This opening has expired.'},{status:400});
+      if(opening.opportunity_type==='shift'&&opening.work_date&&opening.work_date<new Date().toISOString().slice(0,10))return NextResponse.json({error:'Past shifts cannot be published.'},{status:400});
+    }
+    const {error}=await sb.from('talent_opportunities').update({status,talent_board_approved:body.approved,updated_at:new Date().toISOString()}).eq('id',id);
     return error?NextResponse.json({error:'Unable to update listing'},{status:500}):NextResponse.json({ok:true});
   }
   if(body.action==='review'){
     const id=text(body.id,40),status=text(body.status,20);
     if(!validUuid(id)||!['reviewed','shortlisted','declined'].includes(status))return NextResponse.json({error:'Invalid interest status'},{status:400});
-    const {error}=await getSupabaseAdmin().from('talent_board_interests').update({status,updated_at:new Date().toISOString()}).eq('id',id).eq('status','interested');
+    const {error}=await getSupabaseAdmin().from('talent_board_interests').update({status,updated_at:new Date().toISOString()}).eq('id',id).in('status',['interested','reviewed','shortlisted']);
     return error?NextResponse.json({error:'Unable to update applicant'},{status:500}):NextResponse.json({ok:true});
   }
   if(body.action!=='create')return NextResponse.json({error:'Unknown action'},{status:400});
