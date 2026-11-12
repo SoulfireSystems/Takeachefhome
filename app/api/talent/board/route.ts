@@ -38,10 +38,10 @@ export async function POST(req:NextRequest){
   const {data:listing,error:listingError}=await supabase.from('talent_opportunities').select('id').eq('id',body.opportunity_id).eq('status','open').eq('talent_board_approved',true).or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`).maybeSingle();
   if(listingError||!listing)return NextResponse.json({error:'This opportunity is not open.'},{status:404});
   const {data:existing}=await supabase.from('talent_board_interests').select('status,created_at').eq('talent_profile_id',id).eq('opportunity_id',listing.id).maybeSingle();
-  if(body.action==='interest'&&existing?.status==='interested')return NextResponse.json({error:'You already expressed interest in this opportunity.'},{status:409});
+  if(body.action==='interest'&&['interested','reviewed','shortlisted'].includes(existing?.status||''))return NextResponse.json({error:'You already expressed interest in this opportunity.'},{status:409});
   if(body.action==='interest'&&existing?.status!=='interested'){
     const since=new Date(Date.now()-24*60*60*1000).toISOString();
-    const {count,error:rateError}=await supabase.from('talent_board_interests').select('id',{count:'exact',head:true}).eq('talent_profile_id',id).in('status',['interested','reviewed','shortlisted']).gte('updated_at',since);
+    const {count,error:rateError}=await supabase.from('talent_board_interest_events').select('id',{count:'exact',head:true}).eq('talent_profile_id',id).gte('created_at',since);
     if(rateError)return NextResponse.json({error:'Unable to validate interest limit.'},{status:500});
     if((count||0)>=10)return NextResponse.json({error:'You have reached the daily interest limit. Please try again tomorrow.'},{status:429});
   }
@@ -53,5 +53,9 @@ export async function POST(req:NextRequest){
     note:status==='interested'?note:'',updated_at:new Date().toISOString()
   },{onConflict:'opportunity_id,talent_profile_id'});
   if(error)return NextResponse.json({error:'Could not save your selection.'},{status:500});
+  if(status==='interested'){
+    const {error:eventError}=await supabase.from('talent_board_interest_events').insert({talent_profile_id:id,opportunity_id:listing.id,action:'interest'});
+    if(eventError)console.error('Interest event audit failed',eventError);
+  }
   return NextResponse.json({ok:true,status});
 }
