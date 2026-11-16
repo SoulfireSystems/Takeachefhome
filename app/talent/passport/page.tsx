@@ -62,7 +62,7 @@ export default function TalentPage(){
       }
       setUploadWarning(failedUploads.length ? 'Your Talent Passport was saved, but these attachments could not be uploaded: '+failedUploads.join(', ')+'. We may ask you to resend them during review.' : '');
       setSuccess(data);
-      if(!failedUploads.length) window.location.assign('/talent/board');
+      if(!failedUploads.length){const challenge=new URLSearchParams(window.location.search).get('marketplace_challenge')||'';window.location.assign(/^[a-f0-9]{64}$/.test(challenge)?'/talent/connect?challenge='+challenge:'/talent/board');}
     }catch(err){setError(err instanceof Error?err.message:'Unable to save profile.');}finally{setSaving(false);}
   };
 
