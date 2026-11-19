@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 const eventTypes = [
   "Business meals",
@@ -14,12 +13,12 @@ export default function CateringPage() {
     <main className="min-h-screen bg-[#f7fbff] text-slate-950">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <Link href="/" className="text-xl font-black text-[#0b4fb3]">
+          <a href="/" className="text-xl font-black text-[#0b4fb3]">
             TakeaChefHome<span className="text-slate-950">.com</span>
-          </Link>
-          <Link href="/#post" className="rounded-full bg-[#0b4fb3] px-4 py-2 text-sm font-black text-white">
+          </a>
+          <a href="/#post" className="rounded-full bg-[#0b4fb3] px-4 py-2 text-sm font-black text-white">
             Post Request
-          </Link>
+          </a>
         </div>
       </header>
 
@@ -39,9 +38,9 @@ export default function CateringPage() {
               <a href="#form" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20">
                 Start Catering Request
               </a>
-              <Link href="/private-chef" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">
+              <a href="/private-chef" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">
                 Private Chef
-              </Link>
+              </a>
             </div>
           </div>
 

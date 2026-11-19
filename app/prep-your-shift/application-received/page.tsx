@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 export default async function ApplicationReceivedPage({
   searchParams,
@@ -22,8 +21,8 @@ export default async function ApplicationReceivedPage({
           <strong>Remember:</strong> workers never pay to apply. Do not send deposits, gift cards, application fees, or equipment money to someone claiming it is required to get the shift.
         </div>
         <div className="mt-7 flex flex-wrap gap-3">
-          <Link href="/prep-your-shift#board" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white">See More Prep Shifts</Link>
-          <Link href="/prep-your-shift/rules" className="rounded-full border border-slate-300 px-5 py-3 text-sm font-black text-slate-700">Read the Rules</Link>
+          <a href="/prep-your-shift#board" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white">See More Prep Shifts</a>
+          <a href="/prep-your-shift/rules" className="rounded-full border border-slate-300 px-5 py-3 text-sm font-black text-slate-700">Read the Rules</a>
         </div>
       </div>
     </main>

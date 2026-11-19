@@ -14,8 +14,9 @@ function sign(payload: string) {
   return createHmac('sha256', secret()).update(payload).digest('base64url');
 }
 
-export function newTalentSession(profileId: string) {
-  const payload = Buffer.from(JSON.stringify({ id: profileId, exp: Math.floor(Date.now()/1000) + THIRTY_DAYS })).toString('base64url');
+export function newTalentSession(profileId: string, seconds = THIRTY_DAYS) {
+  if(!Number.isInteger(seconds)||seconds<1||seconds>THIRTY_DAYS)throw new Error('Invalid session duration');
+  const payload = Buffer.from(JSON.stringify({ id: profileId, exp: Math.floor(Date.now()/1000) + seconds })).toString('base64url');
   return payload + '.' + sign(payload);
 }
 
