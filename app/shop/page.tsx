@@ -1,15 +1,16 @@
+import SiteBrand from '@/components/site-brand';
 // app/shop/page.tsx
 
 export default function ShopPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4">
-      <div className="max-w-xl text-center">
-        <p className="text-xs uppercase tracking-[0.2em] text-emerald-300 mb-3">
+      <div className="max-w-xl text-center"><div className="mb-10 flex justify-center rounded-xl bg-[#F4EEDF] p-5"><SiteBrand/></div>
+        <p className="text-xs uppercase tracking-[0.2em] text-[#98BCFF] mb-3">
           TAKEACHEFHOME SHOP
         </p>
         <h1 className="text-3xl font-semibold mb-3">
           Kitchen tools, useful gear and culinary finds —{" "}
-          <span className="text-emerald-300">coming soon.</span>
+          <span className="text-[#98BCFF]">coming soon.</span>
         </h1>
         <p className="text-sm text-slate-300 mb-6">
           The shop is not open for browsing or purchases yet. Come back for kitchen tools, food-service gear and culinary products.

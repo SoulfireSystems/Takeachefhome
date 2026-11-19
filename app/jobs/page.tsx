@@ -1,16 +1,15 @@
-import Link from "next/link";
 
 export default function JobsPage() {
   return (
     <main className="min-h-screen bg-[#f4f9ff] text-slate-950">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <Link href="/" className="text-xl font-black text-[#0b4fb3]">
+          <a href="/" className="text-xl font-black text-[#0b4fb3]">
             TakeaChefHome<span className="text-slate-950">.com</span>
-          </Link>
-          <Link href="#staff-form" className="rounded-full bg-[#0b4fb3] px-4 py-2 text-sm font-black text-white">
+          </a>
+          <a href="#staff-form" className="rounded-full bg-[#0b4fb3] px-4 py-2 text-sm font-black text-white">
             Post to the Board
-          </Link>
+          </a>
         </div>
       </header>
 
@@ -24,8 +23,8 @@ export default function JobsPage() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a href="#staff-form" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20">Request Crew</a>
-              <Link href="https://prep-your-shift.ggg398.chatgpt.site/prep-your-shift" className="rounded-full border border-[#0b4fb3] bg-white px-5 py-3 text-sm font-black text-[#0b4fb3]">Need Prep-Only Help?</Link>
-              <Link href="/private-chef" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">Need a Private Chef?</Link>
+              <a href="https://prep-your-shift.ggg398.chatgpt.site/prep-your-shift" className="rounded-full border border-[#0b4fb3] bg-white px-5 py-3 text-sm font-black text-[#0b4fb3]">Need Prep-Only Help?</a>
+              <a href="/private-chef" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">Need a Private Chef?</a>
             </div>
           </div>
 
@@ -66,7 +65,7 @@ export default function JobsPage() {
             <p className="text-xs font-black uppercase tracking-[0.2em] text-[#0b4fb3]">HAND OFF YOUR PREP</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight">Need your prep list taken care of?</h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">Send a Prep Partner your ingredients, quantities, cuts, portions and deadline. Agree what should be prepared and how you will receive it, so you can focus on service.</p>
-            <Link href="https://prep-your-shift.ggg398.chatgpt.site/prep-your-shift" className="mt-5 inline-flex rounded-full bg-[#08182d] px-5 py-3 text-sm font-black text-white">Open Prep Your Shift →</Link>
+            <a href="https://prep-your-shift.ggg398.chatgpt.site/prep-your-shift" className="mt-5 inline-flex rounded-full bg-[#08182d] px-5 py-3 text-sm font-black text-white">Open Prep Your Shift →</a>
           </div>
           <div className="rounded-[2rem] border border-blue-200 bg-blue-50 p-6">
             <p className="text-sm font-black text-[#0b4fb3]">PLAN YOUR CREW</p>
@@ -95,7 +94,7 @@ export default function JobsPage() {
 
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 text-xs text-slate-500">
-          <Link href="/" className="hover:text-slate-900">← Back to the Board</Link>
+          <a href="/" className="hover:text-slate-900">← Back to the Board</a>
           <span>Find Crew · TakeaChefHome.com</span>
         </div>
       </footer>

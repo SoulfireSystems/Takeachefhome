@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 export default async function PrepShiftApplyPage({
   searchParams,
@@ -12,8 +11,8 @@ export default async function PrepShiftApplyPage({
     <main className="min-h-screen bg-[#eef5ff] text-[#101828]">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
-          <Link href="/prep-your-shift" className="text-xl font-black text-[#0b4fb3]">Prep Your Shift™</Link>
-          <Link href="/prep-your-shift#board" className="text-sm font-black text-slate-700">← Back to live board</Link>
+          <a href="/prep-your-shift" className="text-xl font-black text-[#0b4fb3]">Prep Your Shift™</a>
+          <a href="/prep-your-shift#board" className="text-sm font-black text-slate-700">← Back to live board</a>
         </div>
       </header>
 
@@ -43,7 +42,7 @@ export default async function PrepShiftApplyPage({
             <label className="mt-4 block text-sm font-bold">Anything the poster should know?<textarea name="availabilityNote" rows={4} placeholder="Relevant prep experience, transportation, availability, knife kit, etc." className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 font-normal leading-6 outline-none focus:border-[#0b4fb3]" /></label>
             <label className="mt-5 flex items-start gap-3 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-700">
               <input name="termsAccepted" type="checkbox" required className="mt-1 h-4 w-4" />
-              <span>I am 18 or older, the information I provided is truthful, and I agree to the <Link href="/prep-your-shift/rules" className="font-black text-[#0b4fb3] underline">Prep Your Shift rules</Link>.</span>
+              <span>I am 18 or older, the information I provided is truthful, and I agree to the <a href="/prep-your-shift/rules" className="font-black text-[#0b4fb3] underline">Prep Your Shift rules</a>.</span>
             </label>
             <button disabled={!shiftId} className="mt-5 w-full rounded-2xl bg-[#0b4fb3] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-900/15 disabled:cursor-not-allowed disabled:bg-slate-300">Submit Free Application</button>
           </form>

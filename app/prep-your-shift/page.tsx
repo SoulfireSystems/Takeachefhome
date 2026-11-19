@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
 
 export const dynamic = "force-dynamic";
@@ -78,9 +77,9 @@ export default async function PrepYourShiftPage({
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
           <div className="flex items-center gap-5">
-            <Link href="/" className="text-lg font-black tracking-tight text-[#0b4fb3] sm:text-xl">
+            <a href="/" className="text-lg font-black tracking-tight text-[#0b4fb3] sm:text-xl">
               TakeaChefHome<span className="text-slate-950">.com</span>
-            </Link>
+            </a>
             <span className="hidden border-l border-slate-200 pl-5 text-xs font-black uppercase tracking-[0.18em] text-slate-500 md:block">
               Talent / Prep Work
             </span>
@@ -206,9 +205,9 @@ export default async function PrepYourShiftPage({
                   </div>
                   <p className="mt-4 line-clamp-3 text-sm leading-6 text-slate-600">{shift.duties}</p>
                   {shift.dress_code ? <p className="mt-3 text-xs font-bold text-slate-500">Dress: {shift.dress_code}</p> : null}
-                  <Link href={`/prep-your-shift/apply?shift=${shift.id}`} className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-[#08182d] px-5 py-3 text-sm font-black text-white group-hover:bg-[#0b4fb3]">
+                  <a href={`/prep-your-shift/apply?shift=${shift.id}`} className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-[#08182d] px-5 py-3 text-sm font-black text-white group-hover:bg-[#0b4fb3]">
                     Apply for this shift
-                  </Link>
+                  </a>
                 </article>
               ))}
             </div>
@@ -268,7 +267,7 @@ export default async function PrepYourShiftPage({
 
           <label className="mt-5 flex items-start gap-3 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-700">
             <input name="termsAccepted" type="checkbox" required className="mt-1 h-4 w-4" />
-            <span>I am posting real paid work, the stated pay and scope are accurate, and I agree to the <Link href="/prep-your-shift/rules" className="font-black text-[#0b4fb3] underline">posting and workplace rules</Link>.</span>
+            <span>I am posting real paid work, the stated pay and scope are accurate, and I agree to the <a href="/prep-your-shift/rules" className="font-black text-[#0b4fb3] underline">posting and workplace rules</a>.</span>
           </label>
           <button className="mt-5 w-full rounded-2xl bg-[#0b4fb3] px-6 py-4 text-sm font-black text-white shadow-lg shadow-blue-900/15 hover:bg-[#083f8e]">Submit Shift for Review</button>
         </form>
@@ -292,8 +291,8 @@ export default async function PrepYourShiftPage({
           <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
             <h3 className="text-2xl font-black">Read the full rules</h3>
             <p className="mt-3 text-sm leading-6 text-slate-600">Posting standards, worker conduct, cancellations, no-shows, pay expectations, safety, privacy, moderation, and disputes.</p>
-            <Link href="/prep-your-shift/rules" className="mt-6 inline-flex rounded-full bg-[#08182d] px-5 py-3 text-sm font-black text-white">Posting + Workplace Rules →</Link>
-            <Link href="/jobs" className="mt-3 block text-sm font-black text-[#0b4fb3]">Need full event staffing instead? Go to Find Crew →</Link>
+            <a href="/prep-your-shift/rules" className="mt-6 inline-flex rounded-full bg-[#08182d] px-5 py-3 text-sm font-black text-white">Posting + Workplace Rules →</a>
+            <a href="/jobs" className="mt-3 block text-sm font-black text-[#0b4fb3]">Need full event staffing instead? Go to Find Crew →</a>
           </div>
         </div>
       </section>
@@ -301,7 +300,7 @@ export default async function PrepYourShiftPage({
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 px-4 py-7 text-xs text-slate-500 sm:flex-row sm:items-center">
           <span>Jobs &amp; Shifts · TakeaChefHome Talent</span>
-          <div className="flex gap-4"><Link href="/">Board Home</Link><Link href="/jobs">Find Crew</Link><Link href="/prep-your-shift/rules">Rules</Link></div>
+          <div className="flex gap-4"><a href="/">Board Home</a><a href="/jobs">Find Crew</a><a href="/prep-your-shift/rules">Rules</a></div>
         </div>
       </footer>
     </main>

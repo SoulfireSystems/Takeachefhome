@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 export default function ThanksPage() {
   return (
@@ -14,12 +13,12 @@ export default function ThanksPage() {
           Your TakeaChefHome request has been submitted. The next step is reviewing the details and matching the request to the right chef, caterer, kitchen, or crew.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link href="/" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20">
+          <a href="/" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20">
             Back to Marketplace
-          </Link>
-          <Link href="/#post" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">
+          </a>
+          <a href="/#post" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">
             Submit Another Request
-          </Link>
+          </a>
         </div>
       </section>
     </main>

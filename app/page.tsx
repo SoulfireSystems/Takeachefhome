@@ -1,8 +1,2 @@
-import {redirect} from 'next/navigation';
-import {passportSiteOrigin} from '@/lib/passport-bridge';
 export const dynamic='force-dynamic';
-export default async function Home({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}){
- const q=await searchParams,allowed=['utm_source','utm_medium','utm_campaign','utm_term','utm_content'],params=new URLSearchParams();
- for(const key of allowed){const value=q[key];if(typeof value==='string')params.set(key,value.slice(0,200));}
- redirect(passportSiteOrigin+'/'+(params.size?'?'+params.toString():''));
-}
+export default function Page(){return <main className="mx-auto max-w-2xl px-6 py-16 text-[#112443]"><h1 className="text-3xl font-black">TakeaChefHome is updating</h1><p className="mt-5 text-lg">Please refresh in a moment. Your existing Talent Passport stays available.</p><a className="mt-6 inline-block font-bold text-[#135DFF]" href="/talent/home">Open my Talent Passport</a></main>;}

@@ -1,20 +1,18 @@
-import Link from "next/link";
+import SiteBrand from '@/components/site-brand';
 
 export default function KitchensPage() {
   return (
     <main className="min-h-screen bg-[#F4F9FF] text-slate-950">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <Link href="/" className="text-xl font-black text-[#135DFF]">
-            TakeaChefHome<span className="text-slate-950">.com</span>
-          </Link>
+          <SiteBrand/>
 
-          <Link
+          <a
             href="#space-form"
             className="rounded-full bg-[#135DFF] px-4 py-2 text-sm font-black text-white shadow-lg shadow-blue-900/20"
           >
             KITCHENS · COMING SOON
-          </Link>
+          </a>
         </div>
       </header>
 
@@ -43,12 +41,12 @@ export default function KitchensPage() {
                 ABOUT KITCHEN SPACE
               </a>
 
-              <Link
+              <a
                 href="/jobs"
                 className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700"
               >
                 Need Crew?
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -192,9 +190,9 @@ export default function KitchensPage() {
 
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 text-xs text-slate-500">
-          <Link href="/" className="hover:text-slate-900">
+          <a href="/" className="hover:text-slate-900">
             ← Back to the Board
-          </Link>
+          </a>
 
           <span>Find Space · TakeaChefHome.com</span>
         </div>

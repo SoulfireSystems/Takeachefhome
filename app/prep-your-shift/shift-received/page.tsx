@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 export default function ShiftReceivedPage() {
   return (
@@ -11,8 +10,8 @@ export default function ShiftReceivedPage() {
           <strong className="text-white">What happens next:</strong> approved listings receive activation/payment instructions based on the posting level you selected. Exact contact details remain private from the public board.
         </div>
         <div className="mt-7 flex flex-wrap gap-3">
-          <Link href="/prep-your-shift" className="rounded-full bg-white px-5 py-3 text-sm font-black text-[#08182d]">Back to Prep Board</Link>
-          <Link href="/prep-your-shift/rules" className="rounded-full border border-white/20 px-5 py-3 text-sm font-black text-white">Read the Rules</Link>
+          <a href="/prep-your-shift" className="rounded-full bg-white px-5 py-3 text-sm font-black text-[#08182d]">Back to Prep Board</a>
+          <a href="/prep-your-shift/rules" className="rounded-full border border-white/20 px-5 py-3 text-sm font-black text-white">Read the Rules</a>
         </div>
       </div>
     </main>

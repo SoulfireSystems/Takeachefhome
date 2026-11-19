@@ -1,3 +1,2 @@
-import {redirect} from 'next/navigation';
-import {passportSiteOrigin} from '@/lib/passport-bridge';
-export default function Page(){redirect(passportSiteOrigin+'/sign-in');}
+export const dynamic='force-dynamic';
+export default function Page(){return <main className="mx-auto max-w-2xl px-6 py-16 text-[#112443]"><h1 className="text-3xl font-black">TakeaChefHome is updating</h1><p className="mt-5 text-lg">Please refresh in a moment. Your existing Talent Passport stays available.</p><a className="mt-6 inline-block font-bold text-[#135DFF]" href="/talent/home">Open my Talent Passport</a></main>;}

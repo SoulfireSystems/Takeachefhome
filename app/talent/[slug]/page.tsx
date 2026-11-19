@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import SiteBrand from '@/components/site-brand';
 import { notFound } from 'next/navigation';
 
 const pages: Record<string, { eyebrow:string; title:string; body:string; bullets:string[]; cta:string }> = {
@@ -24,11 +24,11 @@ export default async function RecruitingPage({params}:{params:Promise<{slug:stri
   const {slug}=await params;
   const page=pages[slug];
   if(!page) notFound();
-  return <main className="min-h-screen bg-[#F5F7FB] text-[#101D31]">
+  return <main className="min-h-screen bg-[#F4EEDF] text-[#101D31]">
     <header className="border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-5">
-        <Link href="/talent" className="text-lg font-black tracking-tight text-[#112C4E] sm:text-xl">TakeAChefHome<span className="text-[#2467D5]"> / Talent</span></Link>
-        <Link href="/talent/passport" className="rounded-full bg-[#2467D5] px-5 py-3 text-xs font-extrabold text-white">CREATE MY PASSPORT</Link>
+        <SiteBrand talent/>
+        <a href="/talent/passport" className="rounded-full bg-[#135DFF] px-5 py-3 text-xs font-extrabold text-white">CREATE MY PASSPORT</a>
       </div>
     </header>
     <section className="bg-[#101D31] text-white">
@@ -37,7 +37,7 @@ export default async function RecruitingPage({params}:{params:Promise<{slug:stri
           <p className="text-xs font-black uppercase tracking-[.22em] text-[#A5C6FF]">TakeAChefHome Talent · {page.eyebrow}</p>
           <h1 className="mt-6 max-w-3xl text-5xl font-black leading-[1.02] tracking-tight sm:text-6xl">{page.title}</h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-200">{page.body}</p>
-          <Link href="/talent/passport" className="mt-9 inline-flex rounded-full bg-[#81ADFF] px-7 py-4 text-sm font-black text-[#101D31]">{page.cta}</Link>
+          <a href="/talent/passport" className="mt-9 inline-flex rounded-full bg-[#81ADFF] px-7 py-4 text-sm font-black text-[#101D31]">{page.cta}</a>
         </div>
         <aside className="rounded-[2rem] border border-white/15 bg-white/10 p-8">
           <p className="text-xs font-black uppercase tracking-[.2em] text-[#A5C6FF]">Your Talent Passport</p>
@@ -48,8 +48,8 @@ export default async function RecruitingPage({params}:{params:Promise<{slug:stri
     </section>
     <section className="mx-auto max-w-6xl px-5 py-16">
       <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-        <div><p className="text-xs font-black uppercase tracking-[.2em] text-[#2467D5]">A nationwide talent network</p><h2 className="mt-3 text-3xl font-black">Let your work speak for itself.</h2><p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">We welcome professionals from every U.S. state. Your Talent Passport captures the detailed skills and qualifications; this page is simply your introduction.</p></div>
-        <Link href="/talent/passport" className="inline-flex justify-center rounded-full bg-[#2467D5] px-7 py-4 text-sm font-black text-white">START MY PASSPORT</Link>
+        <div><p className="text-xs font-black uppercase tracking-[.2em] text-[#135DFF]">A nationwide talent network</p><h2 className="mt-3 text-3xl font-black">Let your work speak for itself.</h2><p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">We welcome professionals from every U.S. state. Your Talent Passport captures the detailed skills and qualifications; this page is simply your introduction.</p></div>
+        <a href="/talent/passport" className="inline-flex justify-center rounded-full bg-[#135DFF] px-7 py-4 text-sm font-black text-white">START MY PASSPORT</a>
       </div>
     </section>
     <footer className="border-t border-slate-200 bg-white"><div className="mx-auto max-w-6xl px-5 py-7 text-xs leading-6 text-slate-500">Creating a Talent Passport does not guarantee employment, assignments, or bookings. Certain credentials may require review.</div></footer>

@@ -1,16 +1,15 @@
-import Link from "next/link";
 
 export default function PrivateChefPage() {
   return (
     <main className="min-h-screen bg-[#f4f9ff] text-slate-950">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <Link href="/" className="text-xl font-black text-[#0b4fb3]">
+          <a href="/" className="text-xl font-black text-[#0b4fb3]">
             TakeaChefHome<span className="text-slate-950">.com</span>
-          </Link>
-          <Link href="/#post" className="rounded-full bg-[#0b4fb3] px-4 py-2 text-sm font-black text-white">
+          </a>
+          <a href="/#post" className="rounded-full bg-[#0b4fb3] px-4 py-2 text-sm font-black text-white">
             Post to the Board
-          </Link>
+          </a>
         </div>
       </header>
 
@@ -30,9 +29,9 @@ export default function PrivateChefPage() {
               <a href="#form" className="rounded-full bg-[#0b4fb3] px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20">
                 Start Private Chef Request
               </a>
-              <Link href="/catering" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">
+              <a href="/catering" className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-700">
                 Need Catering?
-              </Link>
+              </a>
             </div>
           </div>
 

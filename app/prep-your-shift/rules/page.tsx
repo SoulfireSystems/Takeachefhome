@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 const sections = [
   {
@@ -95,8 +94,8 @@ export default function PrepYourShiftRulesPage() {
     <main className="min-h-screen bg-[#f4f8ff] text-[#101828]">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-          <Link href="/prep-your-shift" className="text-xl font-black text-[#0b4fb3]">Jobs &amp; Shifts</Link>
-          <Link href="/prep-your-shift" className="rounded-full bg-[#08182d] px-4 py-2 text-sm font-black text-white">Back to Board</Link>
+          <a href="/prep-your-shift" className="text-xl font-black text-[#0b4fb3]">Jobs &amp; Shifts</a>
+          <a href="/prep-your-shift" className="rounded-full bg-[#08182d] px-4 py-2 text-sm font-black text-white">Back to Board</a>
         </div>
       </header>
 
@@ -137,7 +136,7 @@ export default function PrepYourShiftRulesPage() {
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-6 text-xs text-slate-500">
           <span>Jobs &amp; Shifts · TakeaChefHome.com</span>
-          <Link href="/prep-your-shift" className="font-black text-[#0b4fb3]">Return to Prep Board →</Link>
+          <a href="/prep-your-shift" className="font-black text-[#0b4fb3]">Return to Prep Board →</a>
         </div>
       </footer>
     </main>
