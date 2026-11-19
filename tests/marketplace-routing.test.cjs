@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),{marketplaceRewrites,MARKETPLACE_ORIGIN}=require('../marketplace-routing.cjs');
 const rules=marketplaceRewrites(),exact=source=>rules.find(r=>r.source===source&&!r.has);
-for(const route of ['/','/account','/sign-in','/join','/forgot-password','/reset-password','/auth/:path*','/api/account','/api/auth','/api/exchange','/api/market','/api/leads','/api/files','/api/passport-link','/api/passports/bridge','/_assets/:path*','/brand/:path*','/favicon.ico','/site.webmanifest'])assert.equal(exact(route).destination,MARKETPLACE_ORIGIN+route,route);
+for(const route of ['/','/account','/sign-in','/join','/forgot-password','/reset-password','/auth/:path*','/api/account','/api/auth','/api/exchange','/api/market','/api/leads','/api/files','/api/passport-link','/api/passports/bridge','/_marketplace/:path*','/brand/:path*','/favicon.ico','/site.webmanifest'])assert.equal(exact(route).destination,MARKETPLACE_ORIGIN+route,route);
 for(const original of ['/talent','/talent/:path*','/api/talent/:path*','/kitchens','/shop','/_next/:path*','/:path*'])assert.equal(exact(original),undefined,'Original application path must remain original: '+original);
 assert.equal(rules.find(r=>r.source==='/talent').has[0].key,'view');
 assert.equal(exact('/messages').destination,MARKETPLACE_ORIGIN+'/account?section=messages');

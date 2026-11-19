@@ -20,7 +20,7 @@ The existing Vercel project stays responsible for TakeaChefHome.com. Exact Next 
 | Owner payments/email configuration | `/account?section=connections`; existing signed-in owner controls and encrypted configuration |
 | Private owner agent tools | Existing Sites MCP endpoint/authentication retained; it does not create an unattended scheduler |
 
-Original-page links use document navigation across the Next 15 / Vinext React runtime boundary. Known asset and API paths are proxied explicitly. Original `/_next`, Talent APIs, shop/kitchens and unknown routes are not swallowed by a global catchall.
+Original-page links use document navigation across the Next 15 / Vinext React runtime boundary. Known asset and API paths are proxied explicitly. Marketplace build assets use the supported `assetPrefix: /_marketplace`, so their scripts/styles cannot collide with the original Next application’s `/_next/static` files. Original `/_next`, Talent APIs, shop/kitchens and unknown routes are not swallowed by a global catchall.
 
 ## Authentication and ownership
 
